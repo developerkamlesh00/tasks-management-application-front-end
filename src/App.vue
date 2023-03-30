@@ -1,16 +1,24 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <Table ></Table>
+  <ExportButton :handle-export="handleExport" />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Table from './components/Table.vue'
+import ExportButton from './components/ExportButton.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    Table,
+    ExportButton,
+  },
+  methods: {
+    handleExport() {
+      // Your export logic goes here
+      console.log('Export button clicked')
+    },
+  },
 }
 </script>
 
@@ -19,8 +27,6 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+ 
 }
 </style>
