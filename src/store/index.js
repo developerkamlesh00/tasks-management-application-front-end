@@ -1,9 +1,13 @@
 import router from '@/router';
 import { createStore } from 'vuex';
 
+import workerModule from './worker/index.js';
 
 const store = createStore({
-    
+
+  modules: {
+    worker: workerModule,
+  },
   state() {
     return {
       isLoggedIn: false
