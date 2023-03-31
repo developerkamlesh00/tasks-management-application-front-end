@@ -1,18 +1,27 @@
 <template>
+ <the-header></the-header>
+  <main>
+    <router-view/>
+  </main>
   <Table ></Table>
   <ExportButton :handle-export="handleExport" />
 </template>
 
 <script>
+
+import TheHeader from './components/navigation/TheHeader.vue';
+// import TheFooter from './components/navigation/TheFooter.vue';
 import Table from './components/Table.vue'
 import ExportButton from './components/ExportButton.vue'
 
 export default {
-  name: 'App',
-  components: {
+  components:{
+    TheHeader,
     Table,
     ExportButton,
+    // TheFooter
   },
+  name: 'App',
   methods: {
     handleExport() {
       // Your export logic goes here
@@ -29,4 +38,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
  
 }
+
 </style>
