@@ -1,3 +1,3 @@
 <template>
-<div>Home - langing page visible without login also</div>
+  <div>Home - langing page visible without login also</div>
 </template>

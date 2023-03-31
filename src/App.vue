@@ -1,16 +1,18 @@
 <template>
  <the-header></the-header>
   <main>
-    <router-view/>
+    
     <!-- <Table ></Table>
   <ExportButton :handle-export="handleExport" /> -->
+    <router-view></router-view>
   </main>
-  
+  <the-footer></the-footer>
 </template>
 
 <script>
 
 import TheHeader from './components/navigation/TheHeader.vue';
+import TheFooter from './components/navigation/TheFooter.vue';
 // import TheFooter from './components/navigation/TheFooter.vue';
 // import Table from './components/Table.vue'
 // import ExportButton from './components/ExportButton.vue'
@@ -18,17 +20,9 @@ import TheHeader from './components/navigation/TheHeader.vue';
 export default {
   components:{
     TheHeader,
-    // Table,
-    // ExportButton,
+    TheFooter
     // TheFooter
-  },
-  name: 'App',
-  methods: {
-    handleExport() {
-      // Your export logic goes here
-      console.log('Export button clicked')
-    },
-  },
+  }
 }
 </script>
 

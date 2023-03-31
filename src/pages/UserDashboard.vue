@@ -15,7 +15,7 @@ export default {
         AdminDashboard,
         DirectorDashboard,
         ManagerDashboard,
-        WorkerDashboard
+        WorkerDashboard,
     }
 }
 </script>
