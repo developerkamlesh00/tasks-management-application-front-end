@@ -29,7 +29,7 @@ const routes = [
     component: RegisterPage,
   },
   {
-    path: "/dashboard/:user_type",
+    path: "/pages/dashboards/:user_type",
     name: "dashboard",
     props: true,
     component: UserDashboard,
