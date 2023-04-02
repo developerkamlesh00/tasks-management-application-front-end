@@ -21,10 +21,11 @@ import TheFooter from './components/navigation/TheFooter.vue';
 export default {
   components:{
     TheHeader,
-    TheFooter
-  }
-
-  
+    TheFooter,
+  },
+  created() {
+    this.$store.dispatch('tryLogin');
+  },
 }
 </script>
 
