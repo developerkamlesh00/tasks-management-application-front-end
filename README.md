@@ -4,7 +4,12 @@
 ```
 npm install
 ```
-
+```
+npm install --save vue-router
+```
+```
+npm install --save vuex
+```
 ### Compiles and hot-reloads for development
 ```
 npm run serve
