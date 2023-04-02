@@ -17,6 +17,5 @@ app.component('base-card', BaseCard);
 app.component('base-button', BaseButton);
 // app.component('the-header',TheHeader);
 // app.component('the-footer',TheFooter);
-
 app.mount('#app');
 
