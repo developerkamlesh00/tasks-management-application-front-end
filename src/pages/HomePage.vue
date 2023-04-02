@@ -1,8 +1,5 @@
 <template>
-<<<<<<< Updated upstream
-  <div>Home - langing page visible without login also</div>
-</template>
-=======
+
 <div class="home-page">
     <div class="static1">
         <h1>Join over 700 million registered users who trust TaskCRM</h1>
@@ -150,4 +147,4 @@ footer > div{
 
 
 </style>
->>>>>>> Stashed changes
+

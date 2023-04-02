@@ -2,22 +2,15 @@
   <div class="body">  
     <the-header></the-header>
   <main>
-<<<<<<< Updated upstream
-    <router-view></router-view>
-  </main>
-  <the-footer></the-footer>
-=======
     <router-view v-slot="{Component}">
       <transition name="slide">
       <component :is="Component" />
-    
       </transition>
 
     </router-view>
   </main>
 </div>
 
->>>>>>> Stashed changes
 </template>
 
 <script>
