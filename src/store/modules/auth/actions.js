@@ -1,5 +1,4 @@
 import axios from "axios";
-// import router from './router';
 
 export default {
   async login(context, payload) {
@@ -7,31 +6,8 @@ export default {
       ...payload,
     });
   },
-  //   async signup(context, payload) {
-  //     return context.dispatch('auth', {
-  //       ...payload,
-  //       mode: 'signup'
-  //     });
-  //   },
-
+  
   async auth(context, payload) {
-    // const mode = payload.mode;
-    // let url =
-    //   'identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD_Y2AC8JM9AL726VGLtWgQR29jl7u96Yc';
-
-    // if (mode === 'signup') {
-    //   url =
-    //     'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD_Y2AC8JM9AL726VGLtWgQR29jl7u96Yc';
-    // }
-    // const response = await fetch(url, {
-    //   method: 'POST',
-    //   body: JSON.stringify({
-    //     email: payload.email,
-    //     password: payload.password,
-    //     returnSecureToken: true
-    //   })
-    // });
-
     await axios
       .post("http://localhost:8000/api/login", payload)
       .then(function (response) {
