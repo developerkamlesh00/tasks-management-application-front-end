@@ -1,46 +1,94 @@
 <template>
-    <div>Header
-        <nav class="navbar navbar-expand-lg bg-light">
-            <div class="container-fluid">
-                <router-link class="navbar-brand" :to="{ name: 'home' }">Home</router-link>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0" v-if="!isLoggedIn">
-                        <li class="nav-item">
-                            <router-link class="nav-link" :to="{ name: 'about' }">About Us</router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link class="nav-link" :to="{ name: 'login' }">Login</router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link class="nav-link" :to="{ name: 'register' }">Register</router-link>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0" v-else>
-                        <li class="nav-item">
-                            <a class="nav-link" @click="logout()" >Logout</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+    <div>
+        <nav class="navbar">
+                    <div class="image">
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Simbolo_konoha.svg/1200px-Simbolo_konoha.svg.png">  
+                    </div>
+                    
+                    <div class="home">
+                        
+                        <router-link to="/">Home</router-link>
+                    
+                    </div>
+                   
+                
+                    <div class="about">
+                        
+                        <router-link to="/about">About US</router-link>
+                    
+                    </div>
+                
+                  
+                    <div class="login">
+                        
+                        <router-link to="/login">Login</router-link>
+                    
+                    </div>
+                
+                  
+                   <!-- <div>
+                        
+                        <router-link to="/register">Register</router-link>
+                        
+                    </div>
+                -->     
         </nav>
     </div>
 </template>
 
 <script>
-import { mapGetters,mapActions } from 'vuex';
+
 export default {
-    computed:{
-        ...mapGetters({
-			isLoggedIn: 'isAuthenticated',
-		})
-    },
-    methods:{
-        ...mapActions(['logout'])
-    }
+  
 }
 </script>
+
+<style scoped>
+
+@import url('https://fonts.googleapis.com/css2?family=Alkatra:wght@500&family=Happy+Monkey&display=swap');
+.navbar{
+    display: flex;
+    justify-content: space-around;
+    background: linear-gradient(to bottom, #5b4b57, #85707f);
+    height: 70px;
+    font-family: 'Alkatra', cursive;
+    
+
+}
+
+a{
+    text-decoration: none;
+    color: whitesmoke;
+    font-weight: bolder;
+    font-size: larger;
+    padding: 15px;
+}
+
+a:hover, a:active,
+a.router-link-active{
+    color: #5b4b57;
+    background-color: #f6f1f5;
+    border-radius: 10px;
+    
+}
+img{
+    height: 50px;
+    width: 55px;
+    margin-left:40px ;
+
+}
+
+.image{
+    flex: 3;
+}
+
+.home{
+    flex: 1;
+}
+.about{
+    flex: 1;
+}
+.login{
+    flex: 1;
+}
+</style>
