@@ -26,13 +26,13 @@ const routes = [
     path: "/admin",
     name: "admin",
     component: AdminDashboard,
-    beforeEnter: (_, _1, next) => {
-      if(store.getters.role == 'admin' && store.getters.isAuthenticated){
-        next();
-      }else{
-        next('/login');
-      }
-    },
+    // beforeEnter: (_, _1, next) => {
+    //   if(store.getters.role == 'admin' && store.getters.isAuthenticated){
+    //     next();
+    //   }else{
+    //     next('/login');
+    //   }
+    // },
   },
   {
     path: "/director",

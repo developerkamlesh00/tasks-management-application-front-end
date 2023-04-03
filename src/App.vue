@@ -3,9 +3,9 @@
     <the-header></the-header>
   <main>
     <router-view v-slot="{Component}">
-      <transition name="slide">
+      <!-- <transition name="slide"> -->
       <component :is="Component" />
-      </transition>
+      <!-- </transition> -->
     </router-view>
     
     <!-- <Table ></Table>
