@@ -24,7 +24,7 @@
         </div>
         <div class="p4">
             <h2>Kamlesh</h2>
-            <h3>Bhopal</h3>
+            <h3>Jamadar</h3>
             <img src="https://media.licdn.com/dms/image/D5603AQGc2zK5zlOBxg/profile-displayphoto-shrink_400_400/0/1673953331915?e=1685577600&v=beta&t=1G1F_JgRnMJKcEzqMcRmP0vy8Yw4EsRFYId6mLDoSBE">
         </div>
     </div>
