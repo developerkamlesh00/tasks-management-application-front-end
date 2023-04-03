@@ -6,7 +6,6 @@
       <transition name="slide">
       <component :is="Component" />
       </transition>
-
     </router-view>
   </main>
 </div>
