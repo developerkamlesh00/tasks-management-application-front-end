@@ -20,8 +20,9 @@ import TheFooter from './components/navigation/TheFooter.vue';
 export default {
   components:{
     TheHeader,
-    TheFooter
-    // TheFooter
+    TheFooter,
+    // Table,
+    // ExportButton
   }
 }
 </script>
