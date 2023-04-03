@@ -1,17 +1,12 @@
 <template>
   <div class="body">  
     <the-header></the-header>
-  <main>
-    <router-view v-slot="{Component}">
-      <!-- <transition name="slide"> -->
-      <component :is="Component" />
-      <!-- </transition> -->
-    </router-view>
-    
-    <!-- <Table ></Table>
-  <ExportButton :handle-export="handleExport" /> -->
-    
-  </main>
+      <router-view v-slot="{Component}">
+        <!-- <transition name="slide"> -->
+          <component :is="Component" />
+        <!-- </transition> -->
+      </router-view>
+    <the-footer></the-footer>
 </div>
 
 </template>

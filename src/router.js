@@ -12,13 +12,17 @@ import DirectorDashboard from "./pages/director/DirectorDashboard.vue";
 
 import AdminDashboard from "./pages/admin/AdminDashboard.vue";
 import ManagerDashboard from "./pages/manager/ManagerDashboard.vue";
-import WorkerDashboard from "./pages/worker/WorkerDashboard.vue";
+import WorkerView from "./pages/worker/WorkerView.vue";
 
 //import UserDashboard from "./pages/UserDashboard.vue";
 import NotFound from "./pages/NotFound.vue";
 
+// Testing
+import SideBar from './components/ui/SideBar.vue'
+
 const routes = [
   { path: "/", name: "home", component: HomePage },
+  { path: "/test", name: "test", component: SideBar },
   { path: "/about", name: "about", component: AboutPage },
   { path: "/login", name: "login", component: AuthLogin },
   { path: "/logout", name: "logout", redirect: '/login'},
@@ -62,14 +66,14 @@ const routes = [
   {
     path: "/worker",
     name: "worker",
-    component: WorkerDashboard,
-    beforeEnter: (_, _1, next) => {
-      if(store.getters.role == 'worker' && store.getters.isAuthenticated){
-        next();
-      }else{
-        next('/login');
-      }
-    },
+    component: WorkerView,
+    // beforeEnter: (_, _1, next) => {
+    //   if(store.getters.role == 'worker' && store.getters.isAuthenticated){
+    //     next();
+    //   }else{
+    //     next('/login');
+    //   }
+    // },
   },
   {
     path: "/:notFound(.*)",
