@@ -1,5 +1,6 @@
 import { createStore } from 'vuex';
 
+
 import directorModule from './modules/director/index.js';
 import managerModule from './modules/manager/index.js';
 import workerModule from './modules/worker/index.js';
