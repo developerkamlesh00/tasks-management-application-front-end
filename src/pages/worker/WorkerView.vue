@@ -1,5 +1,8 @@
 <template>
     <div class="row">
+        <button @click="fetchWorkerTasks()">Fetch Tasks</button>
+    </div>
+    <div class="row">
         <side-bar
             profile_url="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png">
             <template v-slot:default>
@@ -77,23 +80,27 @@
                 </ul>
             </template>
         </side-bar>
-        <component :is="WorkerDashboard"></component>
+        <!-- <component :is="WorkerDashboard"></component> -->
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import SideBar from '../../components/ui/SideBar.vue';
-import WorkerDashboard from './WorkerDashboard.vue';
+
 export default {
     components: {
         SideBar,
-        WorkerDashboard
     },
     data() {
         return {
             WorkerDashboard: "WorkerDashboard"
         }
     },
+    methods:{
+    ...mapActions('worker',['fetchWorkerTasks']),
+    }
 }
 
 </script>

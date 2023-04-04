@@ -21,7 +21,6 @@
                             <p class="card-text">{{ task.completed }}</p>
                         </div>
                     </the-card>
-
                 </the-board>
             </main>
 
@@ -58,17 +57,23 @@ export default {
 
         },
         getBoardTasks(id) {
-            const board_tasks = [...this.tasks];
-            return board_tasks.filter(task => task.status_id === id)
+            // const board_tasks = [...this.tasks];
+            // return board_tasks.filter(task => task.status_id === id)
+            console.log(id)
+            return this.tasks
         },
-        ...mapActions('worker', ['addBoard'])
+        ...mapActions('worker', ['addBoard','fetchWorkerTasks'])
         // ...mapActions(['fetchTasks'])
     },
     computed: {
         ...mapGetters('worker', ['getTasks', 'getBoards'])
     },
     mounted() {
-        this.tasks = this.getTasks;
+        this.fetchWorkerTasks();
+        console.log('Tasks',this.getTasks)
+        this.tasks=this.getTasks
+        console.log('data',this.getTasks)
+        // this.tasks = await this.fetchWorkerTasks();
     }
     // methods:{
     //     ...mapActions(['fetchTasks'])
