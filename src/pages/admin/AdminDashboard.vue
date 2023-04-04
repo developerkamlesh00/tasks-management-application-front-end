@@ -1,30 +1,18 @@
 <template>
-  <div>
-    <b-nav vertical class="bg-light">
-      <b-nav-item active>Dashboard</b-nav-item>
-      <b-nav-item>Users</b-nav-item>
-      <b-nav-item>Products</b-nav-item>
-      <b-nav-item>Settings</b-nav-item>
-    </b-nav>
-    <div class="ml-3">
-      <h1>Welcome to the Admin Dashboard</h1>
-      <p>Here you can manage your site's content and settings.</p>
+  <div class="row">
+    <admin-sidebar></admin-sidebar>
+    <div class="col-md-9 h-100" >
+      <!-- rest of your code here -->
     </div>
   </div>
 </template>
 
 <script>
+import AdminSidebar from "@/components/admin/AdminSidebar.vue";
+
 export default {
-  // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Dashboard',
-}
+  components: {
+    AdminSidebar,
+  },
+};
 </script>
-
-<style scoped>
-/* add your custom dashboard styles here */
-.b-nav {
-  background-color: #f8f9fa;
-  width: 200px;
-}
-
-</style>
