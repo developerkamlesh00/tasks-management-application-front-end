@@ -67,22 +67,14 @@
       <router-link to="/orgregister" class="btn btn-success">Register Your Company</router-link>
     </div>
 
-    <!--<img class="image1" src="https://i.guim.co.uk/img/media/43994bd821ad6936b200f0812d67800eb8f66bf8/0_336_1694_1017/master/1694.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=8d75b671f6ec2c366fe42fb5f6880cb2">
-  -->
-    <!-- <div class="video-wrapper">
-    <video width="640" height="480" controls>
-      <source src="assets/vid1.mp4" type="video/mp4" />
-      <source src="movie.ogg" type="video/ogg" />
-    </video>
-  </div> -->
-
-    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+    <!-- Carousel -->
+    <div id="carouselIndicators" class="carousel slide" data-bs-ride="true">
       <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+        <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="0" class="active"
           aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+        <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="1"
           aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+        <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="2"
           aria-label="Slide 3"></button>
       </div>
       <div class="carousel-inner">
@@ -108,6 +100,7 @@
       </button>
     </div>
 
+    <!-- Application Features -->
     <div class="row row-cols-1 row-cols-md-2 align-items-md-center g-5 py-5">
       <div class="d-flex flex-column align-items-start gap-2">
         <h3 class="fw-bold">Left-aligned title explaining these awesome features</h3>
@@ -162,40 +155,6 @@
       </div>
     </div>
 
-    <!-- <h1 style="text-align: center">See what sets TaskCRM apart</h1>
-    <div class="properties">
-      <div class="card-wrap">
-        <h3>Property1</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque enim
-          laborum aperiam labore exercitationem, quam ipsa eius! Laborum,
-          repudiandae iure.
-        </p>
-      </div>
-      <div class="card-wrap">
-        <h3>Property2</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione
-          praesentium, rem aspernatur eius consequuntur voluptate obcaecati
-          eaque omnis quis laboriosam?
-        </p>
-      </div>
-      <div class="card-wrap">
-        <h3>Property3</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut recusandae
-          minima repellendus ab. Nostrum id dicta exercitationem corporis. Id,
-          fugiat.
-        </p>
-      </div>
-      <div class="card-wrap">
-        <h3>Property4</h3>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Autem soluta
-          vel minima unde accusamus sapiente velit culpa totam molestias beatae!
-        </p>
-      </div>
-    </div> -->
     <div class="row">
       <div class="card col-lg-4 col-sm-12">
         <div class="card-body">
@@ -228,16 +187,6 @@
         </div>
       </div>
     </div>
-
-    <!-- <footer style="margin-top: 25px">
-      <div>
-        <p>All Rights Reserved</p>
-      </div>
-      <div>
-        <p>Privacy Policy</p>
-      </div>
-    </footer> -->
-
   </div>
     
 </template>

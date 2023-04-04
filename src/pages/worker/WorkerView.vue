@@ -1,6 +1,82 @@
 <template>
     <div class="row">
-        <side-bar></side-bar>
+        <side-bar
+            profile_url="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png">
+            <template v-slot:default>
+                <li class="nav-item">
+                    <a href="#" class="nav-link active" aria-current="page">
+                        <i class="bi bi-house-door"></i>
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link link-dark">
+                        <i class="bi bi-speedometer2"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link link-dark">
+                        <i class="bi bi-table"></i>
+                        Orders
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link link-dark">
+                        <i class="bi bi-speedometer2"></i>
+                        Products
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link link-dark">
+                        <i class="bi bi-speedometer2"></i>
+                        Customers
+                    </a>
+                </li>
+            </template>
+            <template v-slot:icons_only>
+                <li class="nav-item">
+                    <a href="#" class="nav-link active py-3 border-bottom rounded-0" aria-current="page" title="Home"
+                        data-bs-toggle="tooltip" data-bs-placement="right">
+                        <i class="bi bi-speedometer2"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link py-3 border-bottom rounded-0" title="Dashboard" data-bs-toggle="tooltip"
+                        data-bs-placement="right">
+                        <i class="bi bi-speedometer2"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link py-3 border-bottom rounded-0" title="Orders" data-bs-toggle="tooltip"
+                        data-bs-placement="right">
+                        <i class="bi bi-table"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link py-3 border-bottom rounded-0" title="Products" data-bs-toggle="tooltip"
+                        data-bs-placement="right">
+                        <i class="bi bi-speedometer2"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link py-3 border-bottom rounded-0" title="Customers" data-bs-toggle="tooltip"
+                        data-bs-placement="right">
+                        <i class="bi bi-speedometer2"></i>
+                    </a>
+                </li>
+            </template>
+            <template v-slot:additional_links>
+                <ul class="dropdown-menu text-small shadow">
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                </ul>
+            </template>
+        </side-bar>
         <component :is="WorkerDashboard"></component>
     </div>
 </template>
@@ -15,7 +91,7 @@ export default {
     },
     data() {
         return {
-            WorkerDashboard:"WorkerDashboard"
+            WorkerDashboard: "WorkerDashboard"
         }
     },
 }
@@ -28,6 +104,18 @@ export default {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+
+.nav-link {
+  padding: .1875rem .5rem;
+  margin-top: .125rem;
+  margin-left: 1.25rem;
+}
+
+a:hover,
+a:focus {
+  background-color: #d2f4ea;
 }
 
 body {
@@ -72,5 +160,4 @@ body {
     margin-bottom: 15px;
 
     white-space: normal;
-}
-</style>
+}</style>
