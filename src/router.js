@@ -5,12 +5,15 @@ import HomePage from "./pages/HomePage.vue";
 import AboutPage from "./pages/AboutPage.vue";
 import AuthLogin from "./pages/auth/AuthLogin.vue";
 
+//import Admin components
+import AdminView from "./pages/admin/AdminView.vue";
+
 //director compo
 import OrganizationRegister from "./pages/director/OrganizationRegister.vue";
 import DirectorDashboard from "./pages/director/DirectorDashboard.vue";
 //end director compo
 
-import AdminDashboard from "./pages/admin/AdminDashboard.vue";
+
 import ManagerDashboard from "./pages/manager/ManagerDashboard.vue";
 import WorkerView from "./pages/worker/WorkerView.vue";
 
@@ -29,7 +32,7 @@ const routes = [
   {
     path: "/admin",
     name: "admin",
-    component: AdminDashboard,
+    component: AdminView,
     // beforeEnter: (_, _1, next) => {
     //   if(store.getters.role == 'admin' && store.getters.isAuthenticated){
     //     next();
