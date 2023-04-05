@@ -1,3 +1,4 @@
+
 <template>
   <main>
     <div class="admin-view">
@@ -11,11 +12,15 @@
           <div class="right-column">
             <div v-if="showOrganizations">
               <h2>Organizations</h2>
-              <p>This is the content for organizations.</p>
+              <ul>
+                <li v-for="org in organizations" :key="org.id">{{ org.org_name }}</li>
+              </ul>
             </div>
             <div v-if="showUsers">
               <h2>Users</h2>
-              <p>This is the content for users.</p>
+              <ul>
+                <li v-for="user in users" :key="user.id">{{ user.name }}</li>
+              </ul>
             </div>
           </div>
         </BaseCard>
@@ -27,6 +32,7 @@
 <script>
 import BaseButton from '@/components/ui/BaseButton.vue';
 import BaseCard from '@/components/ui/BaseCard.vue';
+import axios from 'axios';
 
 export default {
   components: {
@@ -37,6 +43,7 @@ export default {
     return {
       showOrganizations: false,
       showUsers: false,
+      organizations: [], // Add a data property for the organization data
     }
   },
   methods: {
@@ -44,12 +51,30 @@ export default {
       this.showOrganizations = !this.showOrganizations;
       if (this.showOrganizations) {
         this.showUsers = false;
+
+        // Fetch organization data from backend API using Axios
+        axios.get('http://127.0.0.1:8001/api/admin/organizations')
+          .then(response => {
+            this.organizations = response.data;
+          })
+          .catch(error => {
+            console.log(error);
+          });
       }
     },
     toggleUsers() {
       this.showUsers = !this.showUsers;
       if (this.showUsers) {
         this.showOrganizations = false;
+
+        // Fetch user data from backend API using Axios
+        axios.get('http://127.0.0.1:8001/api/admin/users')
+          .then(response => {
+            this.users = response.data;
+          })
+          .catch(error => {
+            console.log(error);
+          });
       }
     },
   },
