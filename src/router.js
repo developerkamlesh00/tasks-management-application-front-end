@@ -8,6 +8,8 @@ import AuthLogin from "./pages/auth/AuthLogin.vue";
 //director compo
 import OrganizationRegister from "./pages/director/OrganizationRegister.vue";
 import DirectorDashboard from "./pages/director/DirectorDashboard.vue";
+import CreateManagerWorker from "./components/director/CreateManagerWorker.vue";
+import CreateProject from "./components/director/CreateProject.vue";
 //end director compo
 
 import AdminDashboard from "./pages/admin/AdminDashboard.vue";
@@ -42,6 +44,10 @@ const routes = [
     path: "/director",
     name: "director",
     component: DirectorDashboard,
+    children: [
+      { path: ':add',name: "managerworker", component: CreateManagerWorker },
+      { path: ':add',name: "project", component: CreateProject }
+    ],
     beforeEnter: (_, _1, next) => {
       if(store.getters.role == 'director' && store.getters.isAuthenticated){
         next();
