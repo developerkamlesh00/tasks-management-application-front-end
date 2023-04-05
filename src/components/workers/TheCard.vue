@@ -4,6 +4,7 @@
     class="card"
     :draggable="draggable"
     @dragstart="dragStart"
+    @dragend="dragEnd"
     @dragover.stop>
     <slot></slot>
 
@@ -23,7 +24,11 @@ export default{
             setTimeout(()=>{
                 target.style.display="none";
             })
-        }
+        },
+            dragEnd: e => {
+        const target = e.target;
+        target.style.display = 'block';
+        },
     }
 }
 </script>
