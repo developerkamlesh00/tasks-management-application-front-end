@@ -50,8 +50,9 @@ export default {
     setAuthHeader(token);
 
     // console.log(token);
-    // console.log(userId);
-    // console.log(role);
+    
+    console.log("user_id",userId);
+    console.log("role_id",role);
 
     if (token && userId) {
       context.commit("setUser", {
