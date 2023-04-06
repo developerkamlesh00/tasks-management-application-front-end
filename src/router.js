@@ -79,6 +79,7 @@ const routes = [
     children: [
       {
         path: "",
+        name: "taskTable",
         component: TasksTable,
       },
       {

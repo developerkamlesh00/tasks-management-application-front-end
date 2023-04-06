@@ -1,77 +1,88 @@
 <template>
-    <div class="row center">
+    <div class="row">
         <div class="col-4">
-            <span class="row">Total Tasks Assigned</span>
-            <span class="row">{{ this.getCounts.total_tasks_assigned }}</span>
+            <base-card class="bg-info">
+                <base-button class="row">Total Tasks Assigned</base-button>
+                <span class="display-6 text-center">{{ this.getCounts.total_tasks_assigned }}</span>
+            </base-card>
+        </div>
+        <div class="col-4 ">
+            <base-card class="bg-info">
+                <base-button class="row">Tasks Completed</base-button>
+                <span class="display-6 text-center">{{ this.getCounts.completed_tasks }}</span>
+            </base-card>
         </div>
         <div class="col-4">
-            <span class="row">Tasks Completed</span>
-            <span class="row">{{ this.getCounts.completed_tasks }}</span>
-        </div>
-        <div class="col-4">
-            <span class="row">Tasks Overdue</span>
-            <span class="row">{{ this.getCounts.overdue_tasks }}</span>
+            <base-card class="bg-info">
+                <base-button class="row">Tasks Overdue</base-button>
+                <span class="display-6 text-center">{{ this.getCounts.overdue_tasks }}</span>
+            </base-card>
         </div>
     </div>
+
+    <div class="my-3 p-3 row">
+        <div class="col-6">
+            <label for="form-label">Searching</label>
+            <input type="text" class="form-control" placeholder="Search tasks" v-model="term" @input="setFilteredRows()" />
+        </div>
+        <div class="col-6">
+            <label for="form-label">Filter by category</label>
+            <select name="category" class="form-select" @change="setFilteredRows()" v-model="filterCategory">
+                <option value="" selected>All</option>
+                <option :value="value" v-for="(value, key) in getStatus" :key="key">{{ value }}</option>
+            </select>
+        </div>
+    </div>
+
     <table class="table table-hover table-bordered border-dark">
         <thead>
             <tr class="table-primary">
-                <th>ID <i class="bi bi-filter-left" @click="sort()"></i></th>
-                <th>Title <i class="bi bi-filter-left" @click="sort()"></i></th>
-                <th>Description <i class="bi bi-filter-left" @click="sort()"></i></th>
-                <th>Assigned <i class="bi bi-filter-left" @click="sort()"></i></th>
-                <th>Deadline <i class="bi bi-filter-left" @click="sort()"></i></th>
-                <th>Status <i class="bi bi-filter-left" @click="sort()"></i></th>
-                <th>Change Status</th>
-                <th>Progress</th>
+                <th v-for="(value, index) in tableKeys" :key="index">{{ value }} <i v-if="index >= 1 && index <= 5"
+                        class="bi bi-filter-left" @click="sortRecords(index)"></i>
+                </th>
             </tr>
         </thead>
         <tbody>
-            <tr class="table-info" v-for="task in getTasks" :key="task.id">
-                <td>{{ task.id }}</td>
-                <td>{{ task.title.slice(0, 10) }}</td>
-                <td>{{ task.description.slice(0, 20) }}...</td>
-                <td>{{ formatDate(task.assigned_at) }}</td>
-                <td>{{ formatDate(task.estimated_deadline) }}</td>
-                <td>{{ task.status_id == 1 ? 'ToDo' : task.status_id == 2 ? 'Doing' : task.status_id == 3 ? 'Under Review' :
-                    'Completed' }}
-                </td>
+            <tr class="table-info" v-for="task in getFilteredRows" :key="task.id">
+                <td v-for="(item, index) in task" :key="index">{{ item }}</td>
                 <td>
-                    <select name="change_status" id="change_status" @change="changeStatus($event, task.id)">
-                        <option :value="i" v-for="i in 4" :key="i" :disabled="i == 4" :selected="task.status_id == i">{{
-                            i === 1 ? 'ToDo' : i == 2 ? 'Doing' : i == 3 ? 'Under Review' : 'Completed' }}</option>
+                    <select name="change_status" id="change_status" @change="changeStatus($event, task[0])">
+                        <option :value="index" v-for="(status, index) in getStatus" :key="index" :disabled="index == 4"
+                            :selected="task[5] === getStatus[index]">{{
+                                status }}</option>
                     </select>
                 </td>
-                <!-- <td>
-                    <div class="progress blue">
-                        <span class="progress-left">
-                            <span class="progress-bar"></span>
-                        </span>
-                        <span class="progress-right">
-                            <span class="progress-bar"></span>
-                        </span>
-                        <div class="progress-value">{{task.status_id/4*100}}%</div>
-                    </div>
-                </td> -->
                 <td>
                     <div class="box">
                         <div class="Loading"></div>
                     </div>
                 </td>
             </tr>
+            <tr v-if="getFilteredRows.length == 0">
+                <td colspan="8" class="text-center bg-primary">No Task Found</td>
+            </tr>
         </tbody>
     </table>
-    <div>
-        {{ this.getRows }}
-    </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+const performSearch = (rows, term) => {
+    const results = rows.filter(
+        row => row.join(" ").toLowerCase().includes(term.toLowerCase())
+    )
+    return results;
+}
+
 export default {
     data() {
         return {
-            rows: []
+            tableKeys: ['ID', 'Title', 'Description', 'Assigned', 'Deadline', 'Status', 'Change Status', 'Progress'],
+            rows: [],
+            term: "",
+            sortIndex: null,
+            sortDirection: null,
+            filterCategory: ""
         }
     },
     methods: {
@@ -82,27 +93,63 @@ export default {
                 "task_id": task_id
             }
             this.updateTaskStatus(payload);
+            this.setFilteredRows()
         },
-        formatDate(date) {
-            date = new Date(date);
-            var year = date.getFullYear(),
-                month = date.getMonth() + 1, // months are zero indexed
-                day = date.getDate(),
-                hour = date.getHours(),
-                minute = date.getMinutes(),
-                // second = date.getSeconds(),
-                hourFormatted = hour % 12 || 12, // hour returned in 24 hour format
-                minuteFormatted = minute < 10 ? "0" + minute : minute,
-                morning = hour < 12 ? "am" : "pm";
-
-            return month + "/" + day + "/" + year + " " + hourFormatted + ":" +
-                minuteFormatted + morning;
+        sortRecords(index) {
+            if (this.sortIndex === index) {
+                switch (this.sortDirection) {
+                    case null:
+                        this.sortDirection = 'asc';
+                        break;
+                    case 'asc':
+                        this.sortDirection = 'desc';
+                        break;
+                    case 'desc':
+                        this.sortDirection = null;
+                        break;
+                }
+            } else {
+                this.sortDirection = 'asc'
+            }
+            this.sortIndex = index;
+            if (!this.sortDirection) {
+                this.rows = performSearch(this.getRows, this.term);
+                return;
+            }
+            this.rows = this.rows.sort(
+                (rowA, rowB) => {
+                    console.log(rowA[index], rowB[index])
+                    if (this.sortDirection === 'desc') {
+                        return rowB[index].localeCompare(rowA[index]);
+                    }
+                    return rowA[index].localeCompare(rowB[index]);
+                }
+            )
+        },
+        onSearch(rows) {
+            this.rows = performSearch(rows, this.term);
+            return this.rows
+        },
+        onFilterCategory(rows) {
+            this.rows = rows.filter(
+                row => row[5] == this.filterCategory
+            )
+            console.log(this.rows)
+        },
+        setFilteredRows() {
+            this.rows = this.getRows;
+            if (this.term != "") {
+                this.onSearch(this.rows)
+            }
+            if (this.filterCategory != "") {
+                return this.onFilterCategory(this.rows)
+            }
+            return this.rows;
         }
-
         // ...mapActions(['fetchTasks'])
     },
     computed: {
-        ...mapGetters('worker', ['getTasks', 'getRows','getCounts']),
+        ...mapGetters('worker', ['getTasks', 'getRows', 'getCounts', 'getStatus']),
         completedTasks() {
             if (this.tasks !== []) {
                 const tasks = [...this.tasks];
@@ -111,13 +158,12 @@ export default {
             } else {
                 return 0;
             }
+        },
+        getFilteredRows() {
+            this.setFilteredRows()
+            return this.rows
         }
     },
-    created() {
-        this.$store.commit['worker/setRows']
-        this.rows = this.getRows;
-        console.log('getRows,', this.rows)
-    }
 }
 
 
@@ -126,9 +172,9 @@ export default {
 
 <style scoped>
 body {
-  margin: 0;
-  padding: 0;
-  animation: pulse 5s once;
+    margin: 0;
+    padding: 0;
+    animation: pulse 5s once;
 }
 
 .box {
@@ -163,7 +209,7 @@ body {
 @keyframes load {
     0% {
         width: 0;
-        background:red;
+        background: red;
     }
 
     25% {
@@ -186,10 +232,11 @@ body {
         background: green;
     }
 }
+
 @keyframes pulse {
     0% {
         width: 0;
-        background:red;
+        background: red;
     }
 
     25% {
@@ -212,5 +259,4 @@ body {
         background: green;
     }
 }
-
 </style>

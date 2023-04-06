@@ -3,6 +3,9 @@ export default {
     getBoards(state) {
       return state.boards;
     },
+    getStatus(state) {
+      return state.status;
+    },
     getTasks(state) {
       return state.tasks;
     },
