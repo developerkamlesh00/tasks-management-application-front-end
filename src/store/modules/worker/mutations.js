@@ -74,8 +74,8 @@ export default {
   },
   setTasks(state, { tasks }) {
     console.log("Setting Tasks");
-    console.log(tasks);
     state.tasks = tasks;
+    console.log(tasks);
     state.total_tasks_assigned = tasks.length;
     return;
   },

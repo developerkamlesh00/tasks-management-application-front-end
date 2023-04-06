@@ -9,9 +9,6 @@ export default {
     getTasks(state) {
       return state.tasks;
     },
-    getTaskById(state,task_id){
-      return state.tasks.filter((t)=>t.id===task_id)[0];
-    },
     getTaskByIds(state,task_ids){
       return state.tasks.filter((t)=>task_ids.includes(t.id))[0];
     },

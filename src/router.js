@@ -17,6 +17,7 @@ import ManagerDashboard from "./pages/manager/ManagerDashboard.vue";
 import WorkerView from "./pages/worker/WorkerView.vue";
 import KanbanBoard from "./pages/worker/KanbanBoard.vue";
 import TasksTable from "./pages/worker/TasksTable.vue";
+import TaskDetails from "./pages/worker/TaskDetails.vue";
 import WorkStatistics from "./pages/worker/WorkSummary.vue";
 
 //import UserDashboard from "./pages/UserDashboard.vue";
@@ -85,6 +86,11 @@ const routes = [
       {
         path: "tasks",
         component: TasksTable,
+      },
+      {
+        path: "task/:id([0-9]+)",
+        props: true,
+        component: TaskDetails,
       },
       {
         path: "progress",
