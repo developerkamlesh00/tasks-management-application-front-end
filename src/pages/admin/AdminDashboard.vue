@@ -6,7 +6,9 @@
         <BaseCard :expanded="true" class="expanded-card">
           <div class="left-column">
             <BaseButton class="left-button" @click="toggleOrganizations">Show Organizations</BaseButton>
-            <BaseButton class="left-button" @click="toggleUsers">Show Users</BaseButton>
+            <BaseButton class="left-button" @click="toggleDirectors">Show Directors</BaseButton>
+            <BaseButton class="left-button" @click="toggleManagers">Show Managers</BaseButton>
+            <BaseButton class="left-button" @click="toggleWorkers">Show Workers</BaseButton>
           </div>
           <div class="right-column">
 
@@ -26,7 +28,7 @@
 
 
               <!-- Show users if showUsers is true -->
-              <div v-if="showUsers">
+              <div v-if="showDirectors">
                 <h2 class="users-header">Users</h2>
                 <div class="table-container">
                   <table>
@@ -35,7 +37,6 @@
                         <th>Id</th>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Role Id</th>
                         <th>Organization Id</th>
                       </tr>
                     </thead>
@@ -43,12 +44,11 @@
 
 
                       <!-- Loop through displayedUsers to show users in the table -->
-                      <tr v-for="(user) in displayedUsers" :key="user.id">
-                        <td>{{ user.id }}</td>
-                        <td>{{ user.name }}</td>
-                        <td>{{ user.email }}</td>
-                        <td>{{ user.role_id }}</td>
-                        <td>{{ user.organization_id }}</td>
+                      <tr v-for="(directors) in displayedDirectors" :key="directors.id">
+                        <td>{{ directors.id }}</td>
+                        <td>{{ directors.name }}</td>
+                        <td>{{ directors.email }}</td>
+                        <td>{{ directors.organization_id }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -63,6 +63,77 @@
                 </div>
               </div>
 
+              <!-- Show users if showUsers is true -->
+              <div v-if="showManagers">
+                <h2 class="users-header">Users</h2>
+                <div class="table-container">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Organization Id</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+
+                      <!-- Loop through displayedUsers to show users in the table -->
+                      <tr v-for="(managers) in displayedManagers" :key="managers.id">
+                        <td>{{ managers.id }}</td>
+                        <td>{{ managers.name }}</td>
+                        <td>{{ managers.email }}</td>
+                        <td>{{ managers.organization_id }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+
+                <!-- Show pagination buttons -->
+                <div class="pagination-container">
+                  <button class="prev-btn" :disabled="page === 1" @click="page--">&lt;</button>
+                  <button v-for="pageNumber in pages" :key="pageNumber" :class="{active: pageNumber === page}" @click="page = pageNumber">{{ pageNumber }}</button>
+                  <button class="next-btn" :disabled="page === pageCount" @click="page++">&gt;</button>
+                </div>
+              </div>
+
+               <!-- Show users if showUsers is true -->
+               <div v-if="showWorkers">
+                <h2 class="users-header">Users</h2>
+                <div class="table-container">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Organization Id</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+
+                      <!-- Loop through displayedUsers to show users in the table -->
+                      <tr v-for="(workers) in displayedWorkers" :key="workers.id">
+                        <td>{{ workers.id }}</td>
+                        <td>{{ workers.name }}</td>
+                        <td>{{ workers.email }}</td>
+                        <td>{{ workers.organization_id }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+
+                <!-- Show pagination buttons -->
+                <div class="pagination-container">
+                  <button class="prev-btn" :disabled="page === 1" @click="page--">&lt;</button>
+                  <button v-for="pageNumber in pages" :key="pageNumber" :class="{active: pageNumber === page}" @click="page = pageNumber">{{ pageNumber }}</button>
+                  <button class="next-btn" :disabled="page === pageCount" @click="page++">&gt;</button>
+                </div>
+              </div>
               
               <!-- Show error message if errorMessage is truthy -->
               <div v-if="errorMessage" class="error-message">
@@ -91,10 +162,16 @@ export default {
     return {
       // Boolean flags to show or hide organizations and users
       showOrganizations: false,
-      showUsers: false,
+      showDirectors: false,
+      showManagers: false,
+      showWorkers: false,
+
       // Arrays to store fetched organizations and users data
       organizations: [],
-      users: [],
+      directors: [],
+      managers: [],
+      workers: [],
+
       // Pagination variables
       page: 1,
       perPage: 10,
@@ -109,7 +186,9 @@ export default {
     toggleOrganizations() {
       this.showOrganizations = !this.showOrganizations;
       if (this.showOrganizations) {
-        this.showUsers = false;
+        this.showDirectors = false;
+        this.showManagers = false;
+        this.showWorkers = false;
 
         axios.get('http://127.0.0.1:8001/api/admin/organizations')
           .then(response => {
@@ -124,18 +203,56 @@ export default {
 
 
     // Toggle the display of users and fetch data from API
-    toggleUsers() {
-      this.showUsers = !this.showUsers;
-      if (this.showUsers) {
+    toggleDirectors() {
+      this.showDirectors = !this.showDirectors;
+      if (this.showDirectors) {
         this.showOrganizations = false;
+        this.showManagers = false;
+        this.showWorkers = false;
 
-        axios.get('http://127.0.0.1:8001/api/admin/users')
+        axios.get('http://127.0.0.1:8001/api/admin/directors')
           .then(response => {
-            this.users = response.data;
+            this.directors = response.data;
           })
           .catch(error => {
             console.log(error);
-            this.errorMessage = 'Failed to fetch users. Please try again later.';
+            this.errorMessage = 'Failed to fetch directors. Please try again later.';
+          });
+      }
+    },
+
+    toggleManagers() {
+      this.showManagers = !this.showManagers;
+      if (this.showManagers) {
+        this.showOrganizations = false;
+        this.showDirectors = false;
+        this.showWorkers = false;
+
+        axios.get('http://127.0.0.1:8001/api/admin/managers')
+          .then(response => {
+            this.managers = response.data;
+          })
+          .catch(error => {
+            console.log(error);
+            this.errorMessage = 'Failed to fetch managers. Please try again later.';
+          });
+      }
+    },
+
+    toggleWorkers() {
+      this.showWorkers = !this.showWorkers;
+      if (this.showWorkers) {
+        this.showOrganizations = false;
+        this.showDirectors = false;
+        this.showManagers = false;
+
+        axios.get('http://127.0.0.1:8001/api/admin/workers')
+          .then(response => {
+            this.workers = response.data;
+          })
+          .catch(error => {
+            console.log(error);
+            this.errorMessage = 'Failed to fetch workers. Please try again later.';
           });
       }
     },
@@ -145,7 +262,7 @@ export default {
   computed: {
     // Calculate the number of pages needed for pagination
     pageCount() {
-      return Math.ceil(this.users.length / this.perPage)
+      return Math.ceil(this.directors.length / this.perPage)
     },
     // Generate an array of page numbers for pagination
     pages() {
@@ -158,10 +275,20 @@ export default {
 
     
     // Slice the users array based on the current page and perPage value for pagination
-    displayedUsers() {
+    displayedDirectors() {
       const start = (this.page - 1) * this.perPage
       const end = start + this.perPage
-      return this.users.slice(start, end)
+      return this.directors.slice(start, end)
+    },
+    displayedManagers() {
+      const start = (this.page - 1) * this.perPage
+      const end = start + this.perPage
+      return this.managers.slice(start, end)
+    },
+    displayedWorkers() {
+      const start = (this.page - 1) * this.perPage
+      const end = start + this.perPage
+      return this.workers.slice(start, end)
     }
   }
 };
