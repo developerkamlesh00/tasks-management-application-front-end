@@ -13,7 +13,7 @@ import DirectorDashboard from "./pages/director/DirectorDashboard.vue";
 import AdminDashboard from "./pages/admin/AdminDashboard.vue";
 import ManagerDashboard from "./pages/manager/ManagerDashboard.vue";
 import WorkerView from "./pages/worker/WorkerView.vue";
-import WorkerDashboard from "./pages/worker/WorkerDashboard.vue";
+import KanbanBoard from "./pages/worker/KanbanBoard.vue";
 import TasksTable from "./pages/worker/TasksTable.vue";
 import WorkStatistics from "./pages/worker/WorkSummary.vue";
 
@@ -72,6 +72,10 @@ const routes = [
     component: WorkerView,
     children: [
       {
+        path: "",
+        component: TasksTable,
+      },
+      {
         path: "tasks",
         component: TasksTable,
       },
@@ -83,7 +87,12 @@ const routes = [
       {
         path: "dashboard",
         component: 
-        WorkerDashboard,
+        KanbanBoard,
+      },
+      {
+        path: "/:notFound(.*)",
+        component: 
+        TasksTable,
       },
     ],
     // beforeEnter: (_, _1, next) => {

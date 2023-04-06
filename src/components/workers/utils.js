@@ -6,4 +6,11 @@ function drop(e) {
     
 }
 
-export default drop;
+const performSearch = (rows, term) => {
+    const results = rows.filter(
+      row => row.join(" ").toLowerCase().includes(term.toLowerCase())
+    )
+    return results;
+  }
+
+export {drop, performSearch};
