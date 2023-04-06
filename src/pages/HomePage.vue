@@ -64,7 +64,7 @@
         Easy to use, reliable, private, and secure. It's no wonder TaskCRM is
         the choice for creating and distributing your most important Tasks.
       </p>
-      <router-link to="/orgregister" class="btn btn-success">Register Your Company</router-link>
+      <router-link v-if="!isAuthenticated" to="/orgregister" class="btn btn-success">Register Your Company</router-link>
     </div>
 
     <!-- Carousel -->
@@ -79,13 +79,14 @@
       </div>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="https://picsum.photos/800/400" class="d-block w-100" alt="...">
+          <img src="../assets/images/task1.png" class="d-block w-100" alt="...">
         </div>
         <div class="carousel-item">
-          <img src="https://picsum.photos/800/400" class="d-block w-100" alt="...">
+          <img src="../assets/images/task2.png" class="d-block w-100" alt="...">
         </div>
+      
         <div class="carousel-item">
-          <img src="https://picsum.photos/800/400" class="d-block w-100" alt="...">
+          <img src="../assets/images/task3.png" class="d-block w-100" alt="...">
         </div>
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
@@ -192,9 +193,24 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
+export default {
+  computed: {
+    ...mapGetters(["isAuthenticated"]),
+  },
+};
+
 </script>
 
+
 <style scoped>
+a{
+  width: 400px;
+  height: 50px;
+  text-align: center;
+  font-size: 25px;
+}
 .home-page {
   font-family: "Proxima Nova", sans-serif;
   font-size: 16.67px;

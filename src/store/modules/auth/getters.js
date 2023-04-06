@@ -10,5 +10,11 @@ export default {
     },
     role(state) {
       return state.role;
+    },
+    name(state) {
+      return state.name;
+    },
+    organization(state) {
+      return state.organization_id;
     }
   };
