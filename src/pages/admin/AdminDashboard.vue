@@ -29,7 +29,7 @@
 
               <!-- Show users if showUsers is true -->
               <div v-if="showDirectors">
-                <h2 class="users-header">Users</h2>
+                <h2 class="users-header">Directors List</h2>
                 <div class="table-container">
                   <table>
                     <thead>
@@ -44,8 +44,8 @@
 
 
                       <!-- Loop through displayedUsers to show users in the table -->
-                      <tr v-for="(directors) in displayedDirectors" :key="directors.id">
-                        <td>{{ directors.id }}</td>
+                      <tr v-for="(directors,index) in displayedDirectors" :key="index">
+                        <td>{{ index + 1}}</td>
                         <td>{{ directors.name }}</td>
                         <td>{{ directors.email }}</td>
                         <td>{{ directors.organization_id }}</td>
@@ -65,7 +65,7 @@
 
               <!-- Show users if showUsers is true -->
               <div v-if="showManagers">
-                <h2 class="users-header">Users</h2>
+                <h2 class="users-header">Managers List</h2>
                 <div class="table-container">
                   <table>
                     <thead>
@@ -80,8 +80,8 @@
 
 
                       <!-- Loop through displayedUsers to show users in the table -->
-                      <tr v-for="(managers) in displayedManagers" :key="managers.id">
-                        <td>{{ managers.id }}</td>
+                      <tr v-for="(managers,index) in displayedManagers" :key="index">
+                        <td>{{ index + 1 }}</td>
                         <td>{{ managers.name }}</td>
                         <td>{{ managers.email }}</td>
                         <td>{{ managers.organization_id }}</td>
@@ -101,7 +101,7 @@
 
                <!-- Show users if showUsers is true -->
                <div v-if="showWorkers">
-                <h2 class="users-header">Users</h2>
+                <h2 class="users-header">Workers List</h2>
                 <div class="table-container">
                   <table>
                     <thead>
@@ -116,8 +116,8 @@
 
 
                       <!-- Loop through displayedUsers to show users in the table -->
-                      <tr v-for="(workers) in displayedWorkers" :key="workers.id">
-                        <td>{{ workers.id }}</td>
+                      <tr v-for="(workers,index) in displayedWorkers" :key="index">
+                        <td>{{ index + 1 }}</td>
                         <td>{{ workers.name }}</td>
                         <td>{{ workers.email }}</td>
                         <td>{{ workers.organization_id }}</td>
