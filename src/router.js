@@ -7,6 +7,11 @@ import AuthLogin from "./pages/auth/AuthLogin.vue";
 
 //import Admin components
 import AdminView from "./pages/admin/AdminView.vue";
+import AdminDashboard from "./pages/admin/AdminDashboard.vue"
+import ShowOrganizations from "./pages/admin/ShowOrganization.vue"
+import ShowDirectors from "./pages/admin/ShowDirectors.vue"
+import ShowManagers from "./pages/admin/ShowManagers.vue"
+import ShowWorkers from "./pages/admin/ShowWorkers.vue"
 
 //director compo
 import OrganizationRegister from "./pages/director/OrganizationRegister.vue";
@@ -38,6 +43,33 @@ const routes = [
     path: "/admin",
     name: "admin",
     component: AdminView,
+    children: [
+      {
+        path: "",
+        component: AdminDashboard,
+      },
+      {
+        path: "organizations",
+        component: ShowOrganizations,
+      },
+      {
+        path: "directors",
+        component: ShowDirectors,
+      },
+      {
+        path: "managers",
+        component: ShowManagers,
+      },
+      {
+        path: "workers",
+        component: ShowWorkers,
+      },
+      {
+        path: "/:notFound(.*)",
+        component: 
+        AdminDashboard,
+      },
+    ],
     // beforeEnter: (_, _1, next) => {
     //   if(store.getters.role == 'admin' && store.getters.isAuthenticated){
     //     next();

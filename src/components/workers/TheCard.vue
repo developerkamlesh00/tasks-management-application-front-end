@@ -6,7 +6,6 @@
     :draggable="draggable"
     @dragstart="dragStart"
     @dragend="dragEnd"
-    @dragend="dragEnd"
     @dragover.stop>
     <slot></slot>
 
