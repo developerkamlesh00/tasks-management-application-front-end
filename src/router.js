@@ -6,12 +6,12 @@ import AboutPage from "./pages/AboutPage.vue";
 import AuthLogin from "./pages/auth/AuthLogin.vue";
 
 //import Admin components
-import AdminView from "./pages/admin/AdminView.vue";
-import AdminDashboard from "./pages/admin/AdminDashboard.vue"
-import ShowOrganizations from "./pages/admin/ShowOrganization.vue"
-import ShowDirectors from "./pages/admin/ShowDirectors.vue"
-import ShowManagers from "./pages/admin/ShowManagers.vue"
-import ShowWorkers from "./pages/admin/ShowWorkers.vue"
+import AdminDashboard from "./pages/admin/AdminDashboard.vue";
+import ShowOrganizations from "./components/admin/ShowOrganizations.vue"
+import ShowDirectors from "./components/admin/ShowDirectors.vue"
+import ShowManagers from "./components/admin/ShowManagers.vue"
+import ShowWorkers from "./components/admin/ShowWorkers.vue"
+
 
 //director compo
 import OrganizationRegister from "./pages/director/OrganizationRegister.vue";
@@ -42,33 +42,12 @@ const routes = [
   {
     path: "/admin",
     name: "admin",
-    component: AdminView,
+    component: AdminDashboard,
     children: [
-      {
-        path: "",
-        component: AdminDashboard,
-      },
-      {
-        path: "organizations",
-        component: ShowOrganizations,
-      },
-      {
-        path: "directors",
-        component: ShowDirectors,
-      },
-      {
-        path: "managers",
-        component: ShowManagers,
-      },
-      {
-        path: "workers",
-        component: ShowWorkers,
-      },
-      {
-        path: "/:notFound(.*)",
-        component: 
-        AdminDashboard,
-      },
+      { path: 'organizations', name: "showOrganizations", component: ShowOrganizations },
+      { path: 'directors', name: "showDirectors", component: ShowDirectors },
+      { path: 'managers', name: "showManagers", component: ShowManagers },
+      { path: 'workers', name: "showWorkers", component: ShowWorkers },
     ],
     // beforeEnter: (_, _1, next) => {
     //   if(store.getters.role == 'admin' && store.getters.isAuthenticated){
@@ -86,13 +65,13 @@ const routes = [
       { path: ':add',name: "managerworker", component: CreateManagerWorker },
       { path: ':add',name: "project", component: CreateProject }
     ],
-    beforeEnter: (_, _1, next) => {
-      if (store.getters.role == "director" && store.getters.isAuthenticated) {
-        next();
-      } else {
-        next("/login");
-      }
-    },
+    // beforeEnter: (_, _1, next) => {
+    //   if (store.getters.role == "director" && store.getters.isAuthenticated) {
+    //     next();
+    //   } else {
+    //     next("/login");
+    //   }
+    // },
   },
   { path: "/orgregister", name: "register", component: OrganizationRegister },
   {
@@ -130,11 +109,11 @@ const routes = [
         component: 
         KanbanBoard,
       },
-      {
-        path: "/:notFound(.*)",
-        component: 
-        TasksTable,
-      },
+      // {
+      //   path: "/:notFound(.*)",
+      //   component: 
+      //   TasksTable,
+      // },
     ],
     // beforeEnter: (_, _1, next) => {
     //   if(store.getters.role == 'worker' && store.getters.isAuthenticated){
