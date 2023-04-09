@@ -9,6 +9,7 @@
                         <th>Name</th>
                         <th>Email</th>
                         <th>Organization Id</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
 
@@ -19,6 +20,12 @@
                         <td>{{ director.name }}</td>
                         <td>{{ director.email }}</td>
                         <td>{{ director.organization_id }}</td>
+                        <td class="delete-cell">
+                            <button @click="deleteDirector(director.id)">Delete</button>
+                        </td>
+                    </tr>
+                    <tr v-if="directors.length === 0">
+                        <td colspan="5" style="text-align: center;">No director present.</td>
                     </tr>
                 </tbody>
             </table>
@@ -55,6 +62,23 @@ export default {
                     this.errorMessage = 'Failed to fetch directors. Please try again later.';
                 });
         },
+        deleteDirector(directorId) {
+            // Call the delete API endpoint here
+            if (confirm('Are you sure you want to delete this director?')) {
+                axios.post(`http://127.0.0.1:8001/api/admin/users/${directorId}`)
+                    .then(response => {
+                        const index = this.directors.findIndex(director => director.id === directorId);
+                        if (index > -1) {
+                            this.directors.splice(index, 1);
+                        }
+                        console.log(response);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        this.errorMessage = 'Failed to delete director. Please try again later.';
+                    });
+            }
+        }
     },
 };
 
@@ -93,5 +117,23 @@ export default {
     background-color: #f2f2f2;
     color: #333;
     font-weight: bold;
+}
+
+.delete-cell {
+    width: 10%;
+    text-align: center;
+}
+
+.delete-cell button {
+    padding: 4px 8px;
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.delete-cell button:hover {
+    background-color: #c62828;
 }
 </style>
