@@ -10,6 +10,13 @@ import OrganizationRegister from "./pages/director/OrganizationRegister.vue";
 import DirectorDashboard from "./pages/director/DirectorDashboard.vue";
 //end director compo
 
+//manager compo
+import ProjectList from "./pages/manager/Children/ProjectList.vue";
+import WorkerList from "./pages/manager/Children/WorkerList.vue";
+import SingleProject from "./pages/manager/Children/SingleProject.vue"
+
+//end manager compo
+
 import AdminDashboard from "./pages/admin/AdminDashboard.vue";
 import ManagerDashboard from "./pages/manager/ManagerDashboard.vue";
 import WorkerView from "./pages/worker/WorkerView.vue";
@@ -51,6 +58,8 @@ const routes = [
     },
   },
   { path: "/orgregister", name: "register", component: OrganizationRegister },
+  
+  //Manager ROute Starts
   {
     path: "/manager",
     name: "manager",
@@ -62,6 +71,22 @@ const routes = [
         next('/login');
       }
     },
+    children:[
+      {
+        path:'projects',
+        component: ProjectList,
+        
+      },
+      {
+        path: 'projects/:id',
+        component: SingleProject
+      },
+
+      {
+        path: 'workers',
+        component:WorkerList
+      }
+    ]
   },
   {
     path: "/worker",
