@@ -1,25 +1,53 @@
 <template>
     <div class="row">
-        <side-bar></side-bar>
-        <component :is="WorkerDashboard"></component>
+        <button @click="fetchWorkerTasks({ isFirstRequest: false })">Refresh</button>
+    </div>
+    <div class="row">
+        <base-card class="m-0 col-2">
+            <base-button class="mb-2 " link to="/worker/dashboard">Kanban
+            </base-button>
+            <base-button class="mb-2 " link to="/worker/tasks">Tasks
+            </base-button>
+            <base-button class="" link to="/worker/progress">Summary
+            </base-button>
+        </base-card>
+        <div class="col-10">
+            <base-card class="m-0 ms-2 mw-100">
+                    <router-view v-slot="{ Component }">
+                        <component :is="Component"></component>
+                    </router-view>
+            </base-card>
+        </div>
+
     </div>
 </template>
 
 <script>
-import SideBar from '../../components/ui/SideBar.vue';
-import WorkerDashboard from './WorkerDashboard.vue';
+import { mapActions, mapGetters } from 'vuex';
+import BaseCard from '../../components/ui/BaseCard.vue';
+import BaseButton from '../../components/ui/BaseButton.vue';
+
 export default {
     components: {
-        SideBar,
-        WorkerDashboard
+        BaseCard,
+        BaseButton
     },
     data() {
         return {
-            WorkerDashboard:"WorkerDashboard"
         }
     },
+    methods: {
+        ...mapActions('worker', ['fetchWorkerTasks']),
+    },
+    computed: {
+        ...mapGetters('worker', ['getTasks'])
+    },
+    created() {
+        setTimeout(() => {
+            this.$store.dispatch('worker/fetchWorkerTasks',{ isFirstRequest: true });
+        }, 1000)
+    }
 }
-
 </script>
 
 
@@ -28,6 +56,18 @@ export default {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+
+.nav-link {
+    padding: .1875rem .5rem;
+    margin-top: .125rem;
+    margin-left: 1.25rem;
+}
+
+a:hover,
+a:focus {
+    background-color: #d2f4ea;
 }
 
 body {
