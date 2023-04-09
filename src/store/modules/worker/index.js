@@ -9,6 +9,7 @@ export default {
   state() {
     return {
       rows:[],
+      tasks:[],
       totalBoards: 4,
       boards: boards,
       total_tasks_assigned:0,
@@ -26,7 +27,6 @@ export default {
         3:'Review',
         4:'Completed',
       },
-      tasks: {},
     };
   },
   

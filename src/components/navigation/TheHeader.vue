@@ -1,13 +1,10 @@
 <template>
-  <nav class="navbar navbar-expand-lg">
+  <nav class="navbar navbar-expand">
     <div class="container-fluid">
       <div class="navbar-brand image">
         <div class="navbar-item home me-2">
           <router-link to="/">Task Management</router-link>
         </div>
-        <!-- <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Simbolo_konoha.svg/1200px-Simbolo_konoha.svg.png"
-        /> -->
       </div>
       <div class="d-flex flex-row-reverse">
     
