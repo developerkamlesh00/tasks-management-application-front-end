@@ -4,6 +4,7 @@
       <div class="col-3">
         <base-button link :to="{ name: 'managerworker', params: { add: 'addmanager' }}">Create Manager & Worker</base-button>
         <base-button link :to="{ name: 'project', params: { add: 'addproject' }}">Create Project</base-button>
+        <base-button link :to="{ name: 'viewproject', params: { add: 'viewproject' }}">View Projects</base-button>
       </div>
       <div class="col-9">
         <router-view v-slot="{ Component }">

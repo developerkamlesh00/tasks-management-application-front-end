@@ -68,6 +68,9 @@
 </template>
 
 <script>
+// export default {
+   
+// }
 // import { mapGetters } from 'vuex'
 // import Chart from 'chart.js/auto'
 
