@@ -53,13 +53,13 @@ const routes = [
       { path: 'managers', name: "showManagers", component: ShowManagers },
       { path: 'workers', name: "showWorkers", component: ShowWorkers },
     ],
-    // beforeEnter: (_, _1, next) => {
-    //   if(store.getters.role == 'admin' && store.getters.isAuthenticated){
-    //     next();
-    //   }else{
-    //     next('/login');
-    //   }
-    // },
+    beforeEnter: (_, _1, next) => {
+      if(store.getters.role == 'admin' && store.getters.isAuthenticated){
+        next();
+      }else{
+        next('/login');
+      }
+    },
   },
   {
     path: "/director",
