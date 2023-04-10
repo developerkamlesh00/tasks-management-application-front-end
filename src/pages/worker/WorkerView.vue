@@ -8,14 +8,17 @@
             </base-button>
             <base-button class="mb-2 " link to="/worker/tasks">Tasks
             </base-button>
-            <base-button class="" link to="/worker/progress">Summary
+            <base-button class="mb-2" link to="/worker/progress">Summary
+            </base-button>
+            <base-button class="" link to="/worker/settings">Settings
             </base-button>
         </base-card>
         <div class="col-10">
             <base-card class="m-0 ms-2 mw-100">
-                    <router-view v-slot="{ Component }">
-                        <component :is="Component"></component>
-                    </router-view>
+
+                <router-view v-slot="{ Component }">
+                    <component :is="Component"></component>
+                </router-view>
             </base-card>
         </div>
 
@@ -43,7 +46,7 @@ export default {
         ...mapGetters('worker', ['getTasks'])
     },
     created() {
-        this.$store.dispatch('worker/fetchWorkerTasks',{ isFirstRequest: true });
+        this.$store.dispatch('worker/fetchWorkerTasks', { isFirstRequest: true });
 
     }
 }

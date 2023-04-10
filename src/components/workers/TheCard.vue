@@ -2,7 +2,7 @@
 <template>
     <div
     :id="id"
-    class="card"
+    class="card text-light" :style="{'backgroundColor':getBGColor()}"
     :draggable="draggable"
     @dragstart="dragStart"
     @dragend="dragEnd"
@@ -29,6 +29,10 @@ export default{
       const target = e.target;
       target.style.display = 'block';
     },
+    getBGColor(){
+            const boardColor = localStorage.getItem('cardColor')||'#007bff';
+            return boardColor;
+        }
     }
 }
 </script>

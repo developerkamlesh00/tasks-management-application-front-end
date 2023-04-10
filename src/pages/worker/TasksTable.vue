@@ -19,7 +19,6 @@
             </base-card>
         </div>
     </div>
- <div>{{ this.getRows }}</div>
     <div class="my-3 p-3 row">
         <div class="col-6">
             <label for="form-label">Searching</label>
@@ -40,11 +39,12 @@
                 <th v-for="(value, index) in tableKeys" :key="index">{{ value }} <i v-if="index >= 1 && index <= 5"
                         class="bi bi-filter-left" @click="sortRecords(index)"></i>
                 </th>
+                <th>View</th>
             </tr>
         </thead>
         <tbody>
             <tr class="table-info" v-for="task in getFilteredRows" :key="task.id">
-                <td v-for="(item, index) in task" :key="index">{{ item }}</td>
+                <td v-for="(item, index) in task" :key="index"><template v-if="index==2">{{ item.slice(0,20) }}......</template><template v-else>{{ item }}</template></td>                  
                 <td>
                     <select name="change_status" id="change_status" @change="changeStatus($event, task[0])">
                         <option :value="index" v-for="(status, index) in getStatus" :key="index" :disabled="index == 4"
@@ -53,9 +53,14 @@
                     </select>
                 </td>
                 <td>
-                    <div class="box">
-                        <div class="Loading"></div>
+                    <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0"
+                        aria-valuemax="100">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" :class="getStyle(getStatusId[task[5]])"></div>
                     </div>
+                </td>
+                <td>
+                    <router-link class="btn btn-outline-dark" :to="{name:'task_detail',params:{'id':task[0]}}">Open
+                </router-link>
                 </td>
             </tr>
             <tr v-if="getFilteredRows.length == 0">
@@ -87,6 +92,11 @@ export default {
     },
     methods: {
         ...mapActions('worker', ['fetchWorkerTasks', 'updateTaskStatus']),
+        getStyle(status_id){
+            const width=(status_id)*100/4;
+            const bg=['bg-danger','bg-warning','bg-info','bg-success'];
+            return `w-${width} ${bg[status_id-1]}`
+        },
         changeStatus(e, task_id) {
             const payload = {
                 "status_id": e.target.value,
@@ -149,7 +159,7 @@ export default {
         // ...mapActions(['fetchTasks'])
     },
     computed: {
-        ...mapGetters('worker', ['getTasks', 'getRows', 'getCounts', 'getStatus']),
+        ...mapGetters('worker', ['getTasks', 'getRows', 'getCounts', 'getStatus','getStatusId']),
         completedTasks() {
             if (this.tasks !== []) {
                 const tasks = [...this.tasks];

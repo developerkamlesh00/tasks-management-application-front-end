@@ -1,8 +1,11 @@
 
-function drop(e) {
+function drop(e,board_id=null) {
+  if(!board_id || board_id!=4){
     const card_id = e.dataTransfer.getData('card_id');
     const card = document.getElementById(card_id);
-    card.style.display = "block";
+    card.style.display = "block";    
+  }
+  console.log(board_id)
     
 }
 

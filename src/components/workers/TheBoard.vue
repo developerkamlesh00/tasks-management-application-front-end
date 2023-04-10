@@ -1,6 +1,9 @@
 <template>
-    <div :id="id" class="board" @dragover.prevent @drop.prevent="drop">
-        <slot></slot>
+    <div :id="id" class="board" :style="{'backgroundColor':getBGColor()}" @dragover.prevent @drop.prevent="drop">
+        <slot name="header"></slot>
+        <div class="tasks">
+            <slot></slot>
+        </div>
     </div>
 </template>
 
@@ -21,6 +24,10 @@ export default {
             const payload={"task_id":task_id,"status_id":board_id}
             this.updateTaskStatus(payload)
             
+        },
+        getBGColor(){
+            const boardColor = localStorage.getItem('boardColor')||'#313131';
+            return boardColor;
         }
     }
 }
@@ -36,9 +43,10 @@ export default {
     margin: 2px 10px;
     width: 350px;
     min-width: 200px;
-    background-color: #313131;
     padding: 15px;
-    padding-bottom: 150px;
     border-radius: 15px;
+}
+.tasks{
+    padding-top: 50px;
 }
 </style>
