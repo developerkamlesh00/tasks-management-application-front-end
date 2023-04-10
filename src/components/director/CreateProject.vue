@@ -111,7 +111,8 @@ export default {
     },
   },
   async mounted() {
-    let result = await axios.get("http://localhost:8000/api/director/managers");
+    let org = await this.$store.getters.organization;
+    let result = await axios.get("http://localhost:8000/api/director/managers/"+org);
     let managers =[]
     for (let key in result.data) {
       managers.push({'id':result.data[key].id ,'name':result.data[key].name})
