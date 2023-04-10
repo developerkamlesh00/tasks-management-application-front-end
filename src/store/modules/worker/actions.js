@@ -20,7 +20,7 @@ export default {
     await axios.post(
       `http://localhost:8000/api/update_status/task/${payload.task_id}/status/${payload.status_id}`
     )
-    dispatch('fetchWorkerTasks')
+    dispatch('fetchWorkerTasks',{isFirstRequest:true})
     return;
   },
 
@@ -34,6 +34,7 @@ export default {
         commit('setTasks',{tasks:res.data});
         if(payload && payload.isFirstRequest){
           commit('setData');
+          commit('setRows')
         }
       })
 

@@ -43,9 +43,8 @@ export default {
         ...mapGetters('worker', ['getTasks'])
     },
     created() {
-        setTimeout(() => {
-            this.$store.dispatch('worker/fetchWorkerTasks',{ isFirstRequest: true });
-        }, 1000)
+        this.$store.dispatch('worker/fetchWorkerTasks',{ isFirstRequest: true });
+
     }
 }
 </script>
