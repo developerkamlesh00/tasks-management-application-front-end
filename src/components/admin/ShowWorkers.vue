@@ -49,7 +49,7 @@ export default {
 
     methods: {
         fetchWorkers() {
-            axios.get('http://127.0.0.1:8001/api/admin/workers')
+            axios.get('http://127.0.0.1:8000/api/admin/workers')
                 .then(response => {
                     this.workers = response.data;
                 })
@@ -61,7 +61,7 @@ export default {
         deleteWorker(workerId) {
             // Call the delete API endpoint here
             if (confirm('Are you sure you want to delete this director?')) {
-                axios.post(`http://127.0.0.1:8001/api/admin/users/${workerId}`)
+                axios.post(`http://127.0.0.1:8000/api/admin/users/${workerId}`)
                     .then(response => {
                         const index = this.workers.findIndex(worker => worker.id === workerId);
                         if (index > -1) {
