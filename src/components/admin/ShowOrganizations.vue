@@ -9,8 +9,11 @@
       <BaseCard v-for="org in filteredOrganizations" :key="org.id" class="card-item">
         <h3>{{ org.org_name }}</h3>
         <p><strong>E-mail:</strong> {{ org.org_email }}</p>
-        <p><strong>Total Projects:</strong> {{ org.total_projects }}</p>
-        <p><strong>Projects Completed:</strong> {{ org.projects_completed }}</p>
+        <div class="bar-container">
+          <div class="completed-bar" :style="{ width: org.projects_completed/org.total_projects*100 + '%' }"></div>
+          <div class="remaining-bar" :style="{ width: (org.total_projects-org.projects_completed)/org.total_projects*100 + '%' }"></div>
+        </div>
+        <p class="project-status"><strong>Projects Completed:</strong> {{ org.projects_completed }} / {{ org.total_projects }}</p>
       </BaseCard>
     </div>
     <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
@@ -79,191 +82,91 @@ export default {
 
 <style scoped>
 .container {
-  margin-left: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 .header {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #333;
+  font-size: 36px;
   text-align: center;
+  margin-bottom: 30px;
+}
+
+.search-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
 }
 
 .card-list {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
 }
 
 .card-item {
-  flex: 1 0 21rem;
-  margin: 1rem;
+  background-color: #fff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.bar-container {
+  height: 20px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.completed-bar {
+  height: 100%;
+  background-color: #4CAF50;
+}
+
+.remaining-bar {
+  height: 100%;
+  background-color: #f44336;
+}
+
+.project-status {
+  margin-top: 10px;
+  font-size: 16px;
 }
 
 .error-message {
   color: red;
-  margin-top: 10px;
-}
-
-
-.search-container {
-    margin-bottom: 10px;
-    padding: 10px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.search-container input[type="text"] {
-    width: 60%;
-    padding: 8px;
-    margin-right: 10px;
-    margin-bottom: 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-.search-container select,
-.search-container button {
-    margin-bottom: 0;
-    margin-left: 10px;
-    padding: 8px;
-    background-color: #4CAF50;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.search-container select:hover,
-.search-container button:hover {
-    background-color: #3e8e41;
+  font-size: 16px;
+  margin-top: 20px;
 }
 </style>
 
-<!-- <template>
-  <div class="container">
-      <h2 class="header">Workers List</h2>
-      <div class="search-container">
-          <input type="text" placeholder="Search worker by name" v-model="searchTerm" @input="searchWorker">
-          <select v-model="selectedOrgId">
-              <option value="">Filter by organization ID</option>
-              <option v-for="orgId in orgIds" :key="orgId" :value="orgId">{{ orgId }}</option>
-          </select>
-          <button @click="filterWorkers">Filter</button>
-          <button @click="resetSearch">Reset</button>
-      </div>
-      <div class="table-container">
-          <table class="workers-table">
-              <thead>
-                  <tr>
-                      <th>Id</th>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>Organization Id</th>
-                      <th>Delete</th>
-                  </tr>
-              </thead>
-
-              <tbody>
-                  Loop through filteredWorkers to show Worker in the table
-                  <tr v-for="(worker,index) in filteredWorkers" :key="worker.id">
-                      <td>{{ index + 1 }}</td>
-                      <td>{{ worker.name }}</td>
-                      <td>{{ worker.email }}</td>
-                      <td>{{ worker.organization_id }}</td>
-                      <td class="delete-cell">
-                          <button @click="deleteWorker(worker.id)">Delete</button>
-                      </td>
-                  </tr>
-                  <tr v-if="filteredWorkers.length === 0">
-                      <td colspan="5" style="text-align: center;">No Worker present.</td>
-                  </tr>
-              </tbody>
-          </table>
-
-      </div>
-      <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
-  </div>
-</template> -->
-
-
-<!-- <script>
-import axios from 'axios';
-
-export default {
-  data() {
-    return {
-        workers: [],
-      errorMessage: '',
-      searchTerm: '',
-      selectedOrgId: '',
-    };
-  },
-  mounted() {
-    this.toggleWorkers();
-  },
-  computed: {
-    orgIds() {
-      return [...new Set(this.workers.map((worker) => worker.organization_id))];
-    },
-    filteredWorkers() {
-      let filteredWorkers = this.workers;
-      if (this.searchTerm.trim()) {
-        const searchTerm = this.searchTerm.toLowerCase();
-        filteredWorkers = filteredWorkers.filter((worker) =>
-        worker.name.toLowerCase().includes(searchTerm)
-        );
-      }
-      if (this.selectedOrgId !== '') {
-        filteredWorkers = filteredWorkers.filter(
-          (worker) => worker.organization_id === this.selectedOrgId
-        );
-      }
-      return filteredWorkers;
-    },
-  },
-  methods: {
-    toggleWorkers() {
-      axios
-        .get('http://127.0.0.1:8001/api/admin/workers')
-        .then((response) => {
-          this.workers = response.data;
-        })
-        .catch((error) => {
-          console.log(error);
-          this.errorMessage =
-            'Failed to fetch workers. Please try again later.';
-        });
-    },
-    deleteWorker(workerId) {
-      console.log(workerId);
-      Call the delete API endpoint here
-      if (confirm('Are you sure you want to delete this worker?')) {
-        axios
-          .post(`http://127.0.0.1:8001/api/admin/users/${workerId}`)
-          .then((response) => {
-            const index = this.workers.findIndex(
-              (worker) => worker.id === workerId
-            );
-            if (index > -1) {
-              this.workers.splice(index, 1);
-            }
-            console.log(response);
-          })
-          .catch((error) => {
-            console.log(error);
-            this.errorMessage =
-              'Failed to delete worker. Please try again later.';
-          });
-      }
-    },
-    resetSearch() {
-      this.searchTerm = '';
-      this.selectedOrgId = '';
-      this.toggleWorkers();
-    },
-  },
-};
-</script> -->

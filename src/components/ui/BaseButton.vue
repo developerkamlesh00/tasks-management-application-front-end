@@ -70,4 +70,17 @@ button:active {
 .outline:active {
   background-color: #edd2ff;
 }
+
+@media only screen and (max-width: 600px) {
+  button,
+  a {
+    padding: 0.5rem 1rem;
+  }
+
+  .flat,
+  .outline {
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+  }
+}
 </style>

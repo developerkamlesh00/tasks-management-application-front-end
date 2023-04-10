@@ -8,11 +8,10 @@ import AuthLogin from "./pages/auth/AuthLogin.vue";
 
 //import Admin components
 import AdminDashboard from "./pages/admin/AdminDashboard.vue";
-import ShowOrganizations from "./components/admin/ShowOrganizations.vue"
-import ShowDirectors from "./components/admin/ShowDirectors.vue"
-import ShowManagers from "./components/admin/ShowManagers.vue"
-import ShowWorkers from "./components/admin/ShowWorkers.vue"
-
+import ShowOrganizations from "./components/admin/ShowOrganizations.vue";
+import ShowDirectors from "./components/admin/ShowDirectors.vue";
+import ShowManagers from "./components/admin/ShowManagers.vue";
+import ShowWorkers from "./components/admin/ShowWorkers.vue";
 
 //director compo
 import OrganizationRegister from "./pages/director/OrganizationRegister.vue";
@@ -21,7 +20,6 @@ import CreateManagerWorker from "./components/director/CreateManagerWorker.vue";
 import CreateProject from "./components/director/CreateProject.vue";
 import ViewProjects from "./pages/director/ViewProjects.vue";
 //end director compo
-
 
 import ManagerDashboard from "./pages/manager/ManagerDashboard.vue";
 import WorkerView from "./pages/worker/WorkerView.vue";
@@ -48,16 +46,20 @@ const routes = [
     name: "admin",
     component: AdminDashboard,
     children: [
-      { path: 'organizations', name: "showOrganizations", component: ShowOrganizations },
-      { path: 'directors', name: "showDirectors", component: ShowDirectors },
-      { path: 'managers', name: "showManagers", component: ShowManagers },
-      { path: 'workers', name: "showWorkers", component: ShowWorkers },
+      {
+        path: "organizations",
+        name: "showOrganizations",
+        component: ShowOrganizations,
+      },
+      { path: "directors", name: "showDirectors", component: ShowDirectors },
+      { path: "managers", name: "showManagers", component: ShowManagers },
+      { path: "workers", name: "showWorkers", component: ShowWorkers },
     ],
     beforeEnter: (_, _1, next) => {
-      if(store.getters.role == 'admin' && store.getters.isAuthenticated){
+      if (store.getters.role == "admin" && store.getters.isAuthenticated) {
         next();
-      }else{
-        next('/login');
+      } else {
+        next("/login");
       }
     },
   },
@@ -66,14 +68,16 @@ const routes = [
     name: "director",
     component: DirectorDashboard,
     children: [
-      { path: ':add',name: "managerworker", component: CreateManagerWorker },
-      { path: ':add',name: "project", component: CreateProject },
-      { 
-        path: ':add',name: "viewproject", component: ViewProjects
+      { path: ":add", name: "managerworker", component: CreateManagerWorker },
+      { path: ":add", name: "project", component: CreateProject },
+      {
+        path: ":add",
+        name: "viewproject",
+        component: ViewProjects,
         // children: [
         //   { path: 'editproject',name: "editproject", component: CreateProject }
         // ]
-      }
+      },
     ],
     // beforeEnter: (_, _1, next) => {
     //   if (store.getters.role == "director" && store.getters.isAuthenticated) {
@@ -117,17 +121,15 @@ const routes = [
       },
       {
         path: "progress",
-        component: 
-        WorkStatistics,
+        component: WorkStatistics,
       },
       {
         path: "dashboard",
-        component: 
-        KanbanBoard,
+        component: KanbanBoard,
       },
       // {
       //   path: "/:notFound(.*)",
-      //   component: 
+      //   component:
       //   TasksTable,
       // },
     ],

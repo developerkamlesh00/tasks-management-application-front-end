@@ -120,7 +120,7 @@ export default {
                         'Failed to fetch directors. Please try again later.';
                 });
         },
-        deleteWorker(directorId) {
+        deleteDirector(directorId) {
             console.log(directorId);
             // Call the delete API endpoint here
             if (confirm('Are you sure you want to delete this director?')) {
@@ -157,13 +157,13 @@ export default {
     }
 };
 </script>
-  
-
 
 <style scoped>
 .container {
-    margin-left: 20px;
+    margin: 20px;
+    padding: 20px;
 }
+
 
 .header {
     font-size: 2rem;
@@ -174,6 +174,8 @@ export default {
 }
 
 .table-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
     text-align: center;
 }
 
@@ -184,108 +186,139 @@ export default {
 
 .directors-table th,
 .directors-table td {
-    padding: 8px;
+    padding: 12px;
     text-align: left;
     border-bottom: 1px solid #ddd;
 }
 
 .directors-table th {
-    background-color: #f2f2f2;
-    color: #333;
+    font-size: 1.2rem;
     font-weight: bold;
+    color: #333;
 }
 
-.error-message {
-    color: red;
-    margin-top: 10px;
-}
-
-
-.delete-cell {
-    width: 10%;
+.directors-table td {
+    padding: 10px;
     text-align: center;
 }
 
-.delete-cell button {
-    padding: 4px 8px;
-    background-color: #f44336;
+
+.directors-table td.delete-cell button {
+    background-color: #ff5c5c;
     color: #fff;
     border: none;
+    padding: 8px 16px;
     border-radius: 4px;
+    font-size: 1rem;
     cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.directors-table td.delete-cell button:hover {
+    background-color: #ff7f7f;
 }
 
 .delete-cell button:hover {
-    background-color: #c62828;
-}
-
-
-.search-container {
-    margin-bottom: 10px;
-    padding: 10px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.search-container input[type="text"] {
-    width: 60%;
-    padding: 8px;
-    margin-right: 10px;
-    margin-bottom: 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-.search-container select,
-.search-container button {
-    margin-bottom: 0;
-    margin-left: 10px;
-    padding: 8px;
-    background-color: #4CAF50;
+    background-color: #ff6666;
     color: #fff;
-    border: none;
-    border-radius: 4px;
     cursor: pointer;
 }
-
-.search-container select:hover,
-.search-container button:hover {
-    background-color: #3e8e41;
-}
-
 
 .pagination-container {
     display: flex;
     justify-content: center;
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .pagination-container button {
-    padding: 5px 10px;
-    margin: 0 5px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
     background-color: #fff;
+    border: 1px solid #ddd;
     color: #333;
-    font-weight: bold;
+    padding: 6px 12px;
+    margin-right: 5px;
     cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.pagination-container button:hover {
+    background-color: #f2f2f2;
 }
 
 .pagination-container button.active {
-    background-color: #0077ff;
+    background-color: #333;
     color: #fff;
-}
-
-.previous-page-btn,
-.next-page-btn {
-    margin: 0 10px;
-}
-
-.previous-page-btn:disabled,
-.next-page-btn:disabled {
-    opacity: 0.5;
     cursor: default;
 }
+
+.pagination-container button:not(:last-child) {
+    margin-right: 10px;
+}
+
+
+.search-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.search-container input[type="text"] {
+    padding: 10px;
+    width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.search-container select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.search-container button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-container button:hover {
+    background-color: #555;
+}
+
+.error-message {
+    text-align: center;
+    color: #ff6666;
+    font-weight: bold;
+}
+
+
+@media screen and (max-width: 768px) {
+  .directors-table thead {
+    display: none;
+  }
+
+  .directors-table td:before {
+    content: attr(data-label);
+    font-weight: bold;
+    display: block;
+    text-align: center;
+  }
+
+  .directors-table td.delete-cell {
+    padding: 10px 0;
+  }
+
+  .directors-table td.delete-cell button {
+    margin-top: 10px;
+  }
+}
+
 </style>
