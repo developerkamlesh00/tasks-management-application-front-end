@@ -15,6 +15,9 @@
 
 import TheHeader from './components/navigation/TheHeader.vue';
 import TheFooter from './components/navigation/TheFooter.vue';
+// import TheFooter from './components/navigation/TheFooter.vue';
+// import Table from './components/Table.vue'
+// import ExportButton from './components/ExportButton.vue'
 
 export default {
   components:{
@@ -24,6 +27,7 @@ export default {
   created() {
     this.$store.dispatch('tryLogin');
   },
+    
 }
 </script>
 
