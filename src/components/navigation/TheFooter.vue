@@ -37,3 +37,21 @@
         </footer>
       </div>
 </template>
+
+<style>
+  /* Basic styling */
+  .social-link {
+    display: inline-block;
+    margin-right: 1rem;
+    color: #fff;
+    font-size: 1.5rem;
+    text-decoration: none;
+  }
+
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .social-link {
+      font-size: 1.2rem;
+    }
+  }
+</style>
