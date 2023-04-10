@@ -19,7 +19,7 @@
             </base-card>
         </div>
     </div>
-
+ <div>{{ this.getRows }}</div>
     <div class="my-3 p-3 row">
         <div class="col-6">
             <label for="form-label">Searching</label>
