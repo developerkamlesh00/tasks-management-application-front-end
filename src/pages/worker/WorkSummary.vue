@@ -31,6 +31,9 @@
 </template>
 
 <script>
+// export default {
+   
+// }
 // import { mapGetters } from 'vuex'
 // import Chart from 'chart.js/auto'
 
@@ -183,6 +186,8 @@
 //     //     }
 //     // },
 // }
+
+//from my comment
 import {chart} from 'chart.js'
 import { mapGetters } from 'vuex';
 const tasks={ "1": { "completed": [], "pending": [ 18 ] }, "6": { "completed": [], "pending": [ 162 ] }, "8": { "completed": [ 229 ], "pending": [] } };
