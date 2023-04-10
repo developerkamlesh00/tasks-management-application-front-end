@@ -109,9 +109,11 @@ export default {
     },
     methods: {
         toggleDirectors() {
+
             axios
-                .get('http://127.0.0.1:8001/api/admin/directors')
+                .get('http://127.0.0.1:8000/api/admin/directors')
                 .then((response) => {
+
                     this.directors = response.data;
                 })
                 .catch((error) => {
@@ -124,12 +126,14 @@ export default {
             console.log(directorId);
             // Call the delete API endpoint here
             if (confirm('Are you sure you want to delete this director?')) {
+
                 axios
-                    .post(`http://127.0.0.1:8001/api/admin/users/${directorId}`)
+                    .post(`http://127.0.0.1:8000/api/admin/users/${directorId}`)
                     .then((response) => {
                         const index = this.directors.findIndex(
                             (director) => director.id === directorId
                         );
+
                         if (index > -1) {
                             this.directors.splice(index, 1);
                         }

@@ -109,9 +109,11 @@ export default {
     },
     methods: {
         toggleManagers() {
+
             axios
-                .get('http://127.0.0.1:8001/api/admin/managers')
+                .get('http://127.0.0.1:8000/api/admin/managers')
                 .then((response) => {
+
                     this.managers = response.data;
                 })
                 .catch((error) => {
@@ -123,13 +125,15 @@ export default {
         deleteWorker(managerId) {
             console.log(managerId);
             // Call the delete API endpoint here
+
             if (confirm('Are you sure you want to delete this manager?')) {
                 axios
-                    .post(`http://127.0.0.1:8001/api/admin/users/${managerId}`)
+                    .post(`http://127.0.0.1:8000/api/admin/users/${managerId}`)
                     .then((response) => {
                         const index = this.managers.findIndex(
                             (manager) => manager.id === managerId
                         );
+
                         if (index > -1) {
                             this.managers.splice(index, 1);
                         }

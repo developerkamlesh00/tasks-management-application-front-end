@@ -58,7 +58,7 @@ export default {
 
   methods: {
     toggleOrganizations() {
-      axios.get('http://127.0.0.1:8001/api/admin/organizations')
+      axios.get('http://127.0.0.1:8000/api/admin/organizations')
         .then(response => {
           this.organizations = response.data;
         })

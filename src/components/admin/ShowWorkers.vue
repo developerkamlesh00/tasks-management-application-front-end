@@ -108,10 +108,12 @@ export default {
 
     },
     methods: {
+
         toggleWorkers() {
             axios
-                .get('http://127.0.0.1:8001/api/admin/workers')
+                .get('http://127.0.0.1:8000/api/admin/workers')
                 .then((response) => {
+
                     this.workers = response.data;
                 })
                 .catch((error) => {
@@ -123,13 +125,15 @@ export default {
         deleteWorker(workerId) {
             console.log(workerId);
             // Call the delete API endpoint here
+
             if (confirm('Are you sure you want to delete this worker?')) {
                 axios
-                    .post(`http://127.0.0.1:8001/api/admin/users/${workerId}`)
+                    .post(`http://127.0.0.1:8000/api/admin/users/${workerId}`)
                     .then((response) => {
                         const index = this.workers.findIndex(
                             (worker) => worker.id === workerId
                         );
+
                         if (index > -1) {
                             this.workers.splice(index, 1);
                         }
