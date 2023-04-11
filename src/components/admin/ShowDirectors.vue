@@ -162,167 +162,117 @@ export default {
 };
 </script>
 
-<style scoped>
-.container {
-    margin: 20px;
-    padding: 20px;
-}
 
+<style scoped>
+
+
+.container {
+  margin: 20px;
+  padding: 20px;
+}
 
 .header {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #333;
-    text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #2c3e50; /* updated color */
+  text-align: center;
 }
-
-.table-container {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.directors-table {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-.directors-table th,
-.directors-table td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-.directors-table th {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #333;
-}
-
-.directors-table td {
-    padding: 10px;
-    text-align: center;
-}
-
-
-.directors-table td.delete-cell button {
-    background-color: #ff5c5c;
-    color: #fff;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.directors-table td.delete-cell button:hover {
-    background-color: #ff7f7f;
-}
-
-.delete-cell button:hover {
-    background-color: #ff6666;
-    color: #fff;
-    cursor: pointer;
-}
-
-.pagination-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-.pagination-container button {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    color: #333;
-    padding: 6px 12px;
-    margin-right: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.pagination-container button:hover {
-    background-color: #f2f2f2;
-}
-
-.pagination-container button.active {
-    background-color: #333;
-    color: #fff;
-    cursor: default;
-}
-
-.pagination-container button:not(:last-child) {
-    margin-right: 10px;
-}
-
 
 .search-container {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
 
 .search-container input[type="text"] {
-    padding: 10px;
-    width: 300px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
+  width: 300px;
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
 }
 
 .search-container select {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
+  width: 200px;
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
 }
 
 .search-container button {
-    background-color: #333;
-    color: #fff;
-    border: none;
-    padding: 10px 16px;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  padding: 8px 12px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: none;
+  background-color: #2c3e50; /* updated color */
+  color: #fff;
 }
 
-.search-container button:hover {
-    background-color: #555;
+.table-container {
+  margin-top: 20px;
+}
+
+.directors-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+
+.directors-table th {
+  padding: 12px;
+  background-color: #2c3e50; /* updated color */
+  color: #fff;
+  text-align: left;
+}
+
+.directors-table td {
+  padding: 12px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+.directors-table td.delete-cell {
+  text-align: center;
+}
+
+.directors-table td.delete-cell button {
+  padding: 8px 12px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: none;
+  background-color: #e74c3c; /* updated color */
+  color: #fff;
+}
+
+.pagination-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination-container button {
+  padding: 8px 12px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  margin-right: 10px;
+}
+
+.pagination-container button.active {
+  background-color: #2c3e50; /* updated color */
+  color: #fff;
+  border: none;
 }
 
 .error-message {
-    text-align: center;
-    color: #ff6666;
-    font-weight: bold;
+  color: #e74c3c; /* updated color */
+  text-align: center;
+  margin-top: 10px;
 }
-
-
-@media screen and (max-width: 768px) {
-  .directors-table thead {
-    display: none;
-  }
-
-  .directors-table td:before {
-    content: attr(data-label);
-    font-weight: bold;
-    display: block;
-    text-align: center;
-  }
-
-  .directors-table td.delete-cell {
-    padding: 10px 0;
-  }
-
-  .directors-table td.delete-cell button {
-    margin-top: 10px;
-  }
-}
-
 </style>

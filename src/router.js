@@ -12,7 +12,7 @@ import ShowOrganizations from "./components/admin/ShowOrganizations.vue";
 import ShowDirectors from "./components/admin/ShowDirectors.vue";
 import ShowManagers from "./components/admin/ShowManagers.vue";
 import ShowWorkers from "./components/admin/ShowWorkers.vue";
-
+import adminStatistics from "./components/admin/AdminStatistics.vue"
 //director compo
 import OrganizationRegister from "./pages/director/OrganizationRegister.vue";
 import DirectorDashboard from "./pages/director/DirectorDashboard.vue";
@@ -48,6 +48,11 @@ const routes = [
     name: "admin",
     component: AdminDashboard,
     children: [
+      {
+        path: "adminStatistics",
+        name: "adminStatistics",
+        component: adminStatistics,
+      },
       {
         path: "organizations",
         name: "showOrganizations",
@@ -118,23 +123,21 @@ const routes = [
       },
       {
         path: "task/:id([0-9]+)",
-        name:"task_detail",
+        name: "task_detail",
         props: true,
         component: TaskDetails,
       },
       {
-        path: "progress
-        component: 
-        InfographicsPage,
+        path: "progress",
+        component: InfographicsPage,
       },
       {
         path: "dashboard",
         component: KanbanBoard,
       },
-            {
+      {
         path: "settings",
-        component: 
-        DashboardSettings,
+        component: DashboardSettings,
       },
       // {
       //   path: "/:notFound(.*)",
@@ -143,18 +146,17 @@ const routes = [
       // },
     ],
   },
-      // beforeEnter: (_, _1, next) => {
-    //   if(store.getters.role == 'worker' && store.getters.isAuthenticated){
-    //     next();
-    //   }else{
-    //     next('/login');
-    //   }
-    // },
+  // beforeEnter: (_, _1, next) => {
+  //   if(store.getters.role == 'worker' && store.getters.isAuthenticated){
+  //     next();
+  //   }else{
+  //     next('/login');
+  //   }
+  // },
   {
     path: "/:notFound(.*)",
     component: NotFound,
   },
-  
 ];
 
 const router = createRouter({
