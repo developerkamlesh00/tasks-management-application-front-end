@@ -49,7 +49,7 @@ const routes = [
     component: AdminDashboard,
     children: [
       {
-        path: "adminStatistics",
+        path: "",
         name: "adminStatistics",
         component: adminStatistics,
       },
