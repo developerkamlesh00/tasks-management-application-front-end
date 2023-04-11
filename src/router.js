@@ -137,14 +137,7 @@ const routes = [
         path: "/:notFound(.*)",
         component: 
         TasksTable,
-      },
-    // beforeEnter: (_, _1, next) => {
-    //   if(store.getters.role == 'worker' && store.getters.isAuthenticated){
-    //     next();
-    //   }else{
-    //     next('/login');
-    //   }
-    // },
+      }]
   },
   {
     path: "/:notFound(.*)",

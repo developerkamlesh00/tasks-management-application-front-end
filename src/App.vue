@@ -2,6 +2,7 @@
   <div class="body">  
     <the-header></the-header>
       <router-view v-slot="{Component}">
+        <!-- <BaseChart/> -->
         <!-- <transition name="slide"> -->
           <component :is="Component" />
         <!-- </transition> -->
@@ -12,7 +13,7 @@
 </template>
 
 <script>
-
+// import BaseChart from './components/ui/BaseChart.vue'
 import TheHeader from './components/navigation/TheHeader.vue';
 import TheFooter from './components/navigation/TheFooter.vue';
 // import TheFooter from './components/navigation/TheFooter.vue';
