@@ -23,7 +23,9 @@ const store = createStore({
   state(){
     return{
       projs: [],
-      workers: []
+      workers: [],
+      project: [],
+      worker:[]
     }
   },
 
@@ -33,7 +35,12 @@ const store = createStore({
     },
     workerLists(state){
       return state.workers
+    },
+
+    singleProject(state){
+      return state.project[0]
     }
+
   },
 
   mutations:{
@@ -53,8 +60,7 @@ const store = createStore({
       
       
       const ManagerId = localStorage.getItem("userId")
-      //console.log(ManagerId)  
-      
+      //console.log(ManagerId)      
       await axios.get(`http://localhost:8000/api/project?manager=${ManagerId}`)
       .then(function (response) {
       // handle success
@@ -89,12 +95,52 @@ const store = createStore({
     // always executed
   });
  
+},
+
+async getProject(context, payload){ //
+      
+  await axios.get(`http://localhost:8000/api/single_project?id=${payload.value}`)
+  .then(function (response) {
+  // handle success
+  //console.log(response)
+  context.state.project =response.data
+
+})
+.catch(function (error) {
+  // handle error
+  console.log(error);
+})
+.finally(function () {
+  // always executed
+});
+
+},
+
+async getTasks(){ //
+      
+  await axios.get(`http://localhost:8000/api/tasks`)
+  .then(function (response) {
+  // handle success
+  console.log(response)
+  
+
+})
+.catch(function (error) {
+  // handle error
+  console.log(error);
+})
+.finally(function () {
+  // always executed
+});
+
 }
 
-  }
 
-  
-  
+
+
+
+
+}
 
 });
 
