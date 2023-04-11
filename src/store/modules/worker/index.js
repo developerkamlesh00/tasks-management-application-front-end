@@ -27,6 +27,12 @@ export default {
         3:'Review',
         4:'Completed',
       },
+      statusId:{
+        'ToDo':1,
+        'Doing':2,
+        'Review':3,
+        'Completed':4,
+      },
     };
   },
   

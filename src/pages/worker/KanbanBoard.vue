@@ -2,24 +2,25 @@
 
     <!-- Create new Board -->
     <div class="container">
-        <input type="text" class="form-control w-75 d-inline" v-model="board_name" placeholder="Enter Board Name">
-        <button class="btn btn-primary w-25 " @click="createNewBoard()">+Add board</button>
+        <input type="text" class="form-control w-75 me-2 d-inline" v-model="board_name" placeholder="Enter Board Name">
+        <button class="btn btn-primary px-3" @click="createNewBoard()">+Add board</button>
     </div>
 
 
     <main class="flexbox scrolls" @dragover.prevent @drop.prevent="drop">
         <the-board v-for="board, index in getBoards" :id="'board-' + board.id" :key="index">
-            <h2 class="text-light">{{ board.name }} <h6>Board id: {{ board.id }}</h6>
-            </h2>
-            <the-card v-for="task in getBoardTasks(board.id)" class="card text-bg-primary mb-3 p-0" :key="task.id"
-                :id="'card-' + task.id" :draggable="board.id !== 3 && board.id !== 4" @drop.prevent="drop">
-                <div class="card-header">Task id: {{ task.id }}</div>
+            <template v-slot:header>
+            <h2 class="text-light  text-center">{{ board.name }} <h6>Board id: {{ board.id }}</h6>
+            </h2></template>
+            <the-card v-for="task in getBoardTasks(board.id)" class="card mb-3 p-0 " :key="task.id"
+                :id="'card-' + task.id" :draggable="board.id !== 3 && board.id !== 4" @drop.prevent="drop(board.id)">
+                <div class="card-header text-center" >Task id: {{ task.id }}</div>
                 <div class="card-body">
                     <h6 class="card-title">{{ task.title }}</h6>
                     <small class="card-text font-weight-lighter font-italic">{{ task.description.slice(0, 20)
                     }}...</small>
                     <router-link class="btn btn-light btn-sm text-dark text-decoration-none"
-                        to="/worker/task/task.id">View</router-link>
+                        :to="{name:'task_detail',params:{'id':task.id}}">View</router-link>
                 </div>
             </the-card>
         </the-board>
@@ -89,8 +90,6 @@ export default {
     width: 100%;
     height: 100%;
     /* overflow: hidden; */
-
-
     margin: 0 auto;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <!-- <div class="row">
+  <!-- <div class="row">
         <div class="col-4">
             <base-card class="bg-info">
                 <base-button class="m-auto rounded-4">Total Tasks Assigned</base-button>
@@ -19,15 +19,52 @@
             </base-card>
         </div>
     </div> -->
-    <div>
-    <canvas ref="myChart"></canvas>
+  <div>
+    <div class="card h-100">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h5 class="mb-2">Top coupons</h5>
+            <h6 class="text-700">Last 7 days</h6>
+          </div>
+        </div>
+        <div class="pb-4 pt-3">
+          <div class="echart-top-coupons"
+            style="height: 115px; width: 100%; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); position: relative;"
+            _echarts_instance_="ec_1681113826644">
+            <div
+              style="position: relative; width: 407px; height: 115px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;">
+              <canvas data-zr-dom-id="zr_0" width="610" height="172"
+                style="position: absolute; left: 0px; top: 0px; width: 407px; height: 115px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas>
+            </div>
+            <div class=""></div>
+          </div>
+        </div>
+        <div>
+          <div class="d-flex align-items-center mb-2">
+            <div class="bullet-item bg-primary me-2"></div>
+            <h6 class="text-900 fw-semi-bold flex-1 mb-0">Percentage discount</h6>
+            <h6 class="text-900 fw-semi-bold mb-0">72%</h6>
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <div class="bullet-item bg-primary-200 me-2"></div>
+            <h6 class="text-900 fw-semi-bold flex-1 mb-0">Fixed card discount</h6>
+            <h6 class="text-900 fw-semi-bold mb-0">18%</h6>
+          </div>
+          <div class="d-flex align-items-center">
+            <div class="bullet-item bg-info-500 me-2"></div>
+            <h6 class="text-900 fw-semi-bold flex-1 mb-0">Fixed product discount</h6>
+            <h6 class="text-900 fw-semi-bold mb-0">10%</h6>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-    <!-- <div>
+  <!-- <div>
         <canvas id="myChart"></canvas>
     </div>
     <button @click="setGraphProps()">Click</button>
     <div class="">Task per project{{ getTasksPerProject }}</div> -->
-    
 </template>
 
 <script>
@@ -186,25 +223,23 @@
 //     //     }
 //     // },
 // }
-
-//from my comment
-import {chart} from 'chart.js'
+import { chart } from 'chart.js'
 import { mapGetters } from 'vuex';
-const tasks={ "1": { "completed": [], "pending": [ 18 ] }, "6": { "completed": [], "pending": [ 162 ] }, "8": { "completed": [ 229 ], "pending": [] } };
+const tasks = { "1": { "completed": [], "pending": [18] }, "6": { "completed": [], "pending": [162] }, "8": { "completed": [229], "pending": [] } };
 
 export default {
-    data(){
-      return{
-      }
-    },
+  data() {
+    return {
+    }
+  },
   mounted() {
     // this.tasks=this.getTasksPerProject;
-    console.log("ds",this.tasks)
+    console.log("ds", this.tasks)
     this.renderChart();
   },
   computed: {
-        ...mapGetters('worker', ['getTasksPerProject', 'getCounts'])
-    },
+    ...mapGetters('worker', ['getTasksPerProject', 'getCounts'])
+  },
   methods: {
     renderChart() {
       const data = {

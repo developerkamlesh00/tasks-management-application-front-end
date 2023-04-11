@@ -6,6 +6,9 @@ export default {
     getStatus(state) {
       return state.status;
     },
+    getStatusId(state) {
+      return state.statusId;
+    },
     getTasks(state) {
       return state.tasks;
     },
