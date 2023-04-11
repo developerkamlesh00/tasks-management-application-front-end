@@ -1,4 +1,8 @@
 <template>
+  <div class="search-container form-outline">
+      <input class="form-control" id="search" type="text" placeholder="Search Project with Title Description and Manager Name" v-model="searchTerm" @input="searchOrganization">
+      <button id="reset" @click="clearSearch">Clear</button>
+  </div>
    <base-dialog
     :show="viewForm"
     title="Edit Project Info"
@@ -60,9 +64,7 @@
       <base-button id="btncreate">Update Project</base-button>
     </form>
   </base-dialog>
-  <!-- <router-view v-slot="{ Component }">
-    <component :is="Component" />
-  </router-view> -->
+
   <div class="table-responsive text-nowrap table-content">
     <table
       id="dtHorizontalVerticalExample"
@@ -87,18 +89,19 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="project in projects" :key="project.id">
+        <tr v-for="project in filteredProjects" :key="project.id">
           <th scope="row">{{ project.id }}</th>
           <td>{{ project.title }}</td>
           <td>{{ project.description }}</td>
-          <td>{{ project.assigned_at }}</td>
-          <td>{{ project.estimated_deadline }}</td>
+          <td>{{ project.assigned_at.slice(0,10) }}</td>
+          <td>{{ project.estimated_deadline.slice(0,10) }}</td>
           <td>{{ project.completed_at }}</td>
-          <td>{{ project.user['name'] }}</td>
+          <td>{{ project.username }}</td>
           <td>
             <div class="progress">
+              <!-- class="progress-bar bg-success" -->
               <div
-                class="progress-bar bg-success"
+                :class="backgroundChange(project.tasks_completed,project.total_tasks)"
                 role="progressbar"
                 aria-valuenow="70"
                 aria-valuemin="0"
@@ -106,14 +109,14 @@
                 :style="
                   'width:' +
                   parseInt(
-                    (project.tasks_completed / project.total_tasks) * 100 || 1
+                    (project.tasks_completed / project.total_tasks) * 100 || 0
                   ) +
                   '%'
                 "
               >
                 {{
                   parseInt(
-                    (project.tasks_completed / project.total_tasks) * 100 || 1
+                    (project.tasks_completed / project.total_tasks) * 100 || 0
                   )
                 }}%
               </div>
@@ -126,15 +129,12 @@
       </tbody>
     </table>
   </div>
-  <canvas id="myChart" width="400" height="400"></canvas>
+  
 </template>
 
 <script>
 import axios from "axios";
 import BaseButton from '@/components/ui/BaseButton.vue';
-import { Chart, CategoryScale, LinearScale, BarController, BarElement } from 'chart.js';
-
-Chart.register(CategoryScale, LinearScale, BarController, BarElement);
 
 export default {
   components: { BaseButton },
@@ -157,6 +157,7 @@ export default {
       formIsValid: true,
       successful: null,
       selectedProject: null,
+      searchTerm:'', //for search 
 
       assign_at: '2000-01-01T00:00:00.000Z', //default date 
       estimated_deadline: '2000-01-01T00:00:00.000Z', //default date 
@@ -164,7 +165,24 @@ export default {
       assign_at_string1: '',
     };
   },
- 
+  computed:{
+    filteredProjects() {
+      console.log(this.projects);
+      if (this.searchTerm) {
+        return this.projects.filter(project => {
+          const title = project.title.toLowerCase();
+          const managername = project.username.toLowerCase();
+          const description = project.description.toLowerCase();
+          const term = this.searchTerm.toLowerCase();
+          return managername.includes(term) || title.includes(term) || description.includes(term);
+        });
+      } else {
+        return this.projects;
+      }
+    },
+   
+  },
+
   //for update Date 
   watch: {
     assign_at(newValue) {
@@ -184,6 +202,15 @@ export default {
   },
 
   methods: {
+    backgroundChange(tasks_completed, total_tasks){
+      if((tasks_completed / total_tasks) * 100 < 30){
+        return "progress-bar bg-danger"
+      }else if((tasks_completed / total_tasks) * 100 < 60){
+        return "progress-bar bg-warning"
+      }else{
+        return "progress-bar bg-success"
+      }
+    },
     openProjectEdit(project) {
       //this.selectedProject = project;
       this.viewForm = true;
@@ -200,6 +227,10 @@ export default {
 
     handleProject() {
       this.viewForm = false;
+    },
+    //clear search
+    clearSearch(){
+      this.searchTerm = ''
     },
     //open edit box and then fetch managers list
     async openProject() {
@@ -268,7 +299,27 @@ export default {
         .get("http://localhost:8000/api/director/projects/" + org)
         .then((response) => {
           console.log(response.data);
-          this.projects = response.data;
+         // this.projects = response.data;
+
+          let projects = [];
+          for (let key in response.data) {
+            projects.push({ 
+              id: response.data[key].id,
+              title: response.data[key].title,
+              description: response.data[key].description,
+              assigned_at: response.data[key].assigned_at,
+              estimated_deadline: response.data[key].estimated_deadline,
+              completed_at:response.data[key].completed_at,
+              username : response.data[key].user['name'],
+              total_tasks : response.data[key].total_tasks,
+              tasks_completed : response.data[key].tasks_completed,
+              manager_id: response.data[key].manager_id,
+
+            });
+          }
+          this.projects = projects;
+
+
         })
         .catch((err) => {
           console.log(err);
@@ -277,8 +328,9 @@ export default {
       //await this.$store.commit("setprojects",this.projects);
       //console.log(await this.$store.getters.getProjects);
       //get proxy result into json format
-      const projects = JSON.parse(JSON.stringify(this.projects));
-      this.projects = projects;
+
+      // const projects = JSON.parse(JSON.stringify(this.projects));
+      // this.projects = projects;
     },
     async reloadComponent() {
       await this.loadProject();
@@ -287,47 +339,6 @@ export default {
 
   async mounted() {
     await this.loadProject()
-    const ctx = document.getElementById('myChart');
-    const myChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          x: {
-            type: 'category'
-          },
-          y: {
-            ticks: {
-              beginAtZero: true
-            }
-          }
-        }
-      }
-    });
-    console.log(myChart);
   },
 
 };
@@ -382,5 +393,23 @@ textarea:focus {
   border-color: #3d008d;
   background-color: #faf6ff;
   outline: none;
+}
+
+
+.search-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#reset{
+  background-color: #e01d92;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
 }
 </style>

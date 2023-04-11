@@ -19,6 +19,7 @@ import DirectorDashboard from "./pages/director/DirectorDashboard.vue";
 import CreateManagerWorker from "./components/director/CreateManagerWorker.vue";
 import CreateProject from "./components/director/CreateProject.vue";
 import ViewProjects from "./pages/director/ViewProjects.vue";
+import ViewSummary from "./components/director/ViewSummary.vue";
 //end director compo
 
 import ManagerDashboard from "./pages/manager/ManagerDashboard.vue";
@@ -70,14 +71,8 @@ const routes = [
     children: [
       { path: ":add", name: "managerworker", component: CreateManagerWorker },
       { path: ":add", name: "project", component: CreateProject },
-      {
-        path: ":add",
-        name: "viewproject",
-        component: ViewProjects,
-        // children: [
-        //   { path: 'editproject',name: "editproject", component: CreateProject }
-        // ]
-      },
+      { path: ":add", name: "viewproject", component: ViewProjects },
+      { path: ":add", name: "viewsummary", component: ViewSummary },
     ],
     beforeEnter: (_, _1, next) => {
       if (store.getters.role == "director" && store.getters.isAuthenticated) {

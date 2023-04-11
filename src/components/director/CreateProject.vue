@@ -106,7 +106,7 @@ export default {
           this.error = null;
         }
       } catch (error) {
-        this.error = "Something Wrong....";
+        this.error = ["Something Wrong...."];
       }
     },
   },
