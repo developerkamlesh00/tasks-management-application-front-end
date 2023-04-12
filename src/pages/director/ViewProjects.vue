@@ -132,9 +132,9 @@
 <script>
 import axios from "axios";
 import BaseButton from '@/components/ui/BaseButton.vue';
-import { Chart, CategoryScale, LinearScale, BarController, BarElement } from 'chart.js';
+// import { Chart, CategoryScale, LinearScale, BarController, BarElement } from 'chart.js';
 
-Chart.register(CategoryScale, LinearScale, BarController, BarElement);
+// Chart.register(CategoryScale, LinearScale, BarController, BarElement);
 
 export default {
   components: { BaseButton },
@@ -287,47 +287,47 @@ export default {
 
   async mounted() {
     await this.loadProject()
-    const ctx = document.getElementById('myChart');
-    const myChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          x: {
-            type: 'category'
-          },
-          y: {
-            ticks: {
-              beginAtZero: true
-            }
-          }
-        }
-      }
-    });
-    console.log(myChart);
+    // const ctx = document.getElementById('myChart');
+    // const myChart = new Chart(ctx, {
+    //   type: 'bar',
+    //   data: {
+    //     labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    //     datasets: [{
+    //       label: '# of Votes',
+    //       data: [12, 19, 3, 5, 2, 3],
+    //       backgroundColor: [
+    //         'rgba(255, 99, 132, 0.2)',
+    //         'rgba(54, 162, 235, 0.2)',
+    //         'rgba(255, 206, 86, 0.2)',
+    //         'rgba(75, 192, 192, 0.2)',
+    //         'rgba(153, 102, 255, 0.2)',
+    //         'rgba(255, 159, 64, 0.2)'
+    //       ],
+    //       borderColor: [
+    //         'rgba(255, 99, 132, 1)',
+    //         'rgba(54, 162, 235, 1)',
+    //         'rgba(255, 206, 86, 1)',
+    //         'rgba(75, 192, 192, 1)',
+    //         'rgba(153, 102, 255, 1)',
+    //         'rgba(255, 159, 64, 1)'
+    //       ],
+    //       borderWidth: 1
+    //     }]
+    //   },
+    //   options: {
+    //     scales: {
+    //       x: {
+    //         type: 'category'
+    //       },
+    //       y: {
+    //         ticks: {
+    //           beginAtZero: true
+    //         }
+    //       }
+    //     }
+    //   }
+    // });
+    // console.log(myChart);
   },
 
 };

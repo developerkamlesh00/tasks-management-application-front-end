@@ -29,6 +29,7 @@ import TaskDetails from "./pages/worker/TaskDetails.vue";
 // import WorkStatistics from "./pages/worker/WorkSummary.vue";
 import InfographicsPage from "./pages/worker/InfographicsPage.vue";
 import DashboardSettings from "./pages/worker/DashboardSettings.vue";
+import ProjectsPage from "./pages/worker/ProjectsPage.vue";
 
 //import UserDashboard from "./pages/UserDashboard.vue";
 import NotFound from "./pages/NotFound.vue";
@@ -123,9 +124,14 @@ const routes = [
         component: TaskDetails,
       },
       {
-        path: "progress
+        path: "progress",
         component: 
         InfographicsPage,
+      },
+      {
+        path: "projects",
+        component: 
+        ProjectsPage,
       },
       {
         path: "dashboard",

@@ -10,6 +10,8 @@
             </base-button>
             <base-button class="mb-2" link to="/worker/progress">Summary
             </base-button>
+            <base-button class="mb-2" link to="/worker/projects">Projects
+            </base-button>
             <base-button class="" link to="/worker/settings">Settings
             </base-button>
         </base-card>
