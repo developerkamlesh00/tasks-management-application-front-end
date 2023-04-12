@@ -17,7 +17,7 @@
         <p v-if="error">
           {{ error }}
         </p>
-        <base-button>Login</base-button>
+        <base-button id="btnlogin">Login</base-button>
       </form>
     </base-card>
   </div>
@@ -72,6 +72,9 @@ export default {
 </script>
 
 <style scoped>
+#btnlogin{
+  border-radius: 30px;
+}
 form {
   margin: 1rem;
   padding: 1rem;

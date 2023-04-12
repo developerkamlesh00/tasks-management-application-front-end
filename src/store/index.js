@@ -1,7 +1,4 @@
 import { createStore } from 'vuex';
-
-//import { projects, users } from './modules/manager/projList.js'
-
 import axios from 'axios';
 
 import directorModule from './modules/director/index.js';
@@ -25,7 +22,8 @@ const store = createStore({
       projs: [],
       workers: [],
       project: [],
-      worker:[]
+      worker:[],
+      tasks:[]
     }
   },
 
@@ -36,7 +34,9 @@ const store = createStore({
     workerLists(state){
       return state.workers
     },
-
+    taskLists(state){
+      return state.tasks
+    },
     singleProject(state){
       return state.project[0]
     }
@@ -116,12 +116,14 @@ async getProject(context, payload){ //
 
 },
 
-async getTasks(){ //
+async getTasks(context, payload){ //
       
-  await axios.get(`http://localhost:8000/api/tasks`)
+
+  await axios.get(`http://localhost:8000/api/tasks?id=${payload.value}`)
   .then(function (response) {
   // handle success
-  console.log(response)
+  //console.log(response)
+  context.state.tasks =response.data
   
 
 })
@@ -133,14 +135,54 @@ async getTasks(){ //
   // always executed
 });
 
+},
+
+async addTask(context,payload){
+  axios.post('http://localhost:8000/api/add_task', {
+    title:payload.title,
+    description:payload.description,
+    workerId:payload.workerId,
+    assignedDate:payload.assignedDate,
+    estimatedDeadline:payload.estimatedDeadline,
+    projectId:payload.projectId
+  })
+  .then(function (response) {
+    console.log(payload)
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(payload)
+    console.log(error);
+  });
+
+},
+
+async editTask(context,payload){
+  axios.put('http://localhost:8000/api/edit_task', {
+    id:payload.id,
+    title:payload.title,
+    description:payload.description,
+    workerId:payload.workerId,
+    assignedDate:payload.assignedDate,
+    estimatedDeadline:payload.estimatedDeadline,
+    projectId:payload.projectId
+  })
+  .then(function (response) {
+    console.log(payload)
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(payload)
+    console.log(error);
+  });
+
+}
+
+
 }
 
 
 
-
-
-
-}
 
 });
 

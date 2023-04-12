@@ -39,7 +39,7 @@ a {
   border: 1px solid #3a0061;
   color: white;
   cursor: pointer;
-  border-radius: 30px;
+  /* border-radius: 30px; */
   margin-right: 0.5rem;
   display: inline-block;
 }
@@ -69,5 +69,18 @@ button:active {
 .outline:hover,
 .outline:active {
   background-color: #edd2ff;
+}
+
+@media only screen and (max-width: 600px) {
+  button,
+  a {
+    padding: 0.5rem 1rem;
+  }
+
+  .flat,
+  .outline {
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+  }
 }
 </style>

@@ -10,6 +10,12 @@ npm install --save vue-router
 ```
 npm install --save vuex
 ```
+
+### Install Chart.js
+```
+npm install chart.js
+```
+
 ### Compiles and hot-reloads for development
 ```
 npm run serve

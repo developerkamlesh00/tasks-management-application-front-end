@@ -6,11 +6,7 @@ export default {
   namespaced: true,
   state() {
     return {
-      counter:0,
-      proj:[
-        
-      
-      ]
+     
     };
   },
   mutations,
