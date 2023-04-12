@@ -28,8 +28,6 @@ import WorkerList from "./pages/manager/Children/WorkerList.vue";
 import SingleProject from "./pages/manager/Children/SingleProject.vue"
 
 
-
-
 import WorkerView from "./pages/worker/WorkerView.vue";
 import KanbanBoard from "./pages/worker/KanbanBoard.vue";
 import TasksTable from "./pages/worker/TasksTable.vue";

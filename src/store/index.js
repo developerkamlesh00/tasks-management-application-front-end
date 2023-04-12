@@ -138,7 +138,7 @@ async getTasks(context, payload){ //
 },
 
 async addTask(context,payload){
-  axios.post('http://localhost:8000/api/add_task', {
+  await axios.post('http://localhost:8000/api/add_task', {
     title:payload.title,
     description:payload.description,
     workerId:payload.workerId,
@@ -158,7 +158,7 @@ async addTask(context,payload){
 },
 
 async editTask(context,payload){
-  axios.put('http://localhost:8000/api/edit_task', {
+  await axios.put('http://localhost:8000/api/edit_task', {
     id:payload.id,
     title:payload.title,
     description:payload.description,
@@ -176,13 +176,24 @@ async editTask(context,payload){
     console.log(error);
   });
 
+},
+
+async deleteTask(context, payload){
+  await axios.delete('http://localhost:8000/api/delete_task', {
+    id:payload.id
+  })
+  .then(function(response){
+    console.log(payload.id)
+    
+    console.log(response);
+  })
+  .catch(function(error) {
+    console.log(payload)
+    console.log(error);
+  });
 }
 
-
 }
-
-
-
 
 });
 

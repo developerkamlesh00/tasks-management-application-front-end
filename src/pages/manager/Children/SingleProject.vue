@@ -117,7 +117,7 @@
     </div>
   </div>
         </td>
-        <td> <button type="button" class="btn btn-light">🗑️</button>
+        <td> <button type="button" class="btn btn-light" @click="delTask(taskList.id)">🗑️</button>
 </td>     
       </tr>
   </tbody>
@@ -166,7 +166,7 @@ export default{
   },
 
 methods:{
-    ...mapActions(['getProject', 'getTasks', 'addTask', 'editTask']),
+    ...mapActions(['getProject', 'getTasks', 'addTask', 'editTask', 'deleteTask']),
 
     showTasks(){
       this.displayTasks=!this.displayTasks
@@ -204,8 +204,8 @@ methods:{
     },
 
 
-    deleteTask(){
-
+    delTask(id){
+      this.$store.dispatch('deleteTask', {id:id})
     }
 
   
