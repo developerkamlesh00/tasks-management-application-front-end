@@ -1,4 +1,9 @@
 <template>
+  <h2 class="header">Project List</h2><br>
+  <div class="search-container form-outline">
+      <input class="form-control" id="search" type="text" placeholder="Search Project with Title Description and Manager Name" v-model="searchTerm" @input="searchOrganization">
+      <button id="reset" @click="clearSearch">Clear</button>
+  </div>
    <base-dialog
     :show="viewForm"
     title="Edit Project Info"
@@ -60,9 +65,7 @@
       <base-button id="btncreate">Update Project</base-button>
     </form>
   </base-dialog>
-  <!-- <router-view v-slot="{ Component }">
-    <component :is="Component" />
-  </router-view> -->
+
   <div class="table-responsive text-nowrap table-content">
     <table
       id="dtHorizontalVerticalExample"
@@ -84,21 +87,23 @@
           <th scope="col">Manager Name</th>
           <th scope="col">Progress</th>
           <th scope="col">Edit</th>
+          <th scope="col">Delete</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="project in projects" :key="project.id">
+        <tr v-for="project in filteredProjects" :key="project.id">
           <th scope="row">{{ project.id }}</th>
           <td>{{ project.title }}</td>
           <td>{{ project.description }}</td>
-          <td>{{ project.assigned_at }}</td>
-          <td>{{ project.estimated_deadline }}</td>
+          <td>{{ project.assigned_at ? project.assigned_at.slice(0,10) : project.assigned_at}}</td>
+          <td>{{ project.estimated_deadline ? project.estimated_deadline.slice(0,10) : project.estimated_deadline}}</td>
           <td>{{ project.completed_at }}</td>
-          <td>{{ project.user['name'] }}</td>
+          <td>{{ project.username }}</td>
           <td>
             <div class="progress">
+              <!-- class="progress-bar bg-success" -->
               <div
-                class="progress-bar bg-success"
+                :class="backgroundChange(project.tasks_completed,project.total_tasks)"
                 role="progressbar"
                 aria-valuenow="70"
                 aria-valuemin="0"
@@ -106,14 +111,14 @@
                 :style="
                   'width:' +
                   parseInt(
-                    (project.tasks_completed / project.total_tasks) * 100 || 1
+                    (project.tasks_completed / project.total_tasks) * 100 || 0
                   ) +
                   '%'
                 "
               >
                 {{
                   parseInt(
-                    (project.tasks_completed / project.total_tasks) * 100 || 1
+                    (project.tasks_completed / project.total_tasks) * 100 || 0
                   )
                 }}%
               </div>
@@ -122,19 +127,24 @@
           <td>
             <button class="btn btn-primary" @click="openProjectEdit(project)">Edit</button>
           </td>
+          <td>
+            <button class="btn btn-danger" @click="deleteProject(project)">Delete</button>
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <canvas id="myChart" width="400" height="400"></canvas>
+  
 </template>
 
 <script>
 import axios from "axios";
 import BaseButton from '@/components/ui/BaseButton.vue';
+
 // import { Chart, CategoryScale, LinearScale, BarController, BarElement } from 'chart.js';
 
 // Chart.register(CategoryScale, LinearScale, BarController, BarElement);
+
 
 export default {
   components: { BaseButton },
@@ -157,6 +167,7 @@ export default {
       formIsValid: true,
       successful: null,
       selectedProject: null,
+      searchTerm:'', //for search 
 
       assign_at: '2000-01-01T00:00:00.000Z', //default date 
       estimated_deadline: '2000-01-01T00:00:00.000Z', //default date 
@@ -164,7 +175,24 @@ export default {
       assign_at_string1: '',
     };
   },
- 
+  computed:{
+    filteredProjects() {
+      console.log(this.projects);
+      if (this.searchTerm) {
+        return this.projects.filter(project => {
+          const title = project.title.toLowerCase();
+          const managername = project.username.toLowerCase();
+          const description = project.description.toLowerCase();
+          const term = this.searchTerm.toLowerCase();
+          return managername.includes(term) || title.includes(term) || description.includes(term);
+        });
+      } else {
+        return this.projects;
+      }
+    },
+   
+  },
+
   //for update Date 
   watch: {
     assign_at(newValue) {
@@ -184,6 +212,15 @@ export default {
   },
 
   methods: {
+    backgroundChange(tasks_completed, total_tasks){
+      if((tasks_completed / total_tasks) * 100 < 30){
+        return "progress-bar bg-danger"
+      }else if((tasks_completed / total_tasks) * 100 < 60){
+        return "progress-bar bg-warning"
+      }else{
+        return "progress-bar bg-success"
+      }
+    },
     openProjectEdit(project) {
       //this.selectedProject = project;
       this.viewForm = true;
@@ -197,9 +234,30 @@ export default {
       this.viewForm = true;
       
     },
+    //for delete Project
+    async deleteProject(project){
+      if (confirm('Are you sure you want to delete this Project?')){
+        await axios.get(
+          "http://localhost:8000/api/director/project/"+project.id
+        )
+        .then((response) =>{
+            this.loadProject()
+            return response.data;
+        })
+        .catch((err) => {
+            for (let er in err.response.data) {
+              this.error.push(err.response.data[er][0]);
+            }
+        });
+      }
+    },
 
     handleProject() {
       this.viewForm = false;
+    },
+    //clear search
+    clearSearch(){
+      this.searchTerm = ''
     },
     //open edit box and then fetch managers list
     async openProject() {
@@ -268,7 +326,27 @@ export default {
         .get("http://localhost:8000/api/director/projects/" + org)
         .then((response) => {
           console.log(response.data);
-          this.projects = response.data;
+         // this.projects = response.data;
+
+          let projects = [];
+          for (let key in response.data) {
+            projects.push({ 
+              id: response.data[key].id,
+              title: response.data[key].title,
+              description: response.data[key].description,
+              assigned_at: response.data[key].assigned_at,
+              estimated_deadline: response.data[key].estimated_deadline,
+              completed_at:response.data[key].completed_at,
+              username : response.data[key].user['name'],
+              total_tasks : response.data[key].total_tasks,
+              tasks_completed : response.data[key].tasks_completed,
+              manager_id: response.data[key].manager_id,
+
+            });
+          }
+          this.projects = projects;
+
+
         })
         .catch((err) => {
           console.log(err);
@@ -277,6 +355,7 @@ export default {
       //await this.$store.commit("setprojects",this.projects);
       //console.log(await this.$store.getters.getProjects);
       //get proxy result into json format
+
       const projects = JSON.parse(JSON.stringify(this.projects));
       this.projects = projects;
     },
@@ -287,6 +366,7 @@ export default {
 
   async mounted() {
     await this.loadProject()
+
     // const ctx = document.getElementById('myChart');
     // const myChart = new Chart(ctx, {
     //   type: 'bar',
@@ -328,59 +408,3 @@ export default {
     //   }
     // });
     // console.log(myChart);
-  },
-
-};
-</script>
-
-<style scoped>
-.table-content {
-  height: 400px;
-}
-th {
-  text-align: top;
-}
-td {
-  text-align: left;
-  padding-top: 10px;
-}
-
-a {
-  margin-top: -10px;
-  text-align: center;
-  height: 50px;
-  background-color: rgb(21, 186, 232);
-}
-
-form {
-  margin: 1rem;
-  margin-top: -1rem;
-  padding: 1rem;
-}
-
-.form-control {
-  margin: 0.5rem 0;
-}
-
-label {
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  display: block;
-}
-
-input,
-textarea {
-  display: block;
-  width: 100%;
-  font: inherit;
-  border: 1px solid #ccc;
-  padding: 0.15rem;
-}
-
-input:focus,
-textarea:focus {
-  border-color: #3d008d;
-  background-color: #faf6ff;
-  outline: none;
-}
-</style>
