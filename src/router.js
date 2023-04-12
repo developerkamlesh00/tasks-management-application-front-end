@@ -30,6 +30,7 @@ import TaskDetails from "./pages/worker/TaskDetails.vue";
 import InfographicsPage from "./pages/worker/InfographicsPage.vue";
 import DashboardSettings from "./pages/worker/DashboardSettings.vue";
 import ProjectsPage from "./pages/worker/ProjectsPage.vue";
+import MyManagers from "./pages/worker/MyManagers.vue";
 
 //import UserDashboard from "./pages/UserDashboard.vue";
 import NotFound from "./pages/NotFound.vue";
@@ -119,28 +120,29 @@ const routes = [
       },
       {
         path: "task/:id([0-9]+)",
-        name:"task_detail",
+        name: "task_detail",
         props: true,
         component: TaskDetails,
       },
       {
         path: "progress",
-        component: 
-        InfographicsPage,
+        component: InfographicsPage,
       },
       {
         path: "projects",
-        component: 
-        ProjectsPage,
+        component: ProjectsPage,
       },
       {
         path: "dashboard",
         component: KanbanBoard,
       },
-            {
+      {
         path: "settings",
-        component: 
-        DashboardSettings,
+        component: DashboardSettings,
+      },
+      {
+        path: "mymanagers",
+        component: MyManagers,
       },
       // {
       //   path: "/:notFound(.*)",
@@ -149,18 +151,17 @@ const routes = [
       // },
     ],
   },
-      // beforeEnter: (_, _1, next) => {
-    //   if(store.getters.role == 'worker' && store.getters.isAuthenticated){
-    //     next();
-    //   }else{
-    //     next('/login');
-    //   }
-    // },
+  // beforeEnter: (_, _1, next) => {
+  //   if(store.getters.role == 'worker' && store.getters.isAuthenticated){
+  //     next();
+  //   }else{
+  //     next('/login');
+  //   }
+  // },
   {
     path: "/:notFound(.*)",
     component: NotFound,
   },
-  
 ];
 
 const router = createRouter({
