@@ -30,7 +30,9 @@ import WorkerView from "./pages/worker/WorkerView.vue";
 import KanbanBoard from "./pages/worker/KanbanBoard.vue";
 import TasksTable from "./pages/worker/TasksTable.vue";
 import TaskDetails from "./pages/worker/TaskDetails.vue";
-import WorkStatistics from "./pages/worker/WorkSummary.vue";
+// import WorkStatistics from "./pages/worker/WorkSummary.vue";
+import InfographicsPage from "./pages/worker/InfographicsPage.vue";
+import DashboardSettings from "./pages/worker/DashboardSettings.vue";
 
 //import UserDashboard from "./pages/UserDashboard.vue";
 import NotFound from "./pages/NotFound.vue";
@@ -117,16 +119,23 @@ const routes = [
       },
       {
         path: "task/:id([0-9]+)",
+        name:"task_detail",
         props: true,
         component: TaskDetails,
       },
       {
-        path: "progress",
-        component: WorkStatistics,
+        path: "progress
+        component: 
+        InfographicsPage,
       },
       {
         path: "dashboard",
         component: KanbanBoard,
+      },
+            {
+        path: "settings",
+        component: 
+        DashboardSettings,
       },
       // {
       //   path: "/:notFound(.*)",
@@ -134,18 +143,19 @@ const routes = [
       //   TasksTable,
       // },
     ],
-    // beforeEnter: (_, _1, next) => {
+  },
+      // beforeEnter: (_, _1, next) => {
     //   if(store.getters.role == 'worker' && store.getters.isAuthenticated){
     //     next();
     //   }else{
     //     next('/login');
     //   }
     // },
-  },
   {
     path: "/:notFound(.*)",
     component: NotFound,
   },
+  
 ];
 
 const router = createRouter({
