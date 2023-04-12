@@ -1,4 +1,5 @@
 <template>
+  <h2 class="header">Project List</h2><br>
   <div class="search-container form-outline">
       <input class="form-control" id="search" type="text" placeholder="Search Project with Title Description and Manager Name" v-model="searchTerm" @input="searchOrganization">
       <button id="reset" @click="clearSearch">Clear</button>
@@ -86,6 +87,7 @@
           <th scope="col">Manager Name</th>
           <th scope="col">Progress</th>
           <th scope="col">Edit</th>
+          <th scope="col">Delete</th>
         </tr>
       </thead>
       <tbody>
@@ -93,8 +95,8 @@
           <th scope="row">{{ project.id }}</th>
           <td>{{ project.title }}</td>
           <td>{{ project.description }}</td>
-          <td>{{ project.assigned_at.slice(0,10) }}</td>
-          <td>{{ project.estimated_deadline.slice(0,10) }}</td>
+          <td>{{ project.assigned_at ? project.assigned_at.slice(0,10) : project.assigned_at}}</td>
+          <td>{{ project.estimated_deadline ? project.estimated_deadline.slice(0,10) : project.estimated_deadline}}</td>
           <td>{{ project.completed_at }}</td>
           <td>{{ project.username }}</td>
           <td>
@@ -124,6 +126,9 @@
           </td>
           <td>
             <button class="btn btn-primary" @click="openProjectEdit(project)">Edit</button>
+          </td>
+          <td>
+            <button class="btn btn-danger" @click="deleteProject(project)">Delete</button>
           </td>
         </tr>
       </tbody>
@@ -223,6 +228,23 @@ export default {
       this.manager_id = project.manager_id;
       this.viewForm = true;
       
+    },
+    //for delete Project
+    async deleteProject(project){
+      if (confirm('Are you sure you want to delete this Project?')){
+        await axios.get(
+          "http://localhost:8000/api/director/project/"+project.id
+        )
+        .then((response) =>{
+            this.loadProject()
+            return response.data;
+        })
+        .catch((err) => {
+            for (let er in err.response.data) {
+              this.error.push(err.response.data[er][0]);
+            }
+        });
+      }
     },
 
     handleProject() {
@@ -329,8 +351,8 @@ export default {
       //console.log(await this.$store.getters.getProjects);
       //get proxy result into json format
 
-      // const projects = JSON.parse(JSON.stringify(this.projects));
-      // this.projects = projects;
+      const projects = JSON.parse(JSON.stringify(this.projects));
+      this.projects = projects;
     },
     async reloadComponent() {
       await this.loadProject();
@@ -345,6 +367,14 @@ export default {
 </script>
 
 <style scoped>
+
+.header {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+    text-align: center;
+}
 .table-content {
   height: 400px;
 }

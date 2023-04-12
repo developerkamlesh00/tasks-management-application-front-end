@@ -1,6 +1,6 @@
 <template>
+    <h2 class="header">Projects Summary</h2><br>
     <div>
-        <h3 style="text-align: center">Projects Summary</h3><br>
         <div style="text-align: right; float: right;">
             <table>
                 <tr>
@@ -208,6 +208,13 @@ export default {
 
 
 <style scoped>
+.header {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+    text-align: center;
+}
 table{
     border-collapse: collapse;
 }

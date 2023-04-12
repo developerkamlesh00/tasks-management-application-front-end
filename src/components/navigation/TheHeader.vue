@@ -4,7 +4,7 @@
       <div class="navbar-brand">
         <div class="navbar-item home me-2">
           <router-link to="/">
-            <img src="logo.png" alt="Task Management Logo" class="logo-img">
+            <router-link to="/" class="nav-link">Task Management</router-link>
           </router-link>
         </div>
       </div>
