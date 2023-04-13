@@ -1,7 +1,4 @@
 <template>
-<li v-for="reviewTaskList in reviewTaskLists">
-  {{reviewTaskList.id}}
-</li>
 
 <table class="table">
   <thead>
@@ -15,10 +12,11 @@
   </thead>
   <tbody>
     
-    <tr>
-      <th scope="row">1</th>
-      <td></td>
-      <td></td>
+    <tr v-for="reviewTaskList in reviewTaskLists">
+      <th scope="row">{{reviewTaskList.id}}</th>
+      <td>{{reviewTaskList.title}}</td>
+      <td>{{reviewTaskList.description}}</td>
+      <td>{{reviewTaskList.project_id}}</td>
       <td>@mdo</td>
     </tr>
     
