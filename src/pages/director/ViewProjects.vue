@@ -133,6 +133,8 @@
 <script>
 import axios from "axios";
 import BaseButton from '@/components/ui/BaseButton.vue';
+
+
 export default {
   components: { BaseButton },
   data() {
@@ -337,5 +339,87 @@ export default {
   async mounted() {
     await this.loadProject()
   },
+
+
 };
 </script>
+
+<style scoped>
+
+.header {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+    text-align: center;
+}
+.table-content {
+  height: 400px;
+}
+th {
+  text-align: top;
+}
+td {
+  text-align: left;
+  padding-top: 10px;
+}
+
+a {
+  margin-top: -10px;
+  text-align: center;
+  height: 50px;
+  background-color: rgb(21, 186, 232);
+}
+
+form {
+  margin: 1rem;
+  margin-top: -1rem;
+  padding: 1rem;
+}
+
+.form-control {
+  margin: 0.5rem 0;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+input,
+textarea {
+  display: block;
+  width: 100%;
+  font: inherit;
+  border: 1px solid #ccc;
+  padding: 0.15rem;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #3d008d;
+  background-color: #faf6ff;
+  outline: none;
+}
+
+
+.search-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#reset{
+  background-color: #e01d92;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+</style>
+
+
