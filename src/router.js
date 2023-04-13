@@ -4,6 +4,8 @@ import store from "./store/index.js";
 import HomePage from "./pages/HomePage.vue";
 import AboutPage from "./pages/AboutPage.vue";
 import AuthLogin from "./pages/auth/AuthLogin.vue";
+import ForgotPassword from "./pages/auth/ForgotPassword.vue";
+import ResetPassword from './pages/auth/ResetPassword.vue';
 // import UpdateProfile from "./pages/auth/UpdateProfile.vue";
 
 //import Admin components
@@ -49,6 +51,8 @@ const routes = [
   // { path: "/updateprofile", name: "updateprofile", component: UpdateProfile},
   { path: "/login", name: "login", component: AuthLogin },
   { path: "/logout", name: "logout", redirect: "/login" },
+  { path: "/forgot", name: "forgot", component: ForgotPassword },
+  { path: "/reset/:ref", props: true ,name: "reset", component : ResetPassword},
   {
     path: "/admin",
     name: "admin",
@@ -76,6 +80,7 @@ const routes = [
     name: "director",
     component: DirectorDashboard,
     children: [
+      { path: '', component: CreateManagerWorker },
       { path: ":add", name: "managerworker", component: CreateManagerWorker },
       { path: ":add", name: "project", component: CreateProject },
       { path: ":add", name: "viewproject", component: ViewProjects },
