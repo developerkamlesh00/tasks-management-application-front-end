@@ -179,11 +179,10 @@ async editTask(context,payload){
 },
 
 async deleteTask(context, payload){
-  await axios.delete('http://localhost:8000/api/delete_task', {
-    id:payload.id
-  })
+  
+  await axios.delete(`http://localhost:8000/api/delete_task/${payload.id}`)
   .then(function(response){
-    console.log(payload.id)
+    //console.log(payload.id)
     
     console.log(response);
   })

@@ -71,8 +71,8 @@
         <td>{{taskList.description}}</td>
         <td>{{taskList.worker_id}}</td>
         <td>{{taskList.estimated_deadline}}</td>
-        <td><button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@getbootstrap">✏️</button>
-          <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <td><button type="button" class="btn btn-light" data-bs-toggle="modal" v-bind:data-bs-target="'#exampleModal-' + taskList.id" data-bs-whatever="@getbootstrap">✏️</button>
+          <div class="modal fade" v-bind:id="'exampleModal-' + taskList.id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">
     
     <div class="modal-content">
@@ -186,26 +186,34 @@ methods:{
           estimatedDeadline:this.estimated_deadline,
           projectId:url[pathLength]
         })
+
+        this.$store.dispatch('getTasks',{value:url[pathLength]})
     },
     editTask(task){
-      console.log(task.id)/*
+      //console.log(task.id)
       const url = this.$router.currentRoute.value.fullPath
       const pathLength=this.$router.currentRoute.value.fullPath.length-1
         this.$store.dispatch('editTask', {
-          id:task.taskId,
+          id:task.id,
           title:this.newTitle,
           description:this.newDescription,
           workerId:this.newWorkerId,
           assignedDate:this.newAssignedDate,
           estimatedDeadline:this.newEstimatedDeadline,
           projectId:url[pathLength]
-        })*/
+        })
+
+        this.$store.dispatch('getTasks',{value:url[pathLength]})
 
     },
 
 
     delTask(id){
+      const url = this.$router.currentRoute.value.fullPath
+      const pathLength=this.$router.currentRoute.value.fullPath.length-1
       this.$store.dispatch('deleteTask', {id:id})
+
+      this.$store.dispatch('getTasks',{value:url[pathLength]})
     }
 
   
