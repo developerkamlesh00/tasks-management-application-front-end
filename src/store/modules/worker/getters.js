@@ -18,8 +18,17 @@ export default {
     getRows(state){
       return state.rows;
     },
+    getComments(state){
+      return state.comments;
+    },
+    getProjects(state){
+      return state.projects;
+    },
     getTasksPerProject(state){
       return state.tasks_per_project;
+    },
+    getProjectTasks(state){
+      return state.project_tasks
     },
     getCounts(state){
       return {

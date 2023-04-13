@@ -141,6 +141,11 @@
 import axios from "axios";
 import BaseButton from '@/components/ui/BaseButton.vue';
 
+// import { Chart, CategoryScale, LinearScale, BarController, BarElement } from 'chart.js';
+
+// Chart.register(CategoryScale, LinearScale, BarController, BarElement);
+
+
 export default {
   components: { BaseButton },
   data() {
@@ -361,85 +366,45 @@ export default {
 
   async mounted() {
     await this.loadProject()
-  },
 
-};
-</script>
-
-<style scoped>
-
-.header {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #333;
-    text-align: center;
-}
-.table-content {
-  height: 400px;
-}
-th {
-  text-align: top;
-}
-td {
-  text-align: left;
-  padding-top: 10px;
-}
-
-a {
-  margin-top: -10px;
-  text-align: center;
-  height: 50px;
-  background-color: rgb(21, 186, 232);
-}
-
-form {
-  margin: 1rem;
-  margin-top: -1rem;
-  padding: 1rem;
-}
-
-.form-control {
-  margin: 0.5rem 0;
-}
-
-label {
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  display: block;
-}
-
-input,
-textarea {
-  display: block;
-  width: 100%;
-  font: inherit;
-  border: 1px solid #ccc;
-  padding: 0.15rem;
-}
-
-input:focus,
-textarea:focus {
-  border-color: #3d008d;
-  background-color: #faf6ff;
-  outline: none;
-}
-
-
-.search-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-#reset{
-  background-color: #e01d92;
-  color: white;
-  border: none;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-left: 10px;
-}
-</style>
+    // const ctx = document.getElementById('myChart');
+    // const myChart = new Chart(ctx, {
+    //   type: 'bar',
+    //   data: {
+    //     labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    //     datasets: [{
+    //       label: '# of Votes',
+    //       data: [12, 19, 3, 5, 2, 3],
+    //       backgroundColor: [
+    //         'rgba(255, 99, 132, 0.2)',
+    //         'rgba(54, 162, 235, 0.2)',
+    //         'rgba(255, 206, 86, 0.2)',
+    //         'rgba(75, 192, 192, 0.2)',
+    //         'rgba(153, 102, 255, 0.2)',
+    //         'rgba(255, 159, 64, 0.2)'
+    //       ],
+    //       borderColor: [
+    //         'rgba(255, 99, 132, 1)',
+    //         'rgba(54, 162, 235, 1)',
+    //         'rgba(255, 206, 86, 1)',
+    //         'rgba(75, 192, 192, 1)',
+    //         'rgba(153, 102, 255, 1)',
+    //         'rgba(255, 159, 64, 1)'
+    //       ],
+    //       borderWidth: 1
+    //     }]
+    //   },
+    //   options: {
+    //     scales: {
+    //       x: {
+    //         type: 'category'
+    //       },
+    //       y: {
+    //         ticks: {
+    //           beginAtZero: true
+    //         }
+    //       }
+    //     }
+    //   }
+    // });
+    // console.log(myChart);

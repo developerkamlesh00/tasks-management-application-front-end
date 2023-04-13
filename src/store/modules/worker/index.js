@@ -21,6 +21,9 @@ export default {
       tasks_completed:[],
       tasks_assigned_deadline:[], //{id,assigned,deadline}
       tasks_with_passed_deadlines:[], //{id,overdue_time}
+      comments:[],
+      projects:[],
+      project_tasks:[],
       status:{
         1:'ToDo',
         2:'Doing',
