@@ -21,12 +21,14 @@ import CreateProject from "./components/director/CreateProject.vue";
 import ViewProjects from "./pages/director/ViewProjects.vue";
 //end director compo
 
-
+//Manager Components
 import ManagerDashboard from "./pages/manager/ManagerDashboard.vue";
 import ProjectList from "./pages/manager/Children/ProjectList.vue";
 import WorkerList from "./pages/manager/Children/WorkerList.vue";
 import SingleProject from "./pages/manager/Children/SingleProject.vue"
-
+import SingleWorker from "./pages/manager/Children/SingleWorker.vue";
+import ReviewTasks from "./pages/manager/Children/ReviewTasks.vue"
+//end Manager Components
 
 import WorkerView from "./pages/worker/WorkerView.vue";
 import KanbanBoard from "./pages/worker/KanbanBoard.vue";
@@ -121,7 +123,17 @@ const routes = [
       {
         path: 'workers',
         component:WorkerList
-      }
+      },
+      {
+        path: 'workers/:id',
+        component:SingleWorker
+      },
+      {
+        path: 'review_tasks',
+        component:ReviewTasks
+      },
+      
+      
     ]
   },
   {

@@ -4,6 +4,7 @@
         <div class="parent">
            <button @click="displayProjects">Projects</button>
            <button @click="displayWorkers">Workers</button>
+           <button @click="reviewTasks">Tasks in Manager Review</button>
             
         </div>
         <div class="child">
@@ -30,11 +31,15 @@ export default{
        
        displayWorkers(){
         this.$router.push('/manager/workers')
+       },
+
+       reviewTasks(){
+        this.$router.push('/manager/review_tasks')
        }
     },
 
     watch: {
-        ...mapActions(['getProjects', 'getWorkers']),
+        ...mapActions(['getProjects', 'getWorkers', 'reviewTasks']),
     
         '$route' (to) {
      
@@ -49,6 +54,10 @@ export default{
         else if(too ==='/manager/workers'){
             //console.log("users")
             this.$store.dispatch("getWorkers")
+        }
+
+        else if(too==='/manager/review_tasks'){
+            this.$store.dispatch("reviewTasks")
         }
       
     }

@@ -23,7 +23,9 @@ const store = createStore({
       workers: [],
       project: [],
       worker:[],
-      tasks:[]
+      tasks:[],
+      assignedTasks:[],
+      reviewTasks:[]
     }
   },
 
@@ -39,8 +41,16 @@ const store = createStore({
     },
     singleProject(state){
       return state.project[0]
+    },
+    singleWorker(state){
+      return state.worker[0]
+    },
+    assignedTaskLists(state){
+      return state.assignedTasks
+    },
+    reviewTaskLists(state){
+      return state.reviewTasks
     }
-
   },
 
   mutations:{
@@ -116,8 +126,48 @@ async getProject(context, payload){ //
 
 },
 
-async getTasks(context, payload){ //
+async getWorker(context, payload){ //
       
+  await axios.get(`http://localhost:8000/api/single_worker?id=${payload.value}`)
+  .then(function (response) {
+  // handle success
+  //console.log(response)
+  context.state.worker =response.data
+
+})
+.catch(function (error) {
+  // handle error
+  console.log(error);
+})
+.finally(function () {
+  // always executed
+});
+
+},
+
+async getAssignedTasks(context, payload){ //
+      
+
+  await axios.get(`http://localhost:8000/api/assigned_tasks?id=${payload.value}`)
+  .then(function (response) {
+  // handle success
+  console.log(payload.value)
+  console.log(response)
+  context.state.assignedTasks =response.data
+  
+
+})
+.catch(function (error) {
+  // handle error
+  console.log(error);
+})
+.finally(function () {
+  // always executed
+});
+
+},
+
+async getTasks(context, payload){ //
 
   await axios.get(`http://localhost:8000/api/tasks?id=${payload.value}`)
   .then(function (response) {
@@ -190,6 +240,28 @@ async deleteTask(context, payload){
     console.log(payload)
     console.log(error);
   });
+},
+
+
+async getReviewTasks(context){ //
+  const ManagerId = localStorage.getItem("userId")
+  await axios.get(`http://localhost:8000/api/review_tasks?id=${ManagerId}`)
+  .then(function (response) {
+  // handle success
+  //console.log(response)
+  context.state.reviewTasks=response.data
+  console.log(context.state.reviewTasks)
+  
+
+})
+.catch(function (error) {
+  // handle error
+  console.log(error);
+})
+.finally(function () {
+  // always executed
+});
+
 }
 
 }

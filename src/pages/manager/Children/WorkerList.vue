@@ -13,7 +13,7 @@
   <tbody>
     <tr v-for="workerList in workerLists" v-bind:key="workerList.id ">
         <th scope="row">{{workerList.id}}</th>
-        <td>{{workerList.name}}</td>
+        <router-link :to="'/manager/workers/'+ workerList.id"><td>{{workerList.name}}</td></router-link>
         <td>{{workerList.email}}</td>
         <td>{{workerList.organization_id}}</td>
     </tr>
