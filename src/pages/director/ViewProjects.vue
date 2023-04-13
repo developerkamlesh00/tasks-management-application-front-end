@@ -34,7 +34,6 @@
         <!-- <input type="date" id="estimated" v-model.trim="estimated_deadline" /> -->
         <input type="date" id="estimated" v-model.trim="assign_at_string1" />
       </div>
-
       <div class="form-control">
         <label for="role">Manager Name</label>
         <select
@@ -48,7 +47,6 @@
           </option>
         </select>
       </div>
-
       <p v-if="!formIsValid" class="text-danger">
         Please enter a project name and description information.
       </p>
@@ -57,15 +55,12 @@
           {{ err }}
         </p>
       </div>
-
       <div id="success" v-if="successful" class="p-3 mb-2 text-white">
         {{ successful }}
       </div>
-
       <base-button id="btncreate">Update Project</base-button>
     </form>
   </base-dialog>
-
   <div class="table-responsive text-nowrap table-content">
     <table
       id="dtHorizontalVerticalExample"
@@ -134,12 +129,11 @@
       </tbody>
     </table>
   </div>
-  
 </template>
-
 <script>
 import axios from "axios";
 import BaseButton from '@/components/ui/BaseButton.vue';
+
 
 export default {
   components: { BaseButton },
@@ -154,7 +148,6 @@ export default {
       progress: 0,
       tasks_completed: null,
       total_tasks: null,
-
       projects: [],
       managerslist: [],
       error: [],
@@ -162,10 +155,9 @@ export default {
       formIsValid: true,
       successful: null,
       selectedProject: null,
-      searchTerm:'', //for search 
-
-      assign_at: '2000-01-01T00:00:00.000Z', //default date 
-      estimated_deadline: '2000-01-01T00:00:00.000Z', //default date 
+      searchTerm:'', //for search
+      assign_at: '2000-01-01T00:00:00.000Z', //default date
+      estimated_deadline: '2000-01-01T00:00:00.000Z', //default date
       assign_at_string: '',
       assign_at_string1: '',
     };
@@ -185,10 +177,8 @@ export default {
         return this.projects;
       }
     },
-   
   },
-
-  //for update Date 
+  //for update Date
   watch: {
     assign_at(newValue) {
       if(newValue){
@@ -205,7 +195,6 @@ export default {
       }
     },
   },
-
   methods: {
     backgroundChange(tasks_completed, total_tasks){
       if((tasks_completed / total_tasks) * 100 < 30){
@@ -227,7 +216,6 @@ export default {
       this.estimated_deadline = project.estimated_deadline;
       this.manager_id = project.manager_id;
       this.viewForm = true;
-      
     },
     //for delete Project
     async deleteProject(project){
@@ -246,7 +234,6 @@ export default {
         });
       }
     },
-
     handleProject() {
       this.viewForm = false;
     },
@@ -267,7 +254,6 @@ export default {
       }
       this.managerslist = managers;
     },
-
     //update Project here......
     async updateProject() {
       this.successful = null;
@@ -282,7 +268,6 @@ export default {
         this.formIsValid = false;
         return;
       }
-
       const actionPayload = {
         title: this.title,
         description: this.description,
@@ -291,7 +276,6 @@ export default {
         organization_id: this.$store.getters.organization,
         manager_id: this.manager_id,
       };
-
       try {
         console.log(this.projectid);
         await axios
@@ -322,10 +306,9 @@ export default {
         .then((response) => {
           console.log(response.data);
          // this.projects = response.data;
-
           let projects = [];
           for (let key in response.data) {
-            projects.push({ 
+            projects.push({
               id: response.data[key].id,
               title: response.data[key].title,
               description: response.data[key].description,
@@ -336,21 +319,16 @@ export default {
               total_tasks : response.data[key].total_tasks,
               tasks_completed : response.data[key].tasks_completed,
               manager_id: response.data[key].manager_id,
-
             });
           }
           this.projects = projects;
-
-
         })
         .catch((err) => {
           console.log(err);
         });
-  
       //await this.$store.commit("setprojects",this.projects);
       //console.log(await this.$store.getters.getProjects);
       //get proxy result into json format
-
       const projects = JSON.parse(JSON.stringify(this.projects));
       this.projects = projects;
     },
@@ -358,10 +336,10 @@ export default {
       await this.loadProject();
     }
   },
-
   async mounted() {
     await this.loadProject()
   },
+
 
 };
 </script>
@@ -443,3 +421,5 @@ textarea:focus {
   margin-left: 10px;
 }
 </style>
+
+

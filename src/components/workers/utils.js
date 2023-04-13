@@ -16,4 +16,4 @@ const performSearch = (rows, term) => {
     return results;
   }
 
-export {drop, performSearch};
+export default {drop, performSearch};
