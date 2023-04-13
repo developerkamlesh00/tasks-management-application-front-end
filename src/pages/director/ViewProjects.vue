@@ -34,7 +34,6 @@
         <!-- <input type="date" id="estimated" v-model.trim="estimated_deadline" /> -->
         <input type="date" id="estimated" v-model.trim="assign_at_string1" />
       </div>
-
       <div class="form-control">
         <label for="role">Manager Name</label>
         <select
@@ -48,7 +47,6 @@
           </option>
         </select>
       </div>
-
       <p v-if="!formIsValid" class="text-danger">
         Please enter a project name and description information.
       </p>
@@ -57,15 +55,12 @@
           {{ err }}
         </p>
       </div>
-
       <div id="success" v-if="successful" class="p-3 mb-2 text-white">
         {{ successful }}
       </div>
-
       <base-button id="btncreate">Update Project</base-button>
     </form>
   </base-dialog>
-
   <div class="table-responsive text-nowrap table-content">
     <table
       id="dtHorizontalVerticalExample"
@@ -134,14 +129,10 @@
       </tbody>
     </table>
   </div>
-  
 </template>
-
 <script>
 import axios from "axios";
 import BaseButton from '@/components/ui/BaseButton.vue';
-// import { Chart, CategoryScale, LinearScale, BarController, BarElement } from 'chart.js';
-// Chart.register(CategoryScale, LinearScale, BarController, BarElement);
 export default {
   components: { BaseButton },
   data() {
@@ -162,9 +153,9 @@ export default {
       formIsValid: true,
       successful: null,
       selectedProject: null,
-      searchTerm:'', //for search 
-      assign_at: '2000-01-01T00:00:00.000Z', //default date 
-      estimated_deadline: '2000-01-01T00:00:00.000Z', //default date 
+      searchTerm:'', //for search
+      assign_at: '2000-01-01T00:00:00.000Z', //default date
+      estimated_deadline: '2000-01-01T00:00:00.000Z', //default date
       assign_at_string: '',
       assign_at_string1: '',
     };
@@ -184,9 +175,8 @@ export default {
         return this.projects;
       }
     },
-   
   },
-  //for update Date 
+  //for update Date
   watch: {
     assign_at(newValue) {
       if(newValue){
@@ -207,7 +197,7 @@ export default {
     backgroundChange(tasks_completed, total_tasks){
       if((tasks_completed / total_tasks) * 100 < 30){
         return "progress-bar bg-danger"
-      }else if((tasks_completed / total_tasks) * 100 <script 60){
+      }else if((tasks_completed / total_tasks) * 100 < 60){
         return "progress-bar bg-warning"
       }else{
         return "progress-bar bg-success"
@@ -224,7 +214,6 @@ export default {
       this.estimated_deadline = project.estimated_deadline;
       this.manager_id = project.manager_id;
       this.viewForm = true;
-      
     },
     //for delete Project
     async deleteProject(project){
@@ -317,7 +306,7 @@ export default {
          // this.projects = response.data;
           let projects = [];
           for (let key in response.data) {
-            projects.push({ 
+            projects.push({
               id: response.data[key].id,
               title: response.data[key].title,
               description: response.data[key].description,
@@ -335,7 +324,6 @@ export default {
         .catch((err) => {
           console.log(err);
         });
-  
       //await this.$store.commit("setprojects",this.projects);
       //console.log(await this.$store.getters.getProjects);
       //get proxy result into json format
@@ -345,49 +333,9 @@ export default {
     async reloadComponent() {
       await this.loadProject();
     }
-  };
-  // async mounted() {
-  //   await this.loadProject()
-    // const ctx = document.getElementById('myChart');
-    // const myChart = new Chart(ctx, {
-    //   type: 'bar',
-    //   data: {
-    //     labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    //     datasets: [{
-    //       label: '# of Votes',
-    //       data: [12, 19, 3, 5, 2, 3],
-    //       backgroundColor: [
-    //         'rgba(255, 99, 132, 0.2)',
-    //         'rgba(54, 162, 235, 0.2)',
-    //         'rgba(255, 206, 86, 0.2)',
-    //         'rgba(75, 192, 192, 0.2)',
-    //         'rgba(153, 102, 255, 0.2)',
-    //         'rgba(255, 159, 64, 0.2)'
-    //       ],
-    //       borderColor: [
-    //         'rgba(255, 99, 132, 1)',
-    //         'rgba(54, 162, 235, 1)',
-    //         'rgba(255, 206, 86, 1)',
-    //         'rgba(75, 192, 192, 1)',
-    //         'rgba(153, 102, 255, 1)',
-    //         'rgba(255, 159, 64, 1)'
-    //       ],
-    //       borderWidth: 1
-    //     }]
-    //   },
-    //   options: {
-    //     scales: {
-    //       x: {
-    //         type: 'category'
-    //       },
-    //       y: {
-    //         ticks: {
-    //           beginAtZero: true
-    //         }
-    //       }
-    //     }
-    //   }
-    // });
-    // console.log(myChart);
-}
+  },
+  async mounted() {
+    await this.loadProject()
+  },
+};
 </script>
