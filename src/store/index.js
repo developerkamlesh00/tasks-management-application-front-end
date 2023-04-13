@@ -49,7 +49,18 @@ const store = createStore({
       return state.assignedTasks
     },
     reviewTaskLists(state){
-      return state.reviewTasks
+      const result = [].concat(...state.reviewTasks)
+      let finalResult=[]
+      //let values = Object.values(result);
+      let value=[]
+
+      for (let i = 0; i < result.length; i++){
+         // let single=result[i];
+          value = Object.values(result[i]);
+          finalResult=finalResult.concat(value)
+      }
+     
+      return finalResult
     }
   },
 
