@@ -66,28 +66,21 @@ export default {
   workerOrgIds(state) {
     return [...new Set(state.workers.map((worker) => worker.organization_id))];
   },
-  filteredWorkers(state) {
-    let filteredWorkers = state.workers;
-    if (state.workerSearchTerm.trim()) {
-      const workerSearchTerm = state.workerSearchTerm.toLowerCase();
-      filteredWorkers = filteredWorkers.filter((worker) =>
-        worker.name.toLowerCase().includes(workerSearchTerm)
-      );
-    }
-    if (state.workerSelectedOrgId !== '') {
-      filteredWorkers = filteredWorkers.filter(
-        (worker) => worker.organization_id === state.workerSelectedOrgId
-      );
-    }
-    return filteredWorkers;
-  },
+
+  filteredWorkers(state,) {
+    return state.workers.filter((worker) => {
+      const nameMatch = worker.name.toLowerCase().includes(state.workerSearchTerm.toLowerCase());
+      const orgIdMatch = state.workerSelectedOrgId ? worker.organization_id === parseInt(state.workerSelectedOrgId) : true;
+      return nameMatch && orgIdMatch;
+    });
+  },  
   workerTotalPageCount(state, getters) {
     return Math.ceil(getters.filteredWorkers.length / state.workersPerPage);
   },
   pagedWorkers(state, getters) {
     const start = (state.workerCurrentPage - 1) * state.workersPerPage;
     const end = start + state.workersPerPage;
-    // console.log(start,end);
     return getters.filteredWorkers.slice(start, end);
   },
+  
 };

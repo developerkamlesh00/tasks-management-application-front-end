@@ -44,6 +44,7 @@ export default {
     state.workerErrorMessage = errorMessage;
   },
   setWorkerSearchTerm(state, searchTerm) {
+    console.log( state.workerSearchTerm);
     state.workerSearchTerm = searchTerm;
   },
   setWorkerSelectedOrgId(state, orgId) {

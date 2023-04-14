@@ -101,13 +101,13 @@ export default {
         });
     }
   },
-  resetManagerSearch({ commit, dispatch }) {
+  managerResetSearch({ commit, dispatch }) {
     commit("setManagerSearchTerm", "");
     commit("setManagerSelectedOrgId", "");
     commit("setManagerCurrentPage", 1);
     dispatch("deleteManager");
   },
-  changeManagerPage({ commit }, page) {
+  managerChangePage({ commit }, page) {
     commit("setManagerCurrentPage", page);
   },
 
@@ -153,16 +153,16 @@ export default {
         });
     }
   },
-  resetWorkerSearch({ commit, dispatch }) {
+  workerResetSearch({ commit, dispatch }) {
     commit('setWorkerSearchTerm', '');
     commit('setWorkerSelectedOrgId', '');
     commit('setWorkerCurrentPage', 1);
     dispatch('toggleWorkers');
   },
-  changeWorkerPage({ commit }, page) {
+  workerChangePage({ commit }, page) {
     commit('setWorkerCurrentPage', page);
   },
-  resetWorkerPage({ commit }) {
+  workerResetPage({ commit }) {
     commit('setWorkerCurrentPage', 1);
   }
 };
