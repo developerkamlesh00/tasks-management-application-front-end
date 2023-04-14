@@ -6,18 +6,20 @@
       <th scope="col">id</th>
       <th scope="col">title</th>
       <th scope="col">description</th>
+      <th scope="col">project id</th>
       <th scope="col">approve</th>
       <th scope="col">reject</th>
     </tr>
   </thead>
   <tbody>
     
-    <tr v-for="reviewTaskList in reviewTaskLists">
+    <tr v-for="reviewTaskList in reviewTaskLists" v-bind:key="reviewTaskList.id">
       <th scope="row">{{reviewTaskList.id}}</th>
       <td>{{reviewTaskList.title}}</td>
       <td>{{reviewTaskList.description}}</td>
       <td>{{reviewTaskList.project_id}}</td>
-      <td>@mdo</td>
+      <td><button type="button" class="btn btn-light" @click="approveTask(reviewTaskList)">✔️</button></td>
+      <td><button type="button" class="btn btn-light" @click="rejectTask(reviewTaskList)">❌</button></td>
     </tr>
     
   </tbody>
@@ -45,7 +47,34 @@ export default{
   },
 
 methods:{
-    ...mapActions(['getReviewTasks']),
+    ...mapActions(['getReviewTasks', 'doApproveTask', 'doRejectTask']),
+    
+    approveTask(reviewTaskList){
+      //console.log(reviewTaskList.id)
+      
+      this.$store.dispatch('doApproveTask', {
+        id:reviewTaskList.id,
+      })
+      this.$store.dispatch('getReviewTasks')
+
+/*
+      
+      this.$store.dispatch('editTask', {
+          id:task.id,
+      })
+      
+      
+      
+      */ 
+    },
+    
+    
+    rejectTask(reviewTaskList){
+      this.$store.dispatch('doRejectTask', {
+        id:reviewTaskList.id,
+      })
+      this.$store.dispatch('getReviewTasks')
+    }
 },
     
 

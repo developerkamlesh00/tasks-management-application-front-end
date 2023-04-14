@@ -273,6 +273,36 @@ async getReviewTasks(context){ //
   // always executed
 });
 
+},
+
+async doApproveTask(context,payload){
+  console.log(payload.id)
+  await axios.put('http://localhost:8000/api/approve_task', {
+    id:payload.id
+  })
+  .then(function (response) {
+    //console.log(payload)
+    console.log(response);
+  })
+  .catch(function (error) {
+    //console.log(payload)
+    console.log(error);
+  });
+},
+
+async doRejectTask(context,payload){
+  console.log(payload.id)
+  await axios.put('http://localhost:8000/api/reject_task', {
+    id:payload.id,
+  })
+  .then(function (response) {
+    console.log(payload)
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(payload)
+    console.log(error);
+  });
 }
 
 }
