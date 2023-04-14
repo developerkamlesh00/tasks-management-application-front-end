@@ -76,7 +76,7 @@ methods:{
     },
 
     showAssignedTasks(){
-        const url = this.$router.currentRoute.value.fullPath
+    const url = this.$router.currentRoute.value.fullPath
     const pathLength=this.$router.currentRoute.value.fullPath.length-1
     const lastNumber = url.lastIndexOf("/")
     //console.log(lastNumber)

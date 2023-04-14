@@ -4,7 +4,7 @@
         <div class="parent">
            <button @click="displayProjects">Projects</button>
            <button @click="displayWorkers">Workers</button>
-           <button @click="reviewTasks">Tasks in Manager Review</button>
+           <button @click="reviewTasks">Tasks to be Reviewed</button>
             
         </div>
         <div class="child">
@@ -96,7 +96,7 @@ button{
   padding: 15px;
   border-radius: 10px;
   border: none;
-  width: 300px;
+  min-width: 250px;
   margin-top: 10px;
   font-weight: bold;
 }

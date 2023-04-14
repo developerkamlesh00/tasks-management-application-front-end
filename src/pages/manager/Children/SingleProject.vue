@@ -160,8 +160,11 @@ export default{
   mounted() {
     const url = this.$router.currentRoute.value.fullPath
     const pathLength=this.$router.currentRoute.value.fullPath.length-1
+    const lastNumber = url.lastIndexOf("/")
+    //console.log(lastNumber)
+    const id = url.substr(lastNumber+1, pathLength)
     //console.log(url[pathLength])
-    this.$store.dispatch('getProject', {value:url[pathLength]}) 
+    this.$store.dispatch('getProject', {value:id}) 
     
   },
 
@@ -171,20 +174,26 @@ methods:{
     showTasks(){
       this.displayTasks=!this.displayTasks
       const url = this.$router.currentRoute.value.fullPath
-      const pathLength=this.$router.currentRoute.value.fullPath.length-1
-      this.$store.dispatch('getTasks', {value:url[pathLength]})
+    const pathLength=this.$router.currentRoute.value.fullPath.length-1
+    const lastNumber = url.lastIndexOf("/")
+    //console.log(lastNumber)
+    const id = url.substr(lastNumber+1, pathLength)
+      this.$store.dispatch('getTasks', {value:id})
 
     },
     addTask(){
       const url = this.$router.currentRoute.value.fullPath
-      const pathLength=this.$router.currentRoute.value.fullPath.length-1
+    const pathLength=this.$router.currentRoute.value.fullPath.length-1
+    const lastNumber = url.lastIndexOf("/")
+    //console.log(lastNumber)
+    const id = url.substr(lastNumber+1, pathLength)
         this.$store.dispatch('addTask', {
           title:this.title,
           description:this.description,
           workerId:this.workerId,
           assignedDate:this.assignedDate,
           estimatedDeadline:this.estimated_deadline,
-          projectId:url[pathLength]
+          projectId:id
         })
 
         this.$store.dispatch('getTasks',{value:url[pathLength]})
@@ -192,7 +201,10 @@ methods:{
     editTask(task){
       //console.log(task.id)
       const url = this.$router.currentRoute.value.fullPath
-      const pathLength=this.$router.currentRoute.value.fullPath.length-1
+    const pathLength=this.$router.currentRoute.value.fullPath.length-1
+    const lastNumber = url.lastIndexOf("/")
+    //console.log(lastNumber)
+    const id = url.substr(lastNumber+1, pathLength)
         this.$store.dispatch('editTask', {
           id:task.id,
           title:this.newTitle,
@@ -200,7 +212,7 @@ methods:{
           workerId:this.newWorkerId,
           assignedDate:this.newAssignedDate,
           estimatedDeadline:this.newEstimatedDeadline,
-          projectId:url[pathLength]
+          projectId:id
         })
 
         this.$store.dispatch('getTasks',{value:url[pathLength]})
@@ -210,10 +222,13 @@ methods:{
 
     delTask(id){
       const url = this.$router.currentRoute.value.fullPath
-      const pathLength=this.$router.currentRoute.value.fullPath.length-1
+    const pathLength=this.$router.currentRoute.value.fullPath.length-1
+    const lastNumber = url.lastIndexOf("/")
+    //console.log(lastNumber)
+    const projId = url.substr(lastNumber+1, pathLength)
       this.$store.dispatch('deleteTask', {id:id})
 
-      this.$store.dispatch('getTasks',{value:url[pathLength]})
+      this.$store.dispatch('getTasks',{value:projId})
     }
 
   
