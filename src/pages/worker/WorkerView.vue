@@ -71,14 +71,14 @@ export default {
     margin-left: 1.25rem;
 }
 
-a:hover,
+/* a:hover,
 a:focus {
     background-color: #d2f4ea;
-}
+} */
 
-body {
+/* body {
     background-color: #f3f3f3;
-}
+} */
 
 .scrolls {
     overflow-x: scroll;
