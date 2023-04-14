@@ -37,6 +37,7 @@ export default {
         overdue_tasks:state.overdue_tasks,
         reviews_submitted:state.reviews_submitted,
         reviews_passed:state.reviews_passed,
+        pending:state.pending,
       }
     }
 };

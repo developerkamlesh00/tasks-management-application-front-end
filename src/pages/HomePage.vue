@@ -59,12 +59,12 @@
 </svg>
   <div class="container home-page">
     <div class="static1">
-      <h1>Join over 700 million registered users who trust TaskCRM</h1>
+      <h1> brings all your tasks, teammates, and tools together</h1>
       <p>
-        Easy to use, reliable, private, and secure. It's no wonder TaskCRM is
-        the choice for creating and distributing your most important Tasks.
+        Keep everything in the same place—even if your team isn't.
       </p>
-      <router-link v-if="!isAuthenticated" to="/orgregister" class="btn btn-success">Register Your Company</router-link>
+      <router-link v-if="!isAuthenticated" to="/orgregister" class="btn btn-success">Sign up - it's free!</router-link>
+      <small>Register your organization now!</small>
     </div>
 
     <!-- Carousel -->

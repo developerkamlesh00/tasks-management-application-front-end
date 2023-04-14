@@ -1,43 +1,48 @@
 <template>
+    <div class="body">
     <div class="row">
         <div class="col-4">
-            <base-card class="bg-info">
-                <base-button class="row">Total Tasks Assigned</base-button>
-                <span class="display-6 text-center">{{ this.getCounts.total_tasks_assigned }}</span>
+            <base-card class="row bg-info text-center">
+                <h5><i class="bi bi-list-task"></i> Total Tasks Assigned</h5>
+                <div class="display-6 text-center">{{ this.getCounts.total_tasks_assigned }}</div>
             </base-card>
         </div>
         <div class="col-4 ">
-            <base-card class="bg-info">
-                <base-button class="row">Tasks Completed</base-button>
-                <span class="display-6 text-center">{{ this.getCounts.completed_tasks }}</span>
+            <base-card class="row bg-success text-center">
+                <h5><i class="bi bi-check-circle-fill"></i> Tasks Completed</h5>
+                <div class="display-6 text-center">{{ this.getCounts.completed_tasks }}</div>
             </base-card>
         </div>
         <div class="col-4">
-            <base-card class="bg-info">
-                <base-button class="row">Tasks Overdue</base-button>
-                <span class="display-6 text-center">{{ this.getCounts.overdue_tasks }}</span>
+                <base-card class="row bg-danger text-center">
+                <h5><i class="bi bi-exclamation-diamond-fill"></i> Tasks Overdue</h5>
+                <div class="display-6 text-center">{{ this.getCounts.overdue_tasks }}</div>
             </base-card>
         </div>
     </div>
     <div class="my-3 p-3 row">
         <div class="col-6">
-            <label for="form-label">Searching</label>
-            <input type="text" class="form-control" placeholder="Search tasks" v-model="term" @input="setFilteredRows()" />
+            <label for="searching" class="form-label">Searching</label>
+            <input type="text" class="form-control" id="searching" placeholder="Search tasks" v-model="term" @input="setFilteredRows()" />
         </div>
         <div class="col-6">
-            <label for="form-label">Filter by category</label>
-            <select name="category" class="form-select" @change="setFilteredRows()" v-model="filterCategory">
+            <label for="filter" class="form-label">Filter by category</label>
+            <select name="category" class="form-select" id="filter" @change="setFilteredRows()" v-model="filterCategory">
                 <option value="" selected>All</option>
                 <option :value="value" v-for="(value, key) in getStatus" :key="key">{{ value }}</option>
             </select>
         </div>
     </div>
-
+    <p><em>*Click on header to sort the column</em></p>
     <table class="table table-hover table-bordered border-dark">
         <thead>
-            <tr class="table-primary">
-                <th v-for="(value, index) in tableKeys" :key="index">{{ value }} <i v-if="index >= 1 && index <= 5"
-                        class="bi bi-filter-left" @click="sortRecords(index)"></i>
+            <tr class="table-primary text-center">
+                <th v-for="(value, index) in tableKeys" :key="index">
+                    <div v-if="index >= 1 && index <= 5" class="pointer">
+                        <i class="bi bi-filter-left" @click="sortRecords(index)">
+                            {{ value }}</i>
+                        </div>     
+                        <div v-else> {{ value }}</div>
                 </th>
                 <th>View</th>
             </tr>
@@ -68,6 +73,8 @@
             </tr>
         </tbody>
     </table>
+           
+</div>
 </template>
 
 <script>
@@ -181,9 +188,10 @@ export default {
 </script>
 
 <style scoped>
-body {
+.body {
+    background-color: aquamarine;
     margin: 0;
-    padding: 0;
+    padding: 10px;    
     animation: pulse 5s once;
 }
 

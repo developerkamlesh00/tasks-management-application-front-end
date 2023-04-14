@@ -13,7 +13,7 @@ import ShowDirectors from "./components/admin/ShowDirectors.vue";
 import ShowManagers from "./components/admin/ShowManagers.vue";
 import ShowWorkers from "./components/admin/ShowWorkers.vue";
 
-//director compo
+//director components
 import OrganizationRegister from "./pages/director/OrganizationRegister.vue";
 import DirectorDashboard from "./pages/director/DirectorDashboard.vue";
 import CreateManagerWorker from "./components/director/CreateManagerWorker.vue";
@@ -23,18 +23,20 @@ import ViewSummary from "./components/director/ViewSummary.vue";
 import ViewManagers from "./components/director/ViewManagers.vue";
 import ViewWorkers from "./components/director/ViewWorkers.vue";
 import CreateUserTemp from "./components/director/CreateUserUsingUpload.vue";
-//end director compo
+//end director components
 
 import ManagerDashboard from "./pages/manager/ManagerDashboard.vue";
+
+// Worker Pages
 import WorkerView from "./pages/worker/WorkerView.vue";
 import KanbanBoard from "./pages/worker/KanbanBoard.vue";
 import TasksTable from "./pages/worker/TasksTable.vue";
 import TaskDetails from "./pages/worker/TaskDetails.vue";
 // import WorkStatistics from "./pages/worker/WorkSummary.vue";
 import InfographicsPage from "./pages/worker/InfographicsPage.vue";
-import DashboardSettings from "./pages/worker/DashboardSettings.vue";
 import ProjectsPage from "./pages/worker/ProjectsPage.vue";
 import MyManagers from "./pages/worker/MyManagers.vue";
+import DashboardSettings from "./pages/worker/DashboardSettings.vue";
 
 //import UserDashboard from "./pages/UserDashboard.vue";
 import NotFound from "./pages/NotFound.vue";
@@ -111,12 +113,17 @@ const routes = [
     component: WorkerView,
     children: [
       {
-        path: "",
-        name: "taskTable",
-        component: TasksTable,
+        path:"",
+        redirect: "/worker/dashboard",
+      },
+      {
+        path: "dashboard",
+        name: "dashboard",
+        component: KanbanBoard,
       },
       {
         path: "tasks",
+        name: "tasksTable",
         component: TasksTable,
       },
       {
@@ -127,22 +134,22 @@ const routes = [
       },
       {
         path: "progress",
+        name: "progress",
         component: InfographicsPage,
       },
       {
         path: "projects",
+        name: "projects",
         component: ProjectsPage,
       },
       {
-        path: "dashboard",
-        component: KanbanBoard,
-      },
-      {
         path: "settings",
+        name: "settings",
         component: DashboardSettings,
       },
       {
         path: "mymanagers",
+        name: "mymanagers",
         component: MyManagers,
       },
       // {

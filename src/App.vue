@@ -32,7 +32,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+.pointer {cursor: pointer;}
 /*
 .fade-button-enter-from,
 .fade-button-leave-to{

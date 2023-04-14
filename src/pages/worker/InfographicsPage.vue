@@ -1,82 +1,196 @@
-
 <template>
+  <h2 class="header">Projects Summary</h2><br>
   <div>
-      <canvas id="graph"></canvas>
+    {{ getCounts }}
+    {{ getTasksPerProject }}
+    <div class="container" style="width:700px;height:500px">
+      <canvas id="pieChart"></canvas><br><br>
+      <hr><br>
+    </div>
+    <div class="container" style="width:700px;height:300px">
+      <canvas id="stackedBarChart"></canvas><br><br>
+      <hr><br>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Task ID</th>
+          <th>Time Passed</th>
+        </tr>
+      </thead>
+    </table>
   </div>
 </template>
-
-
 <script>
-// import Chart from 'chartjs'
-// const ctx = document.getElementById('myChart');
+// import axios from 'axios';
+import {
+  Chart, PieController, ArcElement, CategoryScale, LinearScale, BarController, BarElement, Colors,
+  BubbleController, Tooltip ,
+  Legend
+} from 'chart.js';
+Chart.register(
 
-// new Chart(ctx, {
-//   type: 'bar',
-//   data: {
-//     labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-//     datasets: [{
-//       label: '# of Votes',
-//       data: [12, 19, 3, 5, 2, 3],
-//       borderWidth: 1
-//     }]
-//   },
-//   options: {
-//     scales: {
-//       y: {
-//         beginAtZero: true
-//       }
-//     }
-//   }
-// });
+);
 
-
-import Chart from 'chart.js'
-export const planetChartData = {
-    type: "line",
-    data: {
-        labels: ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"],
-        datasets: [
-            {
-                label: "Number of Moons",
-                data: [0, 0, 1, 2, 79, 82, 27, 14],
-                backgroundColor: "rgba(54,73,93,.5)",
-                borderColor: "#36495d",
-                borderWidth: 3
-            },
-            {
-                label: "Planetary Mass (relative to the Sun x 10^-6)",
-                data: [0.166, 2.081, 3.003, 0.323, 954.792, 285.886, 43.662, 51.514],
-                backgroundColor: "rgba(71, 183,132,.5)",
-                borderColor: "#47b784",
-                borderWidth: 3
-            }
-        ]
-    },
-    options: {
-        responsive: true,
-        lineTension: 1,
-        scales: {
-            yAxes: [
-                {
-                    ticks: {
-                        beginAtZero: true,
-                        padding: 25
-                    }
-                }
-            ]
-        }
-    }
-};
-
+import { mapGetters } from 'vuex';
+Chart.register(CategoryScale, Colors, Tooltip ,
+  BubbleController,
+  LinearScale,
+  Legend, LinearScale, BarController, BarElement, PieController, ArcElement);
 export default {
-    data() {
-        return {
-            planetChartData: planetChartData
-        }
-    },
-    mounted() {
-        const ctx = document.getElementById('graph');
-        new Chart(ctx, this.planetChartData);
+  data() {
+    return {
+completed:[],
+completed_ids:[],
+labels:[],
+pending:[],
+pending_ids:[],
     }
+  },
+  methods: {
+  },
+  computed: {
+    ...mapGetters('worker', ['getCounts', 'getTasksPerProject'])
+  },
+  mounted() {
+
+    const data = {
+      labels: [
+        'Total Tasks',
+        'Pending',
+        'Overdue',
+        'Under Review',
+        'Completed',
+      ],
+      datasets: [{
+        label: 'Number of Tasks',
+        data: [this.getCounts.total_tasks_assigned, this.getCounts.pending, this.getCounts.overdue_tasks, this.getCounts.reviews_submitted, this.getCounts.completed_tasks],
+        backgroundColor: [
+          'rgb(255, 99, 132)',
+          'rgb(54, 162, 235)',
+          'rgb(255, 205, 86)',
+          'rgb(155, 105, 86)',
+          'rgb(055, 005, 2)',
+        ],
+        hoverOffset: 5
+      }]
+    }
+    const config = {
+      type: 'pie',
+      data: data,
+      options: {
+        plugins: {
+          legend: {
+            display: true,
+            position: 'right'
+          },
+          title: {
+            display: true,
+            text: 'Tasks'
+          },
+          responsive: true,
+        interaction: {
+          intersect: false,
+        },
+        }
+      }
+    }
+
+    const ctx = document.getElementById('pieChart');
+    const myChart = new Chart(ctx,
+      config);
+    console.log(myChart)
+
+    for (let key in this.getTasksPerProject) {
+        this.labels.push(`Project #${key}`),
+            this.completed.push(this.getTasksPerProject[key]["completed"].length);
+            this.completed_ids.push(this.getTasksPerProject[key]["completed"]);
+            this.pending.push(this.getTasksPerProject[key]["pending"].length);        
+            this.pending_ids.push(this.getTasksPerProject[key]["pending"]);        
+            
+    }
+    const data2 = {
+      labels: this.labels,
+      datasets: [
+        {
+          label: 'Pending',
+          data: this.pending,
+          backgroundColor: 'rgb(54, 162, 235)',
+          stack: 'Stack 0',
+        },
+        {
+          label: 'Completed',
+          data: this.completed,
+          backgroundColor: 'rgb(224, 62, 135)',
+          stack: 'Stack 0',
+        },
+      ]
+    };
+
+    const config2 = {
+      type: 'bar',
+      data: data2,
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: 'Chart.js Bar Chart - Stacked'
+          },
+        },
+        responsive: true,
+        interaction: {
+          intersect: false,
+        },
+        scales: {
+          x: {
+            stacked: true,
+          },
+          y: {
+            stacked: true
+          }
+        },
+      }
+    };
+    const ctx2 = document.getElementById('stackedBarChart');
+    const myChart1 = new Chart(ctx2,
+      config2);
+    console.log(myChart1)
+
+  }
 }
 </script>
+
+<style scoped>
+.header {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+  text-align: center;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td {
+  padding: 10px;
+  border: none;
+}
+
+.red {
+  background-color: rgba(255, 99, 132, 0.2);
+}
+
+.yellow {
+  background-color: rgba(255, 205, 86, 0.2)
+}
+
+.orange {
+  background-color: #F58326;
+}
+
+.green {
+  background-color: rgba(75, 192, 192, 0.2);
+}
+</style>

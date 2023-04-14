@@ -18,7 +18,7 @@
             </base-button>
         </base-card>
         <div class="col-10">
-            <base-card class="m-0 ms-2 mw-100">
+            <base-card class="m-0 p-0 ms-2 mw-100">
 
                 <router-view v-slot="{ Component }">
                     <component :is="Component"></component>
