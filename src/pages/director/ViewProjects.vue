@@ -334,7 +334,7 @@ export default {
     text-align: center;
 }
 .table-content {
-  height: 400px;
+  height: 500px;
 }
 th {
   text-align: top;

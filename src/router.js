@@ -82,7 +82,7 @@ const routes = [
     name: "director",
     component: DirectorDashboard,
     children: [
-      { path: '', component: CreateManagerWorker },
+      { path: '',  component : ViewOrganization },
       { path: ":add", name: "managerworker", component: CreateManagerWorker },
       { path: ":add", name: "project", component: CreateProject },
       { path: ":add", name: "viewproject", component: ViewProjects },

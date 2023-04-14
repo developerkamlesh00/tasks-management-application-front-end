@@ -8,4 +8,10 @@ export default {
     getOrg(state){
         return state.org
     },
+    getWorkers(state){
+        return state.workers;
+    },
+    getManagers1(state){
+        return state.managers1;
+    },
 };

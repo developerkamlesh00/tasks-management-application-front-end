@@ -8,6 +8,8 @@ export default {
     return {
       projects: [],
       managers: [],
+      managers1: [],
+      workers: [],
       org: null,
     };
   },

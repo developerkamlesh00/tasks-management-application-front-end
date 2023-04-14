@@ -55,7 +55,7 @@
                 }}%
               </div>
             </div>
-            <p class="project-status"><strong>Projects Completed:</strong> {{ getOrganization.projects_completed }} / {{ getOrganization.total_projects }}</p>
+            <p class="project-status"><strong>Projects Completed : </strong> {{ getOrganization.projects_completed }} / {{ getOrganization.total_projects }}</p>
             <button class="btn btn-primary" @click="openOrg(getOrganization)">Update Organization Details</button>
         </div>
     </div>

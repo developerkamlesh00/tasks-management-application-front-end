@@ -41,6 +41,7 @@ export default {
     console.log(managers);
     console.log("All Managers", managers);
     context.commit("setManagers", managers);
+    return;
   },
 
   async fetchOrganization(context){
@@ -51,6 +52,33 @@ export default {
       console.log("Organization:", response.data );
       context.commit("setOrg", response.data);
     });
+    return;
    // console.log(result);
+  },
+
+
+  //fetch workers
+  async fetchWorkers(context,payload){
+    await axios.get(payload)
+    .then(response =>{
+      console.log("All Workers:",response.data );
+      context.commit("setWorkers", response.data);
+    }).catch(err=>{
+      return err.response.data;
+    })
+    return;
+  },
+
+    //fetch workers
+  //fetch workers
+  async fetchManagers(context,payload){
+    await axios.get(payload)
+    .then(response =>{
+      console.log("All Managers:",response.data );
+      context.commit("setManagers1", response.data);
+    }).catch(err=>{
+      return err.response.data;
+    })
+    return;
   }
 };
