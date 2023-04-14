@@ -17,6 +17,9 @@
         <p v-if="error">
           {{ error }}
         </p>
+        <p class="forgot-password text-right">
+          <router-link to="forgot">Forgot Password?</router-link>
+        </p>
         <base-button id="btnlogin">Login</base-button>
       </form>
     </base-card>
