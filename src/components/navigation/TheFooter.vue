@@ -38,7 +38,7 @@
       </div>
 </template>
 
-<style>
+<style scoped>
   /* Basic styling */
   .social-link {
     display: inline-block;

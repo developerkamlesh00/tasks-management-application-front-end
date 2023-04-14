@@ -19,6 +19,10 @@ import DirectorDashboard from "./pages/director/DirectorDashboard.vue";
 import CreateManagerWorker from "./components/director/CreateManagerWorker.vue";
 import CreateProject from "./components/director/CreateProject.vue";
 import ViewProjects from "./pages/director/ViewProjects.vue";
+import ViewSummary from "./components/director/ViewSummary.vue";
+import ViewManagers from "./components/director/ViewManagers.vue";
+import ViewWorkers from "./components/director/ViewWorkers.vue";
+import CreateUserTemp from "./components/director/CreateUserUsingUpload.vue";
 //end director compo
 
 import ManagerDashboard from "./pages/manager/ManagerDashboard.vue";
@@ -29,6 +33,8 @@ import TaskDetails from "./pages/worker/TaskDetails.vue";
 // import WorkStatistics from "./pages/worker/WorkSummary.vue";
 import InfographicsPage from "./pages/worker/InfographicsPage.vue";
 import DashboardSettings from "./pages/worker/DashboardSettings.vue";
+import ProjectsPage from "./pages/worker/ProjectsPage.vue";
+import MyManagers from "./pages/worker/MyManagers.vue";
 
 //import UserDashboard from "./pages/UserDashboard.vue";
 import NotFound from "./pages/NotFound.vue";
@@ -77,14 +83,11 @@ const routes = [
     children: [
       { path: ":add", name: "managerworker", component: CreateManagerWorker },
       { path: ":add", name: "project", component: CreateProject },
-      {
-        path: ":add",
-        name: "viewproject",
-        component: ViewProjects,
-        // children: [
-        //   { path: 'editproject',name: "editproject", component: CreateProject }
-        // ]
-      },
+      { path: ":add", name: "viewproject", component: ViewProjects },
+      { path: ":add", name: "viewsummary", component: ViewSummary },
+      { path: ":add", name: "viewmanagers", component: ViewManagers },
+      { path: ":add", name: "viewworkers", component: ViewWorkers },
+      { path: ":add", name: "temp", component: CreateUserTemp },
     ],
     beforeEnter: (_, _1, next) => {
       if (store.getters.role == "director" && store.getters.isAuthenticated) {
@@ -132,12 +135,21 @@ const routes = [
         component: InfographicsPage,
       },
       {
+        path: "projects",
+        component: ProjectsPage,
+      },
+      {
         path: "dashboard",
         component: KanbanBoard,
       },
+      
       {
         path: "settings",
         component: DashboardSettings,
+      },
+      {
+        path: "mymanagers",
+        component: MyManagers,
       },
       // {
       //   path: "/:notFound(.*)",
@@ -146,6 +158,13 @@ const routes = [
       // },
     ],
   },
+  // beforeEnter: (_, _1, next) => {
+  //   if(store.getters.role == 'worker' && store.getters.isAuthenticated){
+  //     next();
+  //   }else{
+  //     next('/login');
+  //   }
+  // },
   // beforeEnter: (_, _1, next) => {
   //   if(store.getters.role == 'worker' && store.getters.isAuthenticated){
   //     next();

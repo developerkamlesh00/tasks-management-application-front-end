@@ -13,8 +13,11 @@
     "bootstrap-vue": "^2.23.1",
     "chart.js": "^2.9.4",
     "core-js": "^3.8.3",
+    "data-to-json": "^1.0.5",
+    "papaparse": "^5.4.1",
     "vue": "^3.2.13",
     "vue-axios": "^3.5.2",
+    "vue-papa-parse": "^3.1.0",
     "vue-router": "^4.1.6",
     "vuejs-paginate": "^2.1.0",
     "vuex": "^4.1.0"

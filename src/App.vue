@@ -32,7 +32,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 /*
 .fade-button-enter-from,
 .fade-button-leave-to{

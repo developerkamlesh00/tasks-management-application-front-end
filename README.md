@@ -16,6 +16,11 @@ npm install --save vuex
 npm install chart.js
 ```
 
+### Install papaparse for CSV
+```
+npm install papaparse
+```
+
 ### Compiles and hot-reloads for development
 ```
 npm run serve

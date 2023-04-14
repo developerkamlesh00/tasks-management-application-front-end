@@ -1,4 +1,5 @@
 <template>
+  <h2 class="header">Create Project</h2><br>
   <form @submit.prevent="createProject">
     <div class="form-control">
       <label for="title">Project Title</label>
@@ -106,7 +107,7 @@ export default {
           this.error = null;
         }
       } catch (error) {
-        this.error = "Something Wrong....";
+        this.error = ["Something Wrong...."];
       }
     },
   },
@@ -123,6 +124,13 @@ export default {
 </script>
 
 <style scoped>
+.header {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+    text-align: center;
+}
 #card {
   max-width: 60rem;
 }

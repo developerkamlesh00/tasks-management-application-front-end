@@ -14,6 +14,15 @@ export default {
   //   //   task.status_id=status_id
   //   return;
   // },
+  setComments(state,data){
+    state.comments=data;
+  },
+  setProjects(state,data){
+    state.projects=data;
+  },
+  setProjectTasks(state,data){
+    state.project_tasks=data;
+  },
   setData(state) {
     state.tasks.forEach((task) => {
       let obj = {
