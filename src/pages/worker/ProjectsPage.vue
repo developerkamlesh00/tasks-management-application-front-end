@@ -1,9 +1,11 @@
 <template>
-    <div class="container my-2 mx-1">
+    <div class="container p-3">
     <div v-if="showTasks" class="d-flex justify-content-end">
         <button class="btn btn-danger px-2 btn-sm" @click="showTasks=false"><i class="bi bi-x-circle-fill"></i> Hide Tasks</button>
     </div>
-    <ProjectTasks v-if="showTasks"/>
+    <div>
+        <ProjectTasks v-if="showTasks"/>
+    </div>
     <table class="table table-hover table-bordered border-dark text-center" style="background-color: transparent;">
         <thead>
             <tr> 
@@ -26,8 +28,7 @@
                 <td>{{ project.user.name }}</td>
                 <td><button @click="fetchProjectTasks(project.id)" class="btn btn-sm" :class="project.workers_visibility?'btn-warning':'btn-info'">{{ project.workers_visibility?'All':'My tasks' }}
                 </button></td>        
-            </tr>
-            
+            </tr>         
             
         </tbody>
     </table>
@@ -35,8 +36,6 @@
         
 </div>
 </template>
-
-
 
 <script>
 import { mapActions, mapGetters } from 'vuex';

@@ -13,6 +13,7 @@
   </template>
   
   <script>
+import { mapActions } from 'vuex';
   export default {
     data() {
       return {
@@ -21,9 +22,11 @@
       }
     },
     methods: {
+      ...mapActions('worker',['setMessage']),
       saveSettings() {
         localStorage.setItem('boardColor', this.boardColor);
         localStorage.setItem('cardColor', this.cardColor);
+        this.setMessage('Settings changes successfully');
       },
     },
     mounted() {

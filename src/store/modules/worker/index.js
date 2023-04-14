@@ -8,6 +8,8 @@ export default {
   namespaced: true,
   state() {
     return {
+      showMessage:false,
+      message:'',
       boards: boards,
       totalBoards: 4,
       tasks:[],

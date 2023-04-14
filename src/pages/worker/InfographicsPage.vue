@@ -1,24 +1,17 @@
 <template>
-  <h2 class="header">Projects Summary</h2><br>
-  <div>
-    {{ getCounts }}
-    {{ getTasksPerProject }}
-    <div class="container" style="width:700px;height:500px">
-      <canvas id="pieChart"></canvas><br><br>
-      <hr><br>
+  <div class="container py-2 p-4 m-auto">
+  <h2 class="header">Visualize My Data</h2><br>
+  
+  <div class="container m-2 text-center">
+    <h2>Count of task status</h2>
+    <div class="container my-2" style="width:500px;height:500px">
+      <canvas id="pieChart"></canvas>
     </div>
-    <div class="container" style="width:700px;height:300px">
-      <canvas id="stackedBarChart"></canvas><br><br>
-      <hr><br>
+    <h2>Pending/Completed tasks in each project</h2>
+    <div class="container my-2" style="width:500px;height:300px">
+      <canvas id="stackedBarChart"></canvas>
     </div>
-    <table>
-      <thead>
-        <tr>
-          <th>Task ID</th>
-          <th>Time Passed</th>
-        </tr>
-      </thead>
-    </table>
+  </div>
   </div>
 </template>
 <script>
@@ -66,11 +59,11 @@ pending_ids:[],
         label: 'Number of Tasks',
         data: [this.getCounts.total_tasks_assigned, this.getCounts.pending, this.getCounts.overdue_tasks, this.getCounts.reviews_submitted, this.getCounts.completed_tasks],
         backgroundColor: [
-          'rgb(255, 99, 132)',
-          'rgb(54, 162, 235)',
-          'rgb(255, 205, 86)',
-          'rgb(155, 105, 86)',
-          'rgb(055, 005, 2)',
+          'rgb(3, 144, 252)',
+          'rgb(252, 173, 3)',
+          'rgb(252, 3, 3)',
+          'rgb(235, 5, 189)',
+          'rgb(47, 235, 5)',
         ],
         hoverOffset: 5
       }]
@@ -82,7 +75,6 @@ pending_ids:[],
         plugins: {
           legend: {
             display: true,
-            position: 'right'
           },
           title: {
             display: true,
@@ -115,13 +107,13 @@ pending_ids:[],
         {
           label: 'Pending',
           data: this.pending,
-          backgroundColor: 'rgb(54, 162, 235)',
+          backgroundColor: 'rgb(252, 173, 3)',
           stack: 'Stack 0',
         },
         {
           label: 'Completed',
           data: this.completed,
-          backgroundColor: 'rgb(224, 62, 135)',
+          backgroundColor: 'rgb(47, 235, 5)',
           stack: 'Stack 0',
         },
       ]

@@ -1,20 +1,20 @@
 <template>
-    <div class="body">
+    <div class="container py-2 px-4">
     <div class="row">
         <div class="col-4">
-            <base-card class="row bg-info text-center">
+            <base-card class="row  linear_blue text-center">
                 <h5><i class="bi bi-list-task"></i> Total Tasks Assigned</h5>
                 <div class="display-6 text-center">{{ this.getCounts.total_tasks_assigned }}</div>
             </base-card>
         </div>
         <div class="col-4 ">
-            <base-card class="row bg-success text-center">
+            <base-card class="row  linear_green text-center">
                 <h5><i class="bi bi-check-circle-fill"></i> Tasks Completed</h5>
                 <div class="display-6 text-center">{{ this.getCounts.completed_tasks }}</div>
             </base-card>
         </div>
         <div class="col-4">
-                <base-card class="row bg-danger text-center">
+                <base-card class="row  linear_red text-center">
                 <h5><i class="bi bi-exclamation-diamond-fill"></i> Tasks Overdue</h5>
                 <div class="display-6 text-center">{{ this.getCounts.overdue_tasks }}</div>
             </base-card>
@@ -51,7 +51,7 @@
             <tr class="table-info" v-for="task in getFilteredRows" :key="task.id">
                 <td v-for="(item, index) in task" :key="index"><template v-if="index==2">{{ item.slice(0,20) }}......</template><template v-else>{{ item }}</template></td>                  
                 <td>
-                    <select name="change_status" id="change_status" @change="changeStatus($event, task[0])">
+                    <select name="change_status" id="change_status" @change="changeStatus($event, task[0])" :disabled="task[5]=='Completed'">
                         <option :value="index" v-for="(status, index) in getStatus" :key="index" :disabled="index == 4"
                             :selected="task[5] === getStatus[index]">{{
                                 status }}</option>
@@ -222,6 +222,15 @@ export default {
     border-radius: 4px;
     box-shadow: 0 0 5px rgba(0, 0, 0, .2);
     animation: load 5s;
+}
+.linear_blue{
+background: radial-gradient(circle, rgba(252,248,255,1) 0%, rgba(150,202,255,1) 100%);
+}
+.linear_green{
+    background: radial-gradient(circle, rgba(255,255,254,1) 0%, rgba(197,247,142,1) 100%);
+}
+.linear_red{
+    background: radial-gradient(circle, rgba(255,240,219,1) 0%, rgba(255,132,132,1) 100%);
 }
 
 @keyframes load {

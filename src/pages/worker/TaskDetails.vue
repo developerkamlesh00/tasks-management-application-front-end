@@ -1,27 +1,31 @@
 <template>
-    <base-card style="width:80%;max-width:fit-content;background: #8bf0ba;" v-if="getTask">
-        <h2>Task: <em style="color:#0e0fed">{{ getTask.title }}</em></h2>
-        <div>Task ID: #{{ getTask.id }}</div>
-        <p>{{ getTask.description }}</p>
-        <div>{{ getTask.assigned_at }}</div>
-        <div>Estimated Deadline: {{ getTask.estimated_deadline }}</div>
-        <div>Project Id: {{ getTask.project_id }}</div>
-        <div>Project Name: {{ getTask.project_id }}</div>
-        <div>Review Passed: {{ getTask.review_passed == 0 ? 'No' : 'Yes' }}</div>
-        <!-- <div>{{ status[getTask.status_id] }}</div> -->
-
-    </base-card>
+    <base-card class="card1" style="width:80%;max-width:fit-content;" v-if="getTask">
+    <div class="card1">
+        <h2 class="text-center">Task: <b>{{ getTask.title }}</b></h2>
+        <div class="text-end text-primary">Task ID: #{{ getTask.id }}</div>
+        <div class="mb-2">
+        <em>Description: {{ getTask.description }}</em></div>
+        <div class="font-monospace text-end">
+            <div>Assigned at: {{ getTask.assigned_at }}</div>
+            <div>Estimated Deadline: {{ getTask.estimated_deadline }}</div>
+            <div>Project Id: {{ getTask.project_id }}</div>
+            <!-- <div>Status: {{ status[getTask.status_id] }}</div> -->
+            <div>Review Passed: {{ getTask.review_passed == 0 ? 'No' : 'Yes' }}</div>
+        </div>
+    </div>
+    </base-card >
     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content color_pink">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Comment</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form @submit.prevent="editComment(edit_comment_id)">
                     <div class="modal-body">
-                        <label for="">Comment Body</label>
-                        <input type="text" v-model="edit_comment_body">
+                        <label for="body" class="form-label">Comment Body</label>
+                        <br/>
+                        <input type="text" v-model="edit_comment_body" id="body">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -31,10 +35,10 @@
             </div>
         </div>
     </div>
-    <div class="container mt-1 mb-5">
+    <div class="mt-1 mb-5">
         <div class="d-flex justify-content-center row">
             <div class="d-flex flex-column col-md-8">
-                <div class="coment-bottom bg-white py-2">
+                <div class="coment-bottom py-2">
                     <form @submit.prevent="createComment" class="d-flex flex-row add-comment-section mt-4 mb-4"><img
                             class="img-fluid img-responsive rounded-circle me-2" src="https://i.imgur.com/qdiP4DB.jpg"
                             width="38">
@@ -45,16 +49,19 @@
                     <div class="commented-section mt-1" v-for="comment in getComments" :key="comment.id">
 
                         <base-card>
-                            <div class="d-flex flex-row align-items-center commented-user">
-                                <h5 class="me-2">{{ comment.user.name }}</h5><span class="dot mb-1"></span><span
-                                    class="mb-1 ms-2">{{ formattedDate(comment.created_at) }}</span>
+                            <div class="commented-user">
+                                <div class="me-2 fs-3 d-inline">{{ comment.user.name }}
+                                </div>
+                                <span v-if="comment.user_id == userId">
+                                    <button data-bs-toggle="modal" data-bs-target="#editModal" class="btn text-warning"
+                                    @click="setEditFields(comment.body, comment.id)"><i class="bi bi-pencil-square"></i> Edit</button>
+                                    <button class="btn text-danger" @click="deleteComment(comment.id)"><i class="bi bi-trash3"></i> Delete</button>
+                                </span>
                             </div>
                             <div class="comment-text-sm"><span>{{ comment.body }}</span></div>
-                            <div v-if="comment.user_id == userId">
-                                <button data-bs-toggle="modal" data-bs-target="#editModal"
-                                    @click="setEditFields(comment.body, comment.id)">Edit</button>
-                                <button @click="deleteComment(comment.id)">Delete</button>
-                            </div>
+                            <div class="text-end fs-6 ms-4 px-2 rounded-3 color_pink bg-light">
+                            
+                                {{ formattedDate(comment.created_at) }}</div>
                         </base-card>
                     </div>
                 </div>

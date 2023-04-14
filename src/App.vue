@@ -88,6 +88,47 @@ transition:opacity 0.5s ease-in;
   color:rgb(249, 156, 219);
   background-color: rgb(101, 84, 192);
 }
+
+
+.card1 {
+    background-image: linear-gradient(135deg,
+            hsl(311deg 100% 86%) 0%,
+            hsl(311deg 100% 88%) 9%,
+            hsl(311deg 100% 90%) 19%,
+            hsl(311deg 100% 91%) 31%,
+            hsl(311deg 100% 93%) 45%,
+            hsl(311deg 100% 94%) 59%,
+            hsl(311deg 100% 96%) 73%,
+            hsl(311deg 100% 97%) 84%,
+            hsl(311deg 100% 99%) 93%,
+            hsl(0deg 0% 100%) 100%);
+}
+
+.card2 {
+    background-image: linear-gradient(135deg,
+            hsl(278deg 100% 88%) 0%,
+            hsl(278deg 100% 88%) 5%,
+            hsl(278deg 100% 89%) 11%,
+            hsl(278deg 100% 90%) 16%,
+            hsl(278deg 100% 90%) 21%,
+            hsl(278deg 100% 91%) 26%,
+            hsl(279deg 100% 92%) 32%,
+            hsl(279deg 100% 92%) 37%,
+            hsl(279deg 100% 93%) 42%,
+            hsl(279deg 100% 94%) 47%,
+            hsl(279deg 100% 94%) 53%,
+            hsl(279deg 100% 95%) 58%,
+            hsl(279deg 100% 96%) 63%,
+            hsl(280deg 100% 96%) 68%,
+            hsl(280deg 100% 97%) 74%,
+            hsl(280deg 100% 97%) 79%,
+            hsl(280deg 100% 98%) 84%,
+            hsl(280deg 100% 99%) 89%,
+            hsl(280deg 100% 99%) 95%,
+            hsl(0deg 0% 100%) 100%);
+}
+
+
 .slide-enter-active,
 .slide-leave-active {
   transition: all 1s ease-in-out;

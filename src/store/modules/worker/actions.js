@@ -16,6 +16,13 @@ export default {
     return;
   },
 
+   setMessage(state,data){
+    state.commit('setMessage',data);
+   },
+   unsetMessage(state){
+    state.commit('unsetMessage')
+   },
+
   async fetchWorkerProjects(state) {
     const worker_id = localStorage.getItem("userId");
     const projects=await axios.get(
