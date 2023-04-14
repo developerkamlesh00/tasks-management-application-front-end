@@ -1,4 +1,5 @@
 <template>
+  
   <div class="container">
     <div class="user-statistics-wrapper">
       <user-statistics></user-statistics>

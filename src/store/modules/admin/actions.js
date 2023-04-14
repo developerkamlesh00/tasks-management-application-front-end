@@ -107,7 +107,7 @@ export default {
     commit("setManagerCurrentPage", 1);
     dispatch("deleteManager");
   },
-  managerChangePage({ commit }, page) {
+  changeManagerPage({ commit }, page) {
     commit("setManagerCurrentPage", page);
   },
 
