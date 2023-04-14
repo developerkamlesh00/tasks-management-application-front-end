@@ -61,27 +61,32 @@ transition:opacity 0.5s ease-in;
 .pink{
   color:rgb(101, 84, 192);
   background-color: rgb(249, 156, 219);
-  font-weight: 700px;
   
 }
 
 .blue{
   color:rgb(249, 156, 219);
   background-color: rgb(101, 84, 192);
-  font-weight: 700px;
+}
+.color_pink{
+  color:rgb(101, 84, 192);
+  background-color: rgb(249, 156, 219);
+  
+}
+
+.color_blue{
+  color:rgb(249, 156, 219);
+  background-color: rgb(101, 84, 192);
 }
 
 .blue:hover{
   color:rgb(101, 84, 192);
   background-color: rgb(249, 156, 219);
-  font-weight: 700px;
 }
 
 .pink:hover{
   color:rgb(249, 156, 219);
   background-color: rgb(101, 84, 192);
-  font-weight: 700px;
-
 }
 .slide-enter-active,
 .slide-leave-active {
