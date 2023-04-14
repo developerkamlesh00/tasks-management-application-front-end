@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container p-5">
       <h2>Settings</h2>
       <hr/>
       <label class="form-label d-inline">Board Background Color:</label>
@@ -8,7 +8,7 @@
       <label class="form-label d-inline">Card Theme Color:</label>
       <input type="color" v-model="cardColor" class="m-2 form-input">
       <hr/>
-      <button @click="saveSettings" class="btn btn-success container-fluid">Save Settings</button>
+      <button @click="saveSettings" class="btn container-fluid blue">Save Settings</button>
     </div>
   </template>
   

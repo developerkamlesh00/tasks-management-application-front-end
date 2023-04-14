@@ -86,8 +86,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="project in filteredProjects" :key="project.id">
-          <th scope="row">{{ project.id }}</th>
+        <tr v-for="(project, index) in filteredProjects" :key="project.id">
+          <th scope="row">{{ index+1 }}</th>
           <td>{{ project.title }}</td>
           <td>{{ project.description }}</td>
           <td>{{ project.assigned_at ? project.assigned_at.slice(0,10) : project.assigned_at}}</td>
@@ -96,7 +96,6 @@
           <td>{{ project.username }}</td>
           <td>
             <div class="progress">
-              <!-- class="progress-bar bg-success" -->
               <div
                 :class="backgroundChange(project.tasks_completed,project.total_tasks)"
                 role="progressbar"
@@ -131,6 +130,7 @@
   </div>
 </template>
 <script>
+import { mapActions, mapGetters} from 'vuex';
 import axios from "axios";
 import BaseButton from '@/components/ui/BaseButton.vue';
 
@@ -142,7 +142,6 @@ export default {
       projectid:null,
       title: "",
       description: "",
-      //estimated_deadline: null,
       completed_at: null,
       manager_id: null,
       progress: 0,
@@ -163,10 +162,15 @@ export default {
     };
   },
   computed:{
+
+    ...mapGetters('director',['getProjects']),
+    ...mapGetters('director',['getManagers']),
+
     filteredProjects() {
-      console.log(this.projects);
+      const projects = this.getProjects;
+      console.log(projects);
       if (this.searchTerm) {
-        return this.projects.filter(project => {
+        return projects.filter(project => {
           const title = project.title.toLowerCase();
           const managername = project.username.toLowerCase();
           const description = project.description.toLowerCase();
@@ -174,7 +178,7 @@ export default {
           return managername.includes(term) || title.includes(term) || description.includes(term);
         });
       } else {
-        return this.projects;
+        return projects;
       }
     },
   },
@@ -196,7 +200,10 @@ export default {
     },
   },
   methods: {
-    backgroundChange(tasks_completed, total_tasks){
+    ...mapActions('director',['fetchAllProjects']),
+    ...mapActions('director',['fetchAllManagers']),
+
+    backgroundChange(tasks_completed, total_tasks){ //for progress bar
       if((tasks_completed / total_tasks) * 100 < 30){
         return "progress-bar bg-danger"
       }else if((tasks_completed / total_tasks) * 100 < 60){
@@ -242,17 +249,10 @@ export default {
       this.searchTerm = ''
     },
     //open edit box and then fetch managers list
+    ...mapGetters('director',['getManagers']),
     async openProject() {
-      let org = await this.$store.getters.organization;
-      console.log(org);
-      let result = await axios.get(
-        "http://localhost:8000/api/director/managers/"+org
-      );
-      let managers = [];
-      for (let key in result.data) {
-        managers.push({ id: result.data[key].id, name: result.data[key].name });
-      }
-      this.managerslist = managers;
+      this.managerslist = this.getManagers; //used vuex for store
+      console.log(this.managerslist);
     },
     //update Project here......
     async updateProject() {
@@ -285,7 +285,7 @@ export default {
           )
           .then((response) =>{
             this.handleProject();
-            this.loadProject()
+            this.loadProject();
             return response.data;
           })
           .catch((err) => {
@@ -299,48 +299,17 @@ export default {
       }
     },
     async loadProject() {
-      let org = await this.$store.getters.organization;
-      console.log(org);
-      await axios
-        .get("http://localhost:8000/api/director/projects/" + org)
-        .then((response) => {
-          console.log(response.data);
-         // this.projects = response.data;
-          let projects = [];
-          for (let key in response.data) {
-            projects.push({
-              id: response.data[key].id,
-              title: response.data[key].title,
-              description: response.data[key].description,
-              assigned_at: response.data[key].assigned_at,
-              estimated_deadline: response.data[key].estimated_deadline,
-              completed_at:response.data[key].completed_at,
-              username : response.data[key].user['name'],
-              total_tasks : response.data[key].total_tasks,
-              tasks_completed : response.data[key].tasks_completed,
-              manager_id: response.data[key].manager_id,
-            });
-          }
-          this.projects = projects;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      //await this.$store.commit("setprojects",this.projects);
-      //console.log(await this.$store.getters.getProjects);
-      //get proxy result into json format
-      const projects = JSON.parse(JSON.stringify(this.projects));
-      this.projects = projects;
+      await this.fetchAllProjects(); //load project at first
     },
-    async reloadComponent() {
-      await this.loadProject();
+    async loadManagers() {
+      await this.fetchAllManagers(); //load all managers
     }
   },
+
   async mounted() {
-    await this.loadProject()
+    await this.loadProject();
+    await this.loadManagers();
   },
-
-
 };
 </script>
 

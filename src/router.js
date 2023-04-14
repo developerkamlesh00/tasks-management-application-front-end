@@ -4,6 +4,8 @@ import store from "./store/index.js";
 import HomePage from "./pages/HomePage.vue";
 import AboutPage from "./pages/AboutPage.vue";
 import AuthLogin from "./pages/auth/AuthLogin.vue";
+import ForgotPassword from "./pages/auth/ForgotPassword.vue";
+import ResetPassword from './pages/auth/ResetPassword.vue';
 // import UpdateProfile from "./pages/auth/UpdateProfile.vue";
 
 //import Admin components
@@ -23,18 +25,20 @@ import ViewSummary from "./components/director/ViewSummary.vue";
 import ViewManagers from "./components/director/ViewManagers.vue";
 import ViewWorkers from "./components/director/ViewWorkers.vue";
 import CreateUserTemp from "./components/director/CreateUserUsingUpload.vue";
-//end director compo
+//end director components
 
 import ManagerDashboard from "./pages/manager/ManagerDashboard.vue";
+
+// Worker Pages
 import WorkerView from "./pages/worker/WorkerView.vue";
 import KanbanBoard from "./pages/worker/KanbanBoard.vue";
 import TasksTable from "./pages/worker/TasksTable.vue";
 import TaskDetails from "./pages/worker/TaskDetails.vue";
 // import WorkStatistics from "./pages/worker/WorkSummary.vue";
 import InfographicsPage from "./pages/worker/InfographicsPage.vue";
-import DashboardSettings from "./pages/worker/DashboardSettings.vue";
 import ProjectsPage from "./pages/worker/ProjectsPage.vue";
 import MyManagers from "./pages/worker/MyManagers.vue";
+import DashboardSettings from "./pages/worker/DashboardSettings.vue";
 
 //import UserDashboard from "./pages/UserDashboard.vue";
 import NotFound from "./pages/NotFound.vue";
@@ -49,6 +53,8 @@ const routes = [
   // { path: "/updateprofile", name: "updateprofile", component: UpdateProfile},
   { path: "/login", name: "login", component: AuthLogin },
   { path: "/logout", name: "logout", redirect: "/login" },
+  { path: "/forgot", name: "forgot", component: ForgotPassword },
+  { path: "/reset/:ref", props: true ,name: "reset", component : ResetPassword},
   {
     path: "/admin",
     name: "admin",
@@ -81,6 +87,7 @@ const routes = [
     name: "director",
     component: DirectorDashboard,
     children: [
+      { path: '', component: CreateManagerWorker },
       { path: ":add", name: "managerworker", component: CreateManagerWorker },
       { path: ":add", name: "project", component: CreateProject },
       { path: ":add", name: "viewproject", component: ViewProjects },
@@ -116,12 +123,17 @@ const routes = [
     component: WorkerView,
     children: [
       {
-        path: "",
-        name: "taskTable",
-        component: TasksTable,
+        path:"",
+        redirect: "/worker/dashboard",
+      },
+      {
+        path: "dashboard",
+        name: "dashboard",
+        component: KanbanBoard,
       },
       {
         path: "tasks",
+        name: "tasksTable",
         component: TasksTable,
       },
       {
@@ -132,23 +144,22 @@ const routes = [
       },
       {
         path: "progress",
+        name: "progress",
         component: InfographicsPage,
       },
       {
         path: "projects",
+        name: "projects",
         component: ProjectsPage,
       },
       {
-        path: "dashboard",
-        component: KanbanBoard,
-      },
-      
-      {
         path: "settings",
+        name: "settings",
         component: DashboardSettings,
       },
       {
         path: "mymanagers",
+        name: "mymanagers",
         component: MyManagers,
       },
       // {
