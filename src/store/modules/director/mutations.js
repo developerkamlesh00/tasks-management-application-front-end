@@ -4,5 +4,8 @@ export default {
     },
     setManagers(state, payload) {
         state.managers = payload
+    },
+    setOrg(state, payload) {
+        state.org = payload
     }
 };

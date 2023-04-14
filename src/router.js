@@ -8,13 +8,6 @@ import ForgotPassword from "./pages/auth/ForgotPassword.vue";
 import ResetPassword from './pages/auth/ResetPassword.vue';
 // import UpdateProfile from "./pages/auth/UpdateProfile.vue";
 
-//import Admin components
-import AdminDashboard from "./pages/admin/AdminDashboard.vue";
-import ShowOrganizations from "./components/admin/ShowOrganizations.vue";
-import ShowDirectors from "./components/admin/ShowDirectors.vue";
-import ShowManagers from "./components/admin/ShowManagers.vue";
-import ShowWorkers from "./components/admin/ShowWorkers.vue";
-
 //director compo
 import OrganizationRegister from "./pages/director/OrganizationRegister.vue";
 import DirectorDashboard from "./pages/director/DirectorDashboard.vue";
@@ -25,7 +18,16 @@ import ViewSummary from "./components/director/ViewSummary.vue";
 import ViewManagers from "./components/director/ViewManagers.vue";
 import ViewWorkers from "./components/director/ViewWorkers.vue";
 import CreateUserTemp from "./components/director/CreateUserUsingUpload.vue";
+import ViewOrganization from "./components/director/ViewOrganizationDetails.vue";
 //end director compo
+
+//import Admin components
+import AdminDashboard from "./pages/admin/AdminDashboard.vue";
+import ShowOrganizations from "./components/admin/ShowOrganizations.vue";
+import ShowDirectors from "./components/admin/ShowDirectors.vue";
+import ShowManagers from "./components/admin/ShowManagers.vue";
+import ShowWorkers from "./components/admin/ShowWorkers.vue";
+
 
 import ManagerDashboard from "./pages/manager/ManagerDashboard.vue";
 import WorkerView from "./pages/worker/WorkerView.vue";
@@ -87,6 +89,7 @@ const routes = [
       { path: ":add", name: "viewsummary", component: ViewSummary },
       { path: ":add", name: "viewmanagers", component: ViewManagers },
       { path: ":add", name: "viewworkers", component: ViewWorkers },
+      { path: ":add", name: "vieworganization", component: ViewOrganization},
       { path: ":add", name: "temp", component: CreateUserTemp },
     ],
     beforeEnter: (_, _1, next) => {

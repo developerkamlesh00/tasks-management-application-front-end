@@ -8,6 +8,7 @@ export default {
     return {
       projects: [],
       managers: [],
+      org: null,
     };
   },
   mutations,

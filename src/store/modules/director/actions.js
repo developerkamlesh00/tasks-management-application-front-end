@@ -41,5 +41,16 @@ export default {
     console.log(managers);
     console.log("All Managers", managers);
     context.commit("setManagers", managers);
+  },
+
+  async fetchOrganization(context){
+    const organization_id = localStorage.getItem("organization_id");
+    await axios.get(
+      "http://localhost:8000/api/director/organization/"+organization_id
+    ).then(response =>{
+      console.log("Organization:", response.data );
+      context.commit("setOrg", response.data);
+    });
+   // console.log(result);
   }
 };

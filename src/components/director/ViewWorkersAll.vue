@@ -173,6 +173,7 @@ export default {
 .header {
     font-size: 2rem;
     font-weight: bold;
+    padding-top: 15px;
     margin-bottom: 10px;
     color: #333;
     text-align: center;

@@ -6,7 +6,7 @@
   >{{ message }}
   </base-dialog>
   <h2 class="header">Create Managers and Workers</h2><br>
-    <div class="d-flex align-items-center justify-content-center">
+    <div class="csvcontainer">
       <div class="container">
         <div class="row mx-auto">
           <label for="formFileSm" class="form-label">Create Managers and Worker Using CSV file</label>
@@ -231,7 +231,8 @@ export default {
 .header {
     font-size: 2rem;
     font-weight: bold;
-    margin-bottom: 10px;
+    padding-top: 15px;
+    /* margin-bottom: 10px; */
     color: #333;
     text-align: center;
 }
@@ -244,13 +245,13 @@ export default {
 #btnregister {
   border-radius: 30px;
 }
-form {
+form, .csvcontainer {
   margin: 1rem;
   margin-top: -1rem;
   padding: 1rem;
 }
 
-.form-control {
+.form-control, .csvcontainer {
   margin: 0.5rem 0;
 }
 

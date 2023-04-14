@@ -127,16 +127,19 @@
         </tr>
       </tbody>
     </table>
+    <div v-if="isLoading">
+          <base-spinner></base-spinner>
+    </div>
   </div>
 </template>
 <script>
 import { mapActions, mapGetters} from 'vuex';
 import axios from "axios";
 import BaseButton from '@/components/ui/BaseButton.vue';
-
+import BaseSpinner from "../../components/ui/BaseSpinner.vue";
 
 export default {
-  components: { BaseButton },
+  components: { BaseButton , BaseSpinner},
   data() {
     return {
       projectid:null,
@@ -150,9 +153,12 @@ export default {
       projects: [],
       managerslist: [],
       error: [],
+
       viewForm: false,
       formIsValid: true,
       successful: null,
+      isLoading: false,
+
       selectedProject: null,
       searchTerm:'', //for search
       assign_at: '2000-01-01T00:00:00.000Z', //default date
@@ -299,7 +305,9 @@ export default {
       }
     },
     async loadProject() {
+      this.isLoading = true;
       await this.fetchAllProjects(); //load project at first
+      this.isLoading = false;
     },
     async loadManagers() {
       await this.fetchAllManagers(); //load all managers
@@ -307,8 +315,10 @@ export default {
   },
 
   async mounted() {
+    this.isLoading = true
     await this.loadProject();
     await this.loadManagers();
+    this.isLoading = false;
   },
 };
 </script>
@@ -318,6 +328,7 @@ export default {
 .header {
     font-size: 2rem;
     font-weight: bold;
+    padding-top: 15px;
     margin-bottom: 10px;
     color: #333;
     text-align: center;

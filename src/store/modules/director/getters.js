@@ -5,4 +5,7 @@ export default {
     getManagers(state){
         return state.managers
     },
+    getOrg(state){
+        return state.org
+    },
 };

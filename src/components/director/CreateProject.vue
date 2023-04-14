@@ -127,12 +127,14 @@ export default {
 .header {
     font-size: 2rem;
     font-weight: bold;
+    padding-top: 15px;
     margin-bottom: 10px;
     color: #333;
     text-align: center;
 }
 #card {
-  max-width: 60rem;
+  /* max-width: 60rem; */
+  max-width: fit-content;
 }
 #success {
   background-color: #138922;

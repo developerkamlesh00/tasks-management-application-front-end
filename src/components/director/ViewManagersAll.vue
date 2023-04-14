@@ -171,6 +171,7 @@ export default {
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 10px;
+    padding-top: 15px;
     color: #333;
     text-align: center;
 }
