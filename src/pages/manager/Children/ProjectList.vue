@@ -31,7 +31,7 @@
 </template>
 
 <script>
-
+import {mapActions} from 'vuex';
 import { mapGetters } from 'vuex';
 export default{
 
@@ -39,10 +39,15 @@ export default{
        
        ...mapGetters(['projectLists'])
    
-},
+},mounted(){
+        this.$store.dispatch("getProjects")
+      },
 
     methods:{
+      ...mapActions(['getProjects', 'getWorkers', 'reviewTasks']),
+
       
+
     }
     
 }

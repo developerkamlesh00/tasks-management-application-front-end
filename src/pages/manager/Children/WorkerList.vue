@@ -31,13 +31,24 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 export default{
 computed:
 {
     ...mapGetters(['workerLists'])
+},
+mounted(){
+    this.$store.dispatch("getWorkers")
+  },
+
+methods:{
+  ...mapActions['getWorkers'],
+ 
+ 
 }
     
 }
+
 
 </script>
 

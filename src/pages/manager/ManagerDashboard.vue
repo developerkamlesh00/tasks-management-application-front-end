@@ -2,9 +2,9 @@
    
     <div class="super">
         <div class="parent">
-            <button type="button" class="btn btn-primary" @click="displayProjects">Projects</button>
-            <button type="button" class="btn btn-primary" @click="displayWorkers">Workers</button>
-            <button type="button" class="btn btn-primary" @click="reviewTasks">Tasks to be Reviewed</button>
+            <router-link to="/manager/projects"><button type="button" class="btn btn-primary">Projects</button></router-link>
+            <router-link to="/manager/workers"><button type="button" class="btn btn-primary">Workers</button></router-link>
+            <router-link to="/manager/review_tasks"><button type="button" class="btn btn-primary">Tasks to be Reviewed</button></router-link>
             
         </div>
         <div class="child">
@@ -64,7 +64,7 @@ export default{
     watch: {
         ...mapActions(['getProjects', 'getWorkers', 'reviewTasks']),
     
-        '$route' (to) {
+     /*   '$route' (to) {
      
         let too = to.fullPath
       
@@ -79,11 +79,9 @@ export default{
             this.$store.dispatch("getWorkers")
         }
 
-        else if(too==='/manager/review_tasks'){
-            this.$store.dispatch("reviewTasks")
-        }
+    
       
-    }
+    }*/
   }
     
 }
