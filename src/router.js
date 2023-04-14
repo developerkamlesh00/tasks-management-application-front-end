@@ -14,8 +14,8 @@ import ShowOrganizations from "./components/admin/ShowOrganizations.vue";
 import ShowDirectors from "./components/admin/ShowDirectors.vue";
 import ShowManagers from "./components/admin/ShowManagers.vue";
 import ShowWorkers from "./components/admin/ShowWorkers.vue";
-
-//director components
+import adminStatistics from "./components/admin/AdminStatistics.vue"
+//director compo
 import OrganizationRegister from "./pages/director/OrganizationRegister.vue";
 import DirectorDashboard from "./pages/director/DirectorDashboard.vue";
 import CreateManagerWorker from "./components/director/CreateManagerWorker.vue";
@@ -60,6 +60,11 @@ const routes = [
     name: "admin",
     component: AdminDashboard,
     children: [
+      {
+        path: "",
+        name: "adminStatistics",
+        component: adminStatistics,
+      },
       {
         path: "organizations",
         name: "showOrganizations",
@@ -164,6 +169,13 @@ const routes = [
       // },
     ],
   },
+  // beforeEnter: (_, _1, next) => {
+  //   if(store.getters.role == 'worker' && store.getters.isAuthenticated){
+  //     next();
+  //   }else{
+  //     next('/login');
+  //   }
+  // },
   // beforeEnter: (_, _1, next) => {
   //   if(store.getters.role == 'worker' && store.getters.isAuthenticated){
   //     next();

@@ -88,11 +88,25 @@ export default {
 }
 
 .header {
-  font-size: 36px;
-  text-align: center;
-  margin-bottom: 30px;
+  font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+    text-align: center;
+  animation: color-change 5s infinite;
 }
 
+@keyframes color-change {
+  0% {
+    color: #4CAF50;
+  }
+  50% {
+    color: #f44336;
+  }
+  100% {
+    color: #4CAF50;
+  }
+}
 .search-container {
   display: flex;
   justify-content: space-between;
@@ -127,11 +141,17 @@ button {
 .card-item {
   background-color: #fff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
+  border-radius: 10px;
   padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
 }
 
 h3 {
@@ -158,6 +178,11 @@ h3 {
   background-color: #f44336;
 }
 
+.completed-bar, .remaining-bar {
+  height: 100%;
+  transition: width 0.3s ease-in-out;
+}
+
 .project-status {
   margin-top: 10px;
   font-size: 16px;
@@ -169,4 +194,5 @@ h3 {
   margin-top: 20px;
 }
 </style>
+
 
