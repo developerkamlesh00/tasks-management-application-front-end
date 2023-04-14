@@ -1,7 +1,11 @@
 <template>
     <div>
-    <h1>WorkerList</h1>
-<table class="table">
+    <h1 style="text-align: center;">WorkerList</h1>
+<div id="dtHorizontalVerticalExample"
+      class="table table-bordered table-sm table-attributes"
+      cellspacing="0"
+      width="100%">
+<table class="table" >
   <thead>
     <tr>
       <th scope="col">id</th>
@@ -21,6 +25,7 @@
 </table>
 
         </div>
+      </div>
 
 </template>
 
@@ -37,20 +42,14 @@ computed:
 </script>
 
 <style scoped>
-.super{
-
-    border: 2px solid red;
-    height: 576px;
-    display: flex;
+a{
+  text-decoration: none;
+  color: black;  
 }
 
-.parent{
-border: 2px solid goldenrod;
-flex: 1;
-}
-
-.child{
-    border: 2px solid goldenrod;
-    flex:4;
+.table-attributes{
+  height: 500px;
+  width:1000px;
+  overflow: scroll;
 }
 </style>

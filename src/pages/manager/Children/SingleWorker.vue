@@ -5,6 +5,7 @@
     </div>
 
     <button @click="showAssignedTasks" type="button" class="btn btn-primary">Show Assigned Tasks</button>
+
     <table class="table" v-show="displayTasks">
   <thead>
     <tr>

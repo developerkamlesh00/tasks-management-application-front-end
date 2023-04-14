@@ -64,7 +64,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr v-for="taskList in taskLists" v-bind:key="taskList.id ">
+    <tr v-for="taskList in taskLists" v-bind:key="taskList.id">
         <th scope="row">{{taskList.id}}</th>
         <!--<router-link :to="'/manager/projects/'+taskList.id"></router-link>-->
         <td>{{taskList.title}}</td>

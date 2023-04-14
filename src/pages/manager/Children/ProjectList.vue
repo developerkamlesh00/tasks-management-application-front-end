@@ -1,24 +1,32 @@
 <template>
-    <div>
-    <h1>ProjectList</h1>
-    <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">id</th>
-      <th scope="col">title</th>
-      <th scope="col">description</th>
-      <th scope="col">task</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr v-for="projectList in projectLists" v-bind:key="projectList.id ">
-        <th scope="row">{{projectList.id}}</th>
-        <router-link :to="'/manager/projects/'+projectList.id"><td>{{projectList.title}}</td></router-link>
-        <td>{{projectList.description}}</td>
-        <td>{{projectList.total_tasks}}</td>
-    </tr>
-  </tbody>
-</table>
+    
+    <h1 style="text-align: center;">Projects Assigned</h1>
+    <div class="table-responsive text-nowrap table-content table-attributes">
+    <table
+      id="dtHorizontalVerticalExample"
+      class="table table-bordered table-sm"
+      cellspacing="0"
+      width="100%">
+      <thead>
+        <tr>
+          <th scope="col">No.</th>
+          <th scope="col">Title</th>
+          <th scope="col">Desciption</th>
+          <th scope="col">Assigned Date</th>
+          <th scope="col">Estimated Deadline</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="projectList in projectLists" :key="projectList.id">
+          <th scope="row">{{ projectList.id }}</th>
+          <router-link :to="'/manager/projects/'+projectList.id"><td>{{ projectList.title }}</td></router-link>
+          <td>{{ projectList.description }}</td>
+          <td>{{ projectList.assigned_at }}</td>
+          <td>{{ projectList.estimated_deadline }}</td>
+          <td>{{ projectList.completed_at }}</td>  
+        </tr>
+      </tbody>
+    </table>
     </div>
 </template>
 
@@ -42,20 +50,16 @@ export default{
 </script>
 
 <style scoped>
-.super{
 
-    border: 2px solid red;
-    height: 576px;
-    display: flex;
+a{
+  text-decoration: none;
+  color: black;
+  
 }
 
-.parent{
-border: 2px solid goldenrod;
-flex: 1;
+.table-attributes{
+  height: 500px;
+  width:1000px
 }
 
-.child{
-    border: 2px solid goldenrod;
-    flex:4;
-}
 </style>
