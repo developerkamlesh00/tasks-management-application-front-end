@@ -2,15 +2,15 @@
     <div class="container">
         <h2 class="header">Workers List</h2>
         <div class="search-container">
-            <input type="text" placeholder="Search worker by name" v-model="searchTerm" @input="searchWorker"
+            <input type="text" placeholder="Search worker by name" v-model="workerSearchTerm" @input="searchWorker"
                 @click="searchWorkers" />
-            <select v-model="selectedOrgId">
+            <select v-model="workerSelectedOrgId">
                 <option value="">Filter by organization ID</option>
-                <option v-for="orgId in orgIds" :key="orgId" :value="orgId">
+                <option v-for="orgId in workerOrgIds" :key="orgId" :value="orgId">
                     {{ orgId }}
                 </option>
             </select>
-            <button @click="resetSearch">Reset</button>
+            <button @click="workerResetSearch">Reset</button>
         </div>
         <div class="table-container">
             <table class="workers-table">
@@ -43,34 +43,35 @@
                 </tbody>
             </table>
             <div class="pagination-container">
-                <button v-if="currentPage > 1" @click="currentPage--" class="previous-page-btn">
+                <button v-if="workerCurrentPage > 1" @click="workerCurrentPage--" class="previous-page-btn">
                     Previous Page
                 </button>
-                <button v-for="pageNumber in totalPageCount" :key="pageNumber" @click="currentPage = pageNumber"
-                    :class="{ active: currentPage === pageNumber }">
+                <button v-for="pageNumber in workerTotalPageCount" :key="pageNumber" @click="workerCurrentPage = pageNumber"
+                    :class="{ active: workerCurrentPage === pageNumber }">
                     {{ pageNumber }}
                 </button>
-                <button v-if="currentPage < totalPageCount" @click="currentPage++" class="next-page-btn">
+                <button v-if="workerCurrentPage < workerTotalPageCount" @click="workerCurrentPage++" class="next-page-btn">
                     Next Page
                 </button>
             </div>
         </div>
-        <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+        <p v-if="workerErrorMessage" class="error-message">{{ workerErrorMessage }}</p>
     </div>
 </template>
   
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
     data() {
         return {
             workers: [],
-            errorMessage: '',
-            searchTerm: '',
-            selectedOrgId: '',
-            currentPage: 1,
+            workerErrorMessage: '',
+            workerSearchTerm: '',
+            workerSelectedOrgId: '',
+            workerCurrentPage: 1,
             workersPerPage: 10
         };
     },
@@ -78,86 +79,88 @@ export default {
         this.toggleWorkers();
     },
     computed: {
-        orgIds() {
-            return [...new Set(this.workers.map((worker) => worker.organization_id))];
-        },
-        filteredWorkers() {
-            this.resetPage();
-            let filteredWorkers = this.workers;
-            if (this.searchTerm.trim()) {
-                const searchTerm = this.searchTerm.toLowerCase();
-                filteredWorkers = filteredWorkers.filter((worker) =>
-                    worker.name.toLowerCase().includes(searchTerm)
-                );
-            }
-            if (this.selectedOrgId !== '') {
-                filteredWorkers = filteredWorkers.filter(
-                    (worker) => worker.organization_id === this.selectedOrgId
-                );
-            }
-            return filteredWorkers;
-        },
-        totalPageCount() {
-            return Math.ceil(this.filteredWorkers.length / this.workersPerPage);
-        },
-        pagedWorkers() {
-            const start = (this.currentPage - 1) * this.workersPerPage;
-            const end = start + this.workersPerPage;
-            return this.filteredWorkers.slice(start, end);
-        },
+        ...mapGetters('admin', ['workerOrgIds','filteredWorkers','workerTotalPageCount','pagedWorkers'])
+
+        // workerOrgIds() {
+        //     return [...new Set(this.workers.map((worker) => worker.organization_id))];
+        // },
+        // filteredWorkers() {
+        //     this.workerResetPage();
+        //     let filteredWorkers = this.workers;
+        //     if (this.workerSearchTerm.trim()) {
+        //         const workerSearchTerm = this.workerSearchTerm.toLowerCase();
+        //         filteredWorkers = filteredWorkers.filter((worker) =>
+        //             worker.name.toLowerCase().includes(workerSearchTerm)
+        //         );
+        //     }
+        //     if (this.workerSelectedOrgId !== '') {
+        //         filteredWorkers = filteredWorkers.filter(
+        //             (worker) => worker.organization_id === this.workerSelectedOrgId
+        //         );
+        //     }
+        //     return filteredWorkers;
+        // },
+        // workerTotalPageCount() {
+        //     return Math.ceil(this.filteredWorkers.length / this.workersPerPage);
+        // },
+        // pagedWorkers() {
+        //     const start = (this.workerCurrentPage - 1) * this.workersPerPage;
+        //     const end = start + this.workersPerPage;
+        //     return this.filteredWorkers.slice(start, end);
+        // },
 
     },
     methods: {
+        ...mapActions('admin', ['toggleWorkers','deleteWorker','workerResetSearch','workerChangePage','workerResetPage']),
+        // toggleWorkers() {
+        //     axios
+        //         .get('http://127.0.0.1:8000/api/admin/workers')
+        //         .then((response) => {
 
-        toggleWorkers() {
-            axios
-                .get('http://127.0.0.1:8000/api/admin/workers')
-                .then((response) => {
+        //             this.workers = response.data;
+        //         })
+        //         .catch((error) => {
+        //             console.log(error);
+        //             this.workerErrorMessage =
+        //                 'Failed to fetch workers. Please try again later.';
+        //         });
+        // },
+        // deleteWorker(workerId) {
+        //     console.log(workerId);
+        //     // Call the delete API endpoint here
 
-                    this.workers = response.data;
-                })
-                .catch((error) => {
-                    console.log(error);
-                    this.errorMessage =
-                        'Failed to fetch workers. Please try again later.';
-                });
-        },
-        deleteWorker(workerId) {
-            console.log(workerId);
-            // Call the delete API endpoint here
+        //     if (confirm('Are you sure you want to delete this worker?')) {
+        //         axios
+        //             .post(`http://127.0.0.1:8000/api/admin/users/${workerId}`)
+        //             .then((response) => {
+        //                 const index = this.workers.findIndex(
+        //                     (worker) => worker.id === workerId
+        //                 );
 
-            if (confirm('Are you sure you want to delete this worker?')) {
-                axios
-                    .post(`http://127.0.0.1:8000/api/admin/users/${workerId}`)
-                    .then((response) => {
-                        const index = this.workers.findIndex(
-                            (worker) => worker.id === workerId
-                        );
-
-                        if (index > -1) {
-                            this.workers.splice(index, 1);
-                        }
-                        console.log(response);
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                        this.errorMessage =
-                            'Failed to delete worker. Please try again later.';
-                    });
-            }
-        },
-        resetSearch() {
-            this.searchTerm = '';
-            this.selectedOrgId = '';
-            this.currentPage = 1;
-            this.toggleWorkers();
-        },
-        changePage(page) {
-            this.currentPage = page;
-        },
-        resetPage() {
-            this.currentPage = 1;
-        }
+        //                 if (index > -1) {
+        //                     this.workers.splice(index, 1);
+        //                 }
+        //                 console.log(response);
+        //             })
+        //             .catch((error) => {
+        //                 console.log(error);
+        //                 this.workerErrorMessage =
+        //                     'Failed to delete worker. Please try again later.';
+        //             });
+        //     }
+        // },
+        // workerResetSearch() {
+        //     this.workerSearchTerm = '';
+        //     this.workerSelectedOrgId = '';
+        //     this.workerCurrentPage = 1;
+        //     this.toggleWorkers();
+        // },
+        // changePage(page) {
+        //     this.workerCurrentPage = page;
+        // },
+        // workerResetPage() {
+        //     this.workerCurrentPage = 1;
+        // }
     }
 };
 </script>

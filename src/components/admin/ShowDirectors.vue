@@ -61,7 +61,8 @@
   
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
     data() {
@@ -78,90 +79,13 @@ export default {
         this.toggleDirectors();
     },
     computed: {
-        orgIds() {
-            return [...new Set(this.directors.map((director) => director.organization_id))];
-        },
-        filteredDirectors() {
-            this.resetPage();
-            let filteredDirectors = this.directors;
-            if (this.searchTerm.trim()) {
-                const searchTerm = this.searchTerm.toLowerCase();
-                filteredDirectors = filteredDirectors.filter((director) =>
-                    director.name.toLowerCase().includes(searchTerm)
-                );
-            }
-            if (this.selectedOrgId !== '') {
-                filteredDirectors = filteredDirectors.filter(
-                    (director) =>director.organization_id === this.selectedOrgId
-                );
-            }
-            return filteredDirectors;
-        },
-        totalPageCount() {
-            return Math.ceil(this.filteredDirectors.length / this.directorsPerPage);
-        },
-        pagedDirectors() {
-            const start = (this.currentPage - 1) * this.directorsPerPage;
-            const end = start + this.directorsPerPage;
-            return this.filteredDirectors.slice(start, end);
-        },
-
+        ...mapGetters('admin', ['orgIds','filteredDirectors','totalPageCount','pagedDirectors'])
     },
     methods: {
-        toggleDirectors() {
-
-            axios
-                .get('http://127.0.0.1:8000/api/admin/directors')
-                .then((response) => {
-
-                    this.directors = response.data;
-                })
-                .catch((error) => {
-                    console.log(error);
-                    this.errorMessage =
-                        'Failed to fetch directors. Please try again later.';
-                });
-        },
-        deleteDirector(directorId) {
-            console.log(directorId);
-            // Call the delete API endpoint here
-            if (confirm('Are you sure you want to delete this director?')) {
-
-                axios
-                    .post(`http://127.0.0.1:8000/api/admin/users/${directorId}`)
-                    .then((response) => {
-                        const index = this.directors.findIndex(
-                            (director) => director.id === directorId
-                        );
-
-                        if (index > -1) {
-                            this.directors.splice(index, 1);
-                        }
-                        console.log(response);
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                        this.errorMessage =
-                            'Failed to delete director. Please try again later.';
-                    });
-            }
-        },
-        resetSearch() {
-            this.searchTerm = '';
-            this.selectedOrgId = '';
-            this.currentPage = 1;
-            this.toggleDirectors();
-        },
-        changePage(page) {
-            this.currentPage = page;
-        },
-        resetPage() {
-            this.currentPage = 1;
-        }
+        ...mapActions('admin', ['toggleDirectors','deleteDirector','resetSearch','changePage','resetPage']),
     }
 };
 </script>
-
 
 <style scoped>
 

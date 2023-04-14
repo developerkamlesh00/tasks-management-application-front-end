@@ -1,53 +1,45 @@
+
 <template>
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">Recent Users</h3>
-        </div>
-        <div class="card-body">
-          <table class="table table-striped table-hover">
-            <thead>
-              <tr>
-                <th>Id</th>
-                <th>Name</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(user,index) in recentUsers" :key="user.id">
-                <td>{{ index + 1 }}</td>
-                <td>{{ user.name }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-  </template>
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">Recent Users</h3>
+    </div>
+    <div class="card-body">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(user, index) in recentUsers" :key="user.id">
+            <td>{{ index + 1 }}</td>
+            <td>{{ user.name }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</template>
   
 <script>
-import axios from 'axios';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
-    data() {
-        return {
-            recentUsers: [],
-        };
+  computed: {
+    ...mapGetters('admin', ['recentUsers'])
+  },
+  mounted() {
+    this.fetchRecentUsers();
+  },
+  methods: {
+    ...mapActions('admin', ['fetchRecentUsers']),
+    formatDate(date) {
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return new Date(date).toLocaleDateString('en-US', options);
     },
-    mounted() {
-        this.fetchRecentUsers();
-    },
-    methods: {
-        async fetchRecentUsers() {
-            try {
-                const response = await axios.get('http://127.0.0.1:8000/api/admin/recent-users');
-                this.recentUsers = response.data;
-            } catch (error) {
-                console.error(error);
-            }
-        },
-        formatDate(date) {
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            return new Date(date).toLocaleDateString('en-US', options);
-        },
-    },
+  },
 };
 </script>
   
@@ -114,7 +106,5 @@ export default {
 .table-hover tbody tr:hover {
   background-color: #f5f5f5;
 }
-
-
 </style>
   

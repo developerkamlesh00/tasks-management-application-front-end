@@ -2,15 +2,15 @@
     <div class="container">
         <h2 class="header">Manager List</h2>
         <div class="search-container">
-            <input type="text" placeholder="Search manager by name" v-model="searchTerm" @input="searchManager"
+            <input type="text" placeholder="Search manager by name" v-model="managerSearchTerm" @input="searchManager"
                 @click="searchManagers" />
-            <select v-model="selectedOrgId">
+            <select v-model="managerSelectedOrgId">
                 <option value="">Filter by organization ID</option>
-                <option v-for="orgId in orgIds" :key="orgId" :value="orgId">
+                <option v-for="orgId in managerOrgIds" :key="orgId" :value="orgId">
                     {{ orgId }}
                 </option>
             </select>
-            <button @click="resetSearch">Reset</button>
+            <button @click="managerResetSearch">Reset</button>
         </div>
         <div class="table-container">
             <table class="managers-table">
@@ -19,7 +19,7 @@
                         <th>Id</th>
                         <th>Name</th>
                         <th>Email</th>
-                        <th @click="toggleOrgIdSortOrder">Organization Id</th>
+                        <th @click="togglemanagerOrgIdsortOrder">Organization Id</th>
                         <th>Delete</th>
                     </tr>
                 </thead>
@@ -43,34 +43,35 @@
                 </tbody>
             </table>
             <div class="pagination-container">
-                <button v-if="currentPage > 1" @click="currentPage--" class="previous-page-btn">
+                <button v-if="managerCurrentPage > 1" @click="managerCurrentPage--" class="previous-page-btn">
                     Previous Page
                 </button>
-                <button v-for="pageNumber in totalPageCount" :key="pageNumber" @click="currentPage = pageNumber"
-                    :class="{ active: currentPage === pageNumber }">
+                <button v-for="pageNumber in managerTotalPageCount" :key="pageNumber" @click="managerCurrentPage = pageNumber"
+                    :class="{ active: managerCurrentPage === pageNumber }">
                     {{ pageNumber }}
                 </button>
-                <button v-if="currentPage < totalPageCount" @click="currentPage++" class="next-page-btn">
+                <button v-if="managerCurrentPage < managerTotalPageCount" @click="managerCurrentPage++" class="next-page-btn">
                     Next Page
                 </button>
             </div>
         </div>
-        <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+        <p v-if="managerErrorMessage" class="error-message">{{ managerErrorMessage }}</p>
     </div>
 </template>
   
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
     data() {
         return {
             managers: [],
-            errorMessage: '',
-            searchTerm: '',
-            selectedOrgId: '',
-            currentPage: 1,
+            managerErrorMessage: '',
+            managerSearchTerm: '',
+            managerSelectedOrgId: '',
+            managerCurrentPage: 1,
             managersPerPage: 10
         };
     },
@@ -78,86 +79,10 @@ export default {
         this.toggleManagers();
     },
     computed: {
-        orgIds() {
-            return [...new Set(this.managers.map((manager) => manager.organization_id))];
-        },
-        filteredManagers() {
-            this.resetPage();
-            let filteredManagers = this.managers;
-            if (this.searchTerm.trim()) {
-                const searchTerm = this.searchTerm.toLowerCase();
-                filteredManagers = filteredManagers.filter((manager) =>
-                    manager.name.toLowerCase().includes(searchTerm)
-                );
-            }
-            if (this.selectedOrgId !== '') {
-                filteredManagers = filteredManagers.filter(
-                    (manager) =>manager.organization_id === this.selectedOrgId
-                );
-            }
-            return filteredManagers;
-        },
-        totalPageCount() {
-            return Math.ceil(this.filteredManagers.length / this.managersPerPage);
-        },
-        pagedManagers() {
-            const start = (this.currentPage - 1) * this.managersPerPage;
-            const end = start + this.managersPerPage;
-            return this.filteredManagers.slice(start, end);
-        },
-
+        ...mapGetters('admin', ['managerOrgIds','filteredManagers','managerTotalPageCount','pagedManagers'])
     },
     methods: {
-        toggleManagers() {
-
-            axios
-                .get('http://127.0.0.1:8000/api/admin/managers')
-                .then((response) => {
-
-                    this.managers = response.data;
-                })
-                .catch((error) => {
-                    console.log(error);
-                    this.errorMessage =
-                        'Failed to fetch managers. Please try again later.';
-                });
-        },
-        deleteManager(managerId) {
-            console.log(managerId);
-            // Call the delete API endpoint here
-
-            if (confirm('Are you sure you want to delete this manager?')) {
-                axios
-                    .post(`http://127.0.0.1:8000/api/admin/users/${managerId}`)
-                    .then((response) => {
-                        const index = this.managers.findIndex(
-                            (manager) => manager.id === managerId
-                        );
-
-                        if (index > -1) {
-                            this.managers.splice(index, 1);
-                        }
-                        console.log(response);
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                        this.errorMessage =
-                            'Failed to delete manager. Please try again later.';
-                    });
-            }
-        },
-        resetSearch() {
-            this.searchTerm = '';
-            this.selectedOrgId = '';
-            this.currentPage = 1;
-            this.toggleManagers();
-        },
-        changePage(page) {
-            this.currentPage = page;
-        },
-        resetPage() {
-            this.currentPage = 1;
-        }
+        ...mapActions('admin', ['toggleManagers','deleteManager','managerResetSearch','managerChangePage','managerResetPage']),
     }
 };
 </script>
