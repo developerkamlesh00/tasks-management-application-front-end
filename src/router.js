@@ -27,18 +27,21 @@ import ShowOrganizations from "./components/admin/ShowOrganizations.vue";
 import ShowDirectors from "./components/admin/ShowDirectors.vue";
 import ShowManagers from "./components/admin/ShowManagers.vue";
 import ShowWorkers from "./components/admin/ShowWorkers.vue";
+import adminStatistics from "./components/admin/AdminStatistics.vue"
 
 
 import ManagerDashboard from "./pages/manager/ManagerDashboard.vue";
+
+// Worker Pages
 import WorkerView from "./pages/worker/WorkerView.vue";
 import KanbanBoard from "./pages/worker/KanbanBoard.vue";
 import TasksTable from "./pages/worker/TasksTable.vue";
 import TaskDetails from "./pages/worker/TaskDetails.vue";
 // import WorkStatistics from "./pages/worker/WorkSummary.vue";
 import InfographicsPage from "./pages/worker/InfographicsPage.vue";
-import DashboardSettings from "./pages/worker/DashboardSettings.vue";
 import ProjectsPage from "./pages/worker/ProjectsPage.vue";
 import MyManagers from "./pages/worker/MyManagers.vue";
+import DashboardSettings from "./pages/worker/DashboardSettings.vue";
 
 //import UserDashboard from "./pages/UserDashboard.vue";
 import NotFound from "./pages/NotFound.vue";
@@ -60,6 +63,11 @@ const routes = [
     name: "admin",
     component: AdminDashboard,
     children: [
+      {
+        path: "",
+        name: "adminStatistics",
+        component: adminStatistics,
+      },
       {
         path: "organizations",
         name: "showOrganizations",
@@ -119,12 +127,17 @@ const routes = [
     component: WorkerView,
     children: [
       {
-        path: "",
-        name: "taskTable",
-        component: TasksTable,
+        path:"",
+        redirect: "/worker/dashboard",
+      },
+      {
+        path: "dashboard",
+        name: "dashboard",
+        component: KanbanBoard,
       },
       {
         path: "tasks",
+        name: "tasksTable",
         component: TasksTable,
       },
       {
@@ -135,38 +148,34 @@ const routes = [
       },
       {
         path: "progress",
+        name: "progress",
         component: InfographicsPage,
       },
       {
         path: "projects",
+        name: "projects",
         component: ProjectsPage,
       },
       {
-        path: "dashboard",
-        component: KanbanBoard,
-      },
-      {
         path: "settings",
+        name: "settings",
         component: DashboardSettings,
       },
       {
         path: "mymanagers",
+        name: "mymanagers",
         component: MyManagers,
       },
-      // {
-      //   path: "/:notFound(.*)",
-      //   component:
-      //   TasksTable,
-      // },
     ],
+    
+    beforeEnter: (_, _1, next) => {
+      if(store.getters.role == 'worker' && store.getters.isAuthenticated){
+        next();
+      }else{
+        next('/login');
+      }
+    },
   },
-  // beforeEnter: (_, _1, next) => {
-  //   if(store.getters.role == 'worker' && store.getters.isAuthenticated){
-  //     next();
-  //   }else{
-  //     next('/login');
-  //   }
-  // },
   {
     path: "/:notFound(.*)",
     component: NotFound,

@@ -1,5 +1,6 @@
 import axios from "axios";
 export default {
+
   addBoard({ commit, state }, board_name) {
     //add new board entry in local storage
     const boards=JSON.parse(localStorage.getItem('boards'))||[];
@@ -15,6 +16,12 @@ export default {
     return;
   },
 
+   setMessage(state,data){
+    state.commit('setMessage',data);
+   },
+   unsetMessage(state){
+    state.commit('unsetMessage')
+   },
 
   async fetchWorkerProjects(state) {
     const worker_id = localStorage.getItem("userId");
@@ -46,7 +53,6 @@ export default {
     state.commit('setProjectTasks',tasks.data);
     return;
   },
-
 
   async fetchTaskComments(state, payload) {
     const comments=await axios.get(

@@ -1,25 +1,30 @@
 <template>
-    <div class="row">
-        <button @click="fetchWorkerTasks({ isFirstRequest: false })">Refresh</button>
+    
+<div class="alert alert-warning alert-dismissible fade show" v-if="showMessage"  role="alert">
+    <p class="p-2">{{ message }}</p>
+    <button type="button" class="btn-close" @click="unsetMessage()" aria-label="Close"></button>
+</div>
+    <div class="d-flex justify-content-end">
+        <button class="btn btn-primary px-2" @click="fetchWorkerTasks({ isFirstRequest: false })"><i
+                class="bi bi-arrow-clockwise"></i> Refresh</button>
     </div>
     <div class="row">
-        <base-card class="m-0 col-2">
-            <base-button class="mb-2 " link to="/worker/dashboard">Kanban
+        <base-card class="my-1 py-4 col-2 card1">
+            <base-button class="mb-2  rounded-4 navcards" link to="/worker/dashboard">Kanban
             </base-button>
-            <base-button class="mb-2 " link to="/worker/tasks">Tasks
+            <base-button class="mb-2  rounded-4 navcards" link to="/worker/tasks">Tasks
             </base-button>
-            <base-button class="mb-2" link to="/worker/progress">Summary
+            <base-button class="mb-2 rounded-4 navcards" link to="/worker/progress">Summary
             </base-button>
-            <base-button class="mb-2" link to="/worker/projects">Projects
+            <base-button class="mb-2 rounded-4 navcards" link to="/worker/projects">Projects
             </base-button>
-            <base-button class="mb-2" link to="/worker/mymanagers">My Managers
+            <base-button class="mb-2 rounded-4 navcards" link to="/worker/mymanagers">My Managers
             </base-button>
-            <base-button class="" link to="/worker/settings">Settings
+            <base-button class=" rounded-4 navcards" link to="/worker/settings">Settings
             </base-button>
         </base-card>
         <div class="col-10">
-            <base-card class="m-0 ms-2 mw-100">
-
+            <base-card class="m-0 my-1 p-0 ms-2 mw-100 card2">
                 <router-view v-slot="{ Component }">
                     <component :is="Component"></component>
                 </router-view>
@@ -44,10 +49,10 @@ export default {
         }
     },
     methods: {
-        ...mapActions('worker', ['fetchWorkerTasks']),
+        ...mapActions('worker', ['fetchWorkerTasks','unsetMessage']),
     },
     computed: {
-        ...mapGetters('worker', ['getTasks'])
+        ...mapGetters('worker', ['getTasks','showMessage','message'])
     },
     created() {
         this.$store.dispatch('worker/fetchWorkerTasks', { isFirstRequest: true });
@@ -71,14 +76,6 @@ export default {
     margin-left: 1.25rem;
 }
 
-a:hover,
-a:focus {
-    background-color: #d2f4ea;
-}
-
-body {
-    background-color: #f3f3f3;
-}
 
 .scrolls {
     overflow-x: scroll;
@@ -90,12 +87,9 @@ body {
 .flexbox {
     display: flex;
     justify-content: space-between;
-
     width: 100%;
     height: 100%;
     /* overflow: hidden; */
-
-
     margin: 0 auto;
     padding: 10px;
 }
@@ -118,5 +112,16 @@ body {
     margin-bottom: 15px;
 
     white-space: normal;
+}
+
+.navcards:hover {
+    background-color: rgb(250, 182, 255);
+    color: blueviolet;
+}
+
+.navcards {
+    font-size: 1rem;
+    font-weight: 600;
+
 }
 </style>

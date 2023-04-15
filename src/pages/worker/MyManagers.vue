@@ -1,12 +1,12 @@
 <template>
-    <h2 style="text-align:center">User Profile Card</h2>
-    <!-- ! this.managers.find((m)=>m.id===project.user.id -->
+    <div class="container p-5">
+        <!-- ! this.managers.find((m)=>m.id===project.user.id -->
+        <h2 style="text-align:center">My Project Managers</h2>
     <div class="row">
         <div class="col-sm-6 col-lg-3 mb-2" v-for="(manager, index) in managers" :key="index">
-            <div class="card">
-                <h1 class="d-inline">{{ manager.name }}</h1>
-                <img src="../../assets/user_profile.png" alt="John">
-                <!-- <p class="title" v-for="(project,index) in manager" :key="index">{{ project }}</p> -->
+            <div class="card blue">
+                <h6 class="mt-3 text-light fw-bolder">{{ manager.name }}</h6>
+                <img src="../../assets/manager_pic.png" style="border-radius:50%" class="mx-4" alt="John">
                 <p>ID: {{ manager.id }}</p>
                 <p><a target="_blank" :href="'mailto:' + manager.email"><button>Contact</button></a></p>
             </div>
@@ -14,6 +14,7 @@
 
         </div>
     </div>
+</div>
 </template>
 
 <script>
@@ -23,7 +24,6 @@ export default {
         return {
             managers: [],
         }
-
     },
     computed: {
         ...mapGetters('worker', ['getProjects']),
@@ -36,13 +36,11 @@ export default {
                 console.log(manager)
                 if (!manager) {
                     console.log(project)
-                    project.user           // this.managers.push([project.user,[project.title]])
                     this.managers.push(project.user)
                 } else {
                     // manager[1].push(project.name)
                 }
             }
-            console.log(this.managers, 'Managers')
             return this.managers;
         }
     },
@@ -62,10 +60,6 @@ export default {
     font-family: arial;
 }
 
-.title {
-    color: grey;
-    font-size: 16px;
-}
 
 button {
     border: none;
@@ -84,6 +78,6 @@ button {
 
 button:hover,
 a:hover {
-    opacity: 0.7;
+    background-color: #ff00ff;
 }
 </style>
