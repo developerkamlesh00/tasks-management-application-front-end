@@ -26,7 +26,8 @@ const store = createStore({
       worker:[],
       tasks:[],
       assignedTasks:[],
-      reviewTasks:[]
+      reviewTasks:[],
+      workerNames:[],
     }
   },
 
@@ -44,9 +45,7 @@ const store = createStore({
    
       let result= state.project[0]
       console.log(result)
-      return result
-  
-      
+      return result   
     },
     singleWorker(state){
       return state.worker[0]
@@ -67,6 +66,10 @@ const store = createStore({
       }
      
       return finalResult
+    },
+
+    getAllWorkerNames(state){
+      return state.workerNames
     }
   },
 
@@ -184,7 +187,7 @@ async getAssignedTasks(context, payload){ //
   await axios.get(`http://localhost:8000/api/assigned_tasks?id=${payload.value}`)
   .then(function (response) {
   // handle success
-  console.log(payload.value)
+  //console.log(payload.value)
   //console.log(response)
   context.state.assignedTasks =response.data
   
@@ -325,7 +328,29 @@ async doRejectTask(context,payload){
     console.log(payload)
     console.log(error);
   });
+},
+
+async getWorkerNames(){ //
+  const ManagerId = localStorage.getItem("userId")
+  await axios.get(`http://localhost:8000/api/worker_names?id=${ManagerId}`)
+  console.log(ManagerId)
+  .then(function (response) {
+  // handle success
+  console.log(response)
+  //context.state.workerNames=response.data
+  //console.log(context.state.workerNames)
+
+})
+.catch(function (error) {
+  // handle error
+  console.log(error);
+})
+.finally(function () {
+  // always executed
+});
+
 }
+
 
 }
 

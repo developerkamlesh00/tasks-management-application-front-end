@@ -1,7 +1,7 @@
 <template>
 
     <div class="card-wrap">
-       
+               
        <div v-if="singleProject">
           <h1 style="text-align: center; font-family: 'Bebas Neue', cursive;">Title</h1>
           <h2 style="text-align: center; font-family: 'Alkatra', cursive;">{{ singleProject.title }}</h2>
@@ -12,7 +12,7 @@
           <h3 style="font-family: 'Bebas Neue', cursive;">Date Completed : <span style="font-family: 'Alkatra', cursive;">{{ singleProject.completed_at }}</span></h3>
          
         </div>        
-    </div>
+    </div> 
 
     <button @click="showTasks" type="button" class="btn btn-primary custom custom-button">Show Tasks</button>
     <button type="button" class="btn btn-primary custom custom-button" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Create Task</button>
@@ -191,12 +191,13 @@ export default{
     //console.log(url[pathLength])
     this.$store.dispatch('getProject', {value:id})
     this.$store.dispatch('updateProjectTasks', {value:id}) 
+    this.$store.dispatch('getWorkerNames') 
     
   },
 
 
 methods:{
-    ...mapActions(['getProject', 'getTasks', 'addTask', 'editTask', 'deleteTask', 'updateProjectTasks']),
+    ...mapActions(['getProject', 'getTasks', 'addTask', 'editTask', 'deleteTask', 'updateProjectTasks', 'getWorkerNames']),
 
     showTasks(){
       this.displayTasks=!this.displayTasks
@@ -280,7 +281,7 @@ methods:{
 },
 
 computed:{
-    ...mapGetters(['singleProject', 'taskLists']),
+    ...mapGetters(['singleProject', 'taskLists', 'getAllWorkerNames']),
 }
 
 }
