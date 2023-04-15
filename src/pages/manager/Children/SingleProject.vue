@@ -100,8 +100,8 @@
         <form @submit.prevent="editTask(taskList)">
           <div class="mb-3">
             <label for="task-title" class="col-form-label">title</label>
-            <input type="text" class="form-control" id="task-title" v-model="newTitle">
-          </div>
+            <input type="text" class="form-control" id="task-title" v-model="newTitle" @blur="validateInput">
+           </div>
           <div class="mb-3">
             <label for="task-description" class="col-form-label">description</label>
             <textarea class="form-control" id="task-description" v-model="newDescription"></textarea>
@@ -166,6 +166,9 @@ export default{
     newWorkerId:'',
     newAssignedDate:'',
     newEstimatedDeadline:'',
+
+    //Validation
+    titleValidity: 'pending'
     
 
   }
@@ -253,6 +256,15 @@ methods:{
       this.$store.dispatch('updateProjectTasks', {value:projId})
     },
   
+    validateInput(){
+      if(this.title.trim===''){
+        this.titleValidity='invalid'
+      }
+      else{
+        this.titleValidity='valid'
+      }
+    }
+
 },
 
 computed:{
