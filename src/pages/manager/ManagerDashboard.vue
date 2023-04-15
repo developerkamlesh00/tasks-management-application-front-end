@@ -49,6 +49,7 @@ export default{
 .super{
     display: flex;
     height: fit-content;
+    min-height: 550px;
     
 }
 

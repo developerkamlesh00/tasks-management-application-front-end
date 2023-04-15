@@ -57,12 +57,14 @@ methods:{
     ...mapActions(['getReviewTasks', 'doApproveTask', 'doRejectTask']),
     
     approveTask(reviewTaskList){
-      //console.log(reviewTaskList.id)
-      
+    
       this.$store.dispatch('doApproveTask', {
         id:reviewTaskList.id,
       })
+
+      this.$store.dispatch('updateProjectTasks', {value:reviewTaskList.project_id})
       this.$store.dispatch('getReviewTasks')
+      
 
 /*
       
@@ -80,6 +82,7 @@ methods:{
       this.$store.dispatch('doRejectTask', {
         id:reviewTaskList.id,
       })
+      //this.$store.dispatch('updateProjectTasks', {value:reviewTaskList.project_id})
       this.$store.dispatch('getReviewTasks')
     }
 },

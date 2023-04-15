@@ -3,16 +3,19 @@
     <div class="card-wrap">
        
        <div v-if="singleProject">
-          {{ singleProject.id }}
-          {{ singleProject.title }}
-          {{ singleProject.description }}
-          
-
+          <h1 style="text-align: center; font-family: 'Bebas Neue', cursive;">Title</h1>
+          <h2 style="text-align: center; font-family: 'Alkatra', cursive;">{{ singleProject.title }}</h2>
+          <h2 style="text-align: center; font-family: 'Bebas Neue', cursive;" >Description</h2>
+          <h3 style="text-align: center; font-family: 'Alkatra', cursive;">{{ singleProject.description }}</h3>
+          <h3 style="font-family: 'Bebas Neue', cursive;">Date Assigned: <span style="font-family: 'Alkatra', cursive;">{{ singleProject.assigned_at  }}</span></h3>
+          <h3 style="font-family: 'Bebas Neue', cursive;">Deadline: <span style="font-family: 'Alkatra', cursive;">{{ singleProject.estimated_deadline }}</span></h3>
+          <h3 style="font-family: 'Bebas Neue', cursive;">Date Completed : <span style="font-family: 'Alkatra', cursive;">{{ singleProject.completed_at }}</span></h3>
+         
         </div>        
     </div>
 
-    <button @click="showTasks" type="button" class="btn btn-primary">Show Tasks</button>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Create Task</button>
+    <button @click="showTasks" type="button" class="btn btn-primary custom custom-button">Show Tasks</button>
+    <button type="button" class="btn btn-primary custom custom-button" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Create Task</button>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -178,30 +181,31 @@ export default{
     //console.log(lastNumber)
     const id = url.substr(lastNumber+1, pathLength)
     //console.log(url[pathLength])
-    this.$store.dispatch('getProject', {value:id}) 
+    this.$store.dispatch('getProject', {value:id})
+    this.$store.dispatch('updateProjectTasks', {value:id}) 
     
   },
 
 
 methods:{
-    ...mapActions(['getProject', 'getTasks', 'addTask', 'editTask', 'deleteTask']),
+    ...mapActions(['getProject', 'getTasks', 'addTask', 'editTask', 'deleteTask', 'updateProjectTasks']),
 
     showTasks(){
       this.displayTasks=!this.displayTasks
       const url = this.$router.currentRoute.value.fullPath
-    const pathLength=this.$router.currentRoute.value.fullPath.length-1
-    const lastNumber = url.lastIndexOf("/")
-    //console.log(lastNumber)
-    const id = url.substr(lastNumber+1, pathLength)
+      const pathLength=this.$router.currentRoute.value.fullPath.length-1
+      const lastNumber = url.lastIndexOf("/")
+      //console.log(lastNumber)
+      const id = url.substr(lastNumber+1, pathLength)
       this.$store.dispatch('getTasks', {value:id})
 
     },
     addTask(){
       const url = this.$router.currentRoute.value.fullPath
-    const pathLength=this.$router.currentRoute.value.fullPath.length-1
-    const lastNumber = url.lastIndexOf("/")
-    //console.log(lastNumber)
-    const id = url.substr(lastNumber+1, pathLength)
+      const pathLength=this.$router.currentRoute.value.fullPath.length-1
+      const lastNumber = url.lastIndexOf("/")
+      //console.log(lastNumber)
+      const id = url.substr(lastNumber+1, pathLength)
         this.$store.dispatch('addTask', {
           title:this.title,
           description:this.description,
@@ -236,14 +240,17 @@ methods:{
 
 
     delTask(id){
+      //add an alert
+
       const url = this.$router.currentRoute.value.fullPath
-    const pathLength=this.$router.currentRoute.value.fullPath.length-1
-    const lastNumber = url.lastIndexOf("/")
-    //console.log(lastNumber)
-    const projId = url.substr(lastNumber+1, pathLength)
+      const pathLength=this.$router.currentRoute.value.fullPath.length-1
+      const lastNumber = url.lastIndexOf("/")
+      //console.log(lastNumber)
+      const projId = url.substr(lastNumber+1, pathLength)
       this.$store.dispatch('deleteTask', {id:id})
 
       this.$store.dispatch('getTasks',{value:projId})
+      this.$store.dispatch('updateProjectTasks', {value:projId})
     },
   
 },
@@ -256,19 +263,34 @@ computed:{
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Alkatra:wght@500&family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alkatra:wght@500&family=Bebas+Neue&display=swap');
 .card-wrap {
   padding: 40px 30px;
   position: relative;
   overflow: hidden;
-  background-color: white;
+  background-color: whitesmoke;
   border-radius: 5px;
   /*-webkit-box-shadow: 0px 0px 12.75px 2.25px rgba(0, 0, 0, 0.05);*/
   box-shadow: 0px 0px 12.75px 2.25px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
 }
 
 .table-attributes{
   height: 500px;
   width:1000px
 }
+.custom{
+  margin-right: 20px;
+  margin-bottom: 30px;
+}
 
+.custom-button{
+  width: fit-content;
+  background-color: pink;
+  color: #fff;
+  padding: 15px;
+  margin-top: 10px;
+  font-weight: bold;
+}
 </style>

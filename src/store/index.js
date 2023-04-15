@@ -40,19 +40,11 @@ const store = createStore({
       return state.tasks
     },
     singleProject(state){
-       //let result=Array(state.project[0])
+   
       let result= state.project[0]
       console.log(result)
       return result
-       /*let value=[]
-      value = Object.values(state.project[0]);
-      return value
-       console.log(result)
-       return result
-      let result=[]
-      result.push(state.project[0])
-      console.log(result)
-      return result */
+  
       
     },
     singleWorker(state){
@@ -149,6 +141,22 @@ async getProject(context, payload){ //
 });
 
 },
+async updateProjectTasks(context, payload){ //
+      
+  await axios.put(`http://localhost:8000/api/update_project_tasks?id=${payload.value}`)
+  .then(function (response) {
+  // handle success
+  console.log(response)
+})
+.catch(function (error) {
+  // handle error
+  console.log(error);
+})
+.finally(function () {
+  // always executed
+});
+
+},
 
 async getWorker(context, payload){ //
       
@@ -176,7 +184,7 @@ async getAssignedTasks(context, payload){ //
   .then(function (response) {
   // handle success
   console.log(payload.value)
-  console.log(response)
+  //console.log(response)
   context.state.assignedTasks =response.data
   
 

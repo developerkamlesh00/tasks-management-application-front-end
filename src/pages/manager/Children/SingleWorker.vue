@@ -1,20 +1,26 @@
 <template>
 
-    <div>
-        <p>{{singleWorker.name}}</p>
+    <div class="card-wrap">
+      <div v-if="singleWorker">
+        <h1 style="text-align: center; font-family: 'Bebas Neue', cursive;">Name: <span style="font-family: 'Alkatra', cursive;">{{singleWorker.name}}</span></h1>
+        <h3 style="text-align: center; font-family: 'Bebas Neue', cursive;">Email: <span style="font-family: 'Alkatra', cursive;">{{ singleWorker.email}}</span></h3>
+      </div>     
     </div>
 
-    <button @click="showAssignedTasks" type="button" class="btn btn-primary">Show Assigned Tasks</button>
-
-    <table class="table" v-show="displayTasks">
+    <button @click="showAssignedTasks" type="button" class="btn btn-primary custom-button" >Show Assigned Tasks</button>
+    <div class="table-responsive text-nowrap table-content table-attributes">
+    <table id="dtHorizontalVerticalExample"
+      class="table table-bordered table-sm"
+      cellspacing="0"
+      width="100%" v-show="displayTasks">
   <thead>
     <tr>
       <th scope="col">id</th>
       <th scope="col">title</th>
       <th scope="col">description</th>
       <th scope="col">deadline</th>
-      <th scope="col">edit</th>
-      <th scope="col">delete</th>
+      <th scope="col">Project Id</th>
+   
     </tr>
   </thead>
   <tbody>
@@ -24,12 +30,12 @@
         <td>{{assignedTaskList.title}}</td>
         <td>{{assignedTaskList.description}}</td>
         <td>{{assignedTaskList.estimated_deadline}}</td>
-        <td>{{ assignedTaskList.projectId }}</td>
-        <td> <button type="button" class="btn btn-light" @click="delTask(taskList.id)">🗑️</button></td>
+        <td>{{ assignedTaskList.project_id }}</td>
+       
       </tr>
   </tbody>
 </table>
-
+</div>
 
 </template>
 
@@ -94,3 +100,32 @@ computed:{
 
 }
 </script>
+
+<style scoped>
+.table-attributes{
+  height: 500px;
+  width:1000px
+}
+
+.custom-button{
+  width: fit-content;
+  background-color: pink;
+  color: #fff;
+  padding: 15px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.card-wrap {
+  padding: 40px 30px;
+  position: relative;
+  overflow: hidden;
+  background-color: whitesmoke;
+  border-radius: 5px;
+  /*-webkit-box-shadow: 0px 0px 12.75px 2.25px rgba(0, 0, 0, 0.05);*/
+  box-shadow: 0px 0px 12.75px 2.25px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+}
+
+</style>
