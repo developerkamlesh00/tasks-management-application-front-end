@@ -8,13 +8,6 @@ import ForgotPassword from "./pages/auth/ForgotPassword.vue";
 import ResetPassword from './pages/auth/ResetPassword.vue';
 // import UpdateProfile from "./pages/auth/UpdateProfile.vue";
 
-//import Admin components
-import AdminDashboard from "./pages/admin/AdminDashboard.vue";
-import ShowOrganizations from "./components/admin/ShowOrganizations.vue";
-import ShowDirectors from "./components/admin/ShowDirectors.vue";
-import ShowManagers from "./components/admin/ShowManagers.vue";
-import ShowWorkers from "./components/admin/ShowWorkers.vue";
-import adminStatistics from "./components/admin/AdminStatistics.vue"
 //director compo
 import OrganizationRegister from "./pages/director/OrganizationRegister.vue";
 import DirectorDashboard from "./pages/director/DirectorDashboard.vue";
@@ -24,8 +17,18 @@ import ViewProjects from "./pages/director/ViewProjects.vue";
 import ViewSummary from "./components/director/ViewSummary.vue";
 import ViewManagers from "./components/director/ViewManagers.vue";
 import ViewWorkers from "./components/director/ViewWorkers.vue";
-import CreateUserTemp from "./components/director/CreateUserUsingUpload.vue";
-//end director components
+import UpdateProfile from "./components/director/UpdateProfile.vue";
+import ViewOrganization from "./components/director/ViewOrganizationDetails.vue";
+//end director compo
+
+//import Admin components
+import AdminDashboard from "./pages/admin/AdminDashboard.vue";
+import ShowOrganizations from "./components/admin/ShowOrganizations.vue";
+import ShowDirectors from "./components/admin/ShowDirectors.vue";
+import ShowManagers from "./components/admin/ShowManagers.vue";
+import ShowWorkers from "./components/admin/ShowWorkers.vue";
+import adminStatistics from "./components/admin/AdminStatistics.vue"
+
 
 import ManagerDashboard from "./pages/manager/ManagerDashboard.vue";
 
@@ -87,14 +90,15 @@ const routes = [
     name: "director",
     component: DirectorDashboard,
     children: [
-      { path: '', component: CreateManagerWorker },
+      { path: '',  component : ViewOrganization },
       { path: ":add", name: "managerworker", component: CreateManagerWorker },
       { path: ":add", name: "project", component: CreateProject },
       { path: ":add", name: "viewproject", component: ViewProjects },
       { path: ":add", name: "viewsummary", component: ViewSummary },
       { path: ":add", name: "viewmanagers", component: ViewManagers },
       { path: ":add", name: "viewworkers", component: ViewWorkers },
-      { path: ":add", name: "temp", component: CreateUserTemp },
+      { path: ":add", name: "vieworganization", component: ViewOrganization},
+      { path: ":add", name: "updateprofile", component: UpdateProfile },
     ],
     beforeEnter: (_, _1, next) => {
       if (store.getters.role == "director" && store.getters.isAuthenticated) {

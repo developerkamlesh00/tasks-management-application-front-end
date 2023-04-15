@@ -41,5 +41,57 @@ export default {
     console.log(managers);
     console.log("All Managers", managers);
     context.commit("setManagers", managers);
+    return;
+  },
+
+  async fetchOrganization(context){
+    const organization_id = localStorage.getItem("organization_id");
+    await axios.get(
+      "http://localhost:8000/api/director/organization/"+organization_id
+    ).then(response =>{
+      console.log("Organization:", response.data );
+      context.commit("setOrg", response.data);
+    });
+    return;
+   // console.log(result);
+  },
+
+
+  //fetch workers
+  async fetchWorkers(context,payload){
+    await axios.get(payload)
+    .then(response =>{
+      console.log("All Workers:",response.data );
+      context.commit("setWorkers", response.data);
+    }).catch(err=>{
+      return err.response.data;
+    })
+    return;
+  },
+
+    //fetch workers
+  //fetch workers
+  async fetchManagers(context,payload){
+    await axios.get(payload)
+    .then(response =>{
+      console.log("All Managers:",response.data );
+      context.commit("setManagers1", response.data);
+    }).catch(err=>{
+      return err.response.data;
+    })
+    return;
+  },
+
+  async fetchUserDetails(context){
+    const userId = localStorage.getItem('userId');
+    console.log(userId);
+    await axios.get(`http://localhost:8000/api/director/getuser/${userId}`)
+    .then(response =>{
+      console.log(response.data)
+      context.commit("setUser", response.data);
+    }).catch(err=>{
+      return err.response.data;
+    })
+    return;
   }
 };
