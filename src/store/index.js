@@ -330,14 +330,13 @@ async doRejectTask(context,payload){
   });
 },
 
-async getWorkerNames(){ //
+async getWorkerNames(context){ //
   const ManagerId = localStorage.getItem("userId")
   await axios.get(`http://localhost:8000/api/worker_names?id=${ManagerId}`)
-  console.log(ManagerId)
-  .then(function (response) {
+.then(function (response) {
   // handle success
   console.log(response)
-  //context.state.workerNames=response.data
+  context.state.workerNames=response.data
   //console.log(context.state.workerNames)
 
 })

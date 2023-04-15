@@ -143,6 +143,8 @@
 </table>
 
 </div>
+
+{{ getAllWorkerNames }}
 </template>
 
 
