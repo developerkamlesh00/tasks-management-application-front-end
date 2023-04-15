@@ -1,11 +1,13 @@
 <template>
-    <div>
+    
     <h1 style="text-align: center;">WorkerList</h1>
-<div id="dtHorizontalVerticalExample"
-      class="table table-bordered table-sm table-attributes"
+
+    <div class="table-responsive text-nowrap table-content table-attributes">
+
+<table id="dtHorizontalVerticalExample"
+      class="table table-bordered table-sm"
       cellspacing="0"
       width="100%">
-<table class="table" >
   <thead>
     <tr>
       <th scope="col">id</th>
@@ -17,15 +19,15 @@
   <tbody>
     <tr v-for="workerList in workerLists" v-bind:key="workerList.id ">
         <th scope="row">{{workerList.id}}</th>
-        <router-link :to="'/manager/workers/'+ workerList.id"><td>{{workerList.name}}</td></router-link>
+        <td class="enter"><router-link :to="'/manager/workers/'+ workerList.id">{{workerList.name}}</router-link></td>
         <td>{{workerList.email}}</td>
         <td>{{workerList.organization_id}}</td>
     </tr>
   </tbody>
 </table>
-
-        </div>
-      </div>
+</div>
+        
+      
 
 </template>
 
@@ -61,6 +63,19 @@ a{
 .table-attributes{
   height: 500px;
   width:1000px;
-  overflow: scroll;
+  
+}
+
+.enter:hover{
+  background-color: lightcoral;
+  cursor: pointer;
+
+}
+.enter:hover a{
+  color: aliceblue;
+  font-weight: bold;
+}
+a:hover{
+  color:aliceblue;
 }
 </style>

@@ -33,56 +33,13 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
 
 export default{
     data(){
         return{
             showDashboard:true
         }
-    },
-    
-    
-    methods:{
-       displayProjects(){
-        this.$router.push('/manager/projects')
-        this.showDashboard=false
-       },
-
-       
-       displayWorkers(){
-        this.$router.push('/manager/workers')
-        this.showDashboard=false
-       },
-
-       reviewTasks(){
-        this.$router.push('/manager/review_tasks')
-        this.showDashboard=false
-       }
-    },
-
-    watch: {
-        ...mapActions(['getProjects', 'getWorkers', 'reviewTasks']),
-    
-     /*   '$route' (to) {
-     
-        let too = to.fullPath
-      
-
-        if(too ==='/manager/projects'){
-           
-            this.$store.dispatch("getProjects")
-
-        }
-        else if(too ==='/manager/workers'){
-            //console.log("users")
-            this.$store.dispatch("getWorkers")
-        }
-
-    
-      
-    }*/
-  }
+    },   
     
 }
 
@@ -91,7 +48,8 @@ export default{
 <style scoped>
 .super{
     display: flex;
-    height: 575px;
+    height: fit-content;
+    
 }
 
 .parent{

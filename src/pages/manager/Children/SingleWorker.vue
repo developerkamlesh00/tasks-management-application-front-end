@@ -1,7 +1,7 @@
 <template>
 
     <div>
-        <p>{{singleWorker}}</p>
+        <p>{{singleWorker.name}}</p>
     </div>
 
     <button @click="showAssignedTasks" type="button" class="btn btn-primary">Show Assigned Tasks</button>

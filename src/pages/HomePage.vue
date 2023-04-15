@@ -292,6 +292,7 @@ footer {
   align-items: center;
   height: 80px;
   background-color: azure;
+  
 }
 
 footer>div {

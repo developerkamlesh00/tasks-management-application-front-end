@@ -40,7 +40,20 @@ const store = createStore({
       return state.tasks
     },
     singleProject(state){
-      return state.project[0]
+       //let result=Array(state.project[0])
+      let result= state.project[0]
+      console.log(result)
+      return result
+       /*let value=[]
+      value = Object.values(state.project[0]);
+      return value
+       console.log(result)
+       return result
+      let result=[]
+      result.push(state.project[0])
+      console.log(result)
+      return result */
+      
     },
     singleWorker(state){
       return state.worker[0]
@@ -124,7 +137,7 @@ async getProject(context, payload){ //
   .then(function (response) {
   // handle success
   //console.log(response)
-  context.state.project =response.data
+  context.state.project=response.data
 
 })
 .catch(function (error) {

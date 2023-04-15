@@ -1,7 +1,14 @@
 <template>
 
-    <div>
-        <p>{{singleProject}}</p>
+    <div class="card-wrap">
+       
+       <div v-if="singleProject">
+          {{ singleProject.id }}
+          {{ singleProject.title }}
+          {{ singleProject.description }}
+          
+
+        </div>        
     </div>
 
     <button @click="showTasks" type="button" class="btn btn-primary">Show Tasks</button>
@@ -51,7 +58,12 @@
       </div>
     </div>
   </div>
-    <table class="table" v-show="displayTasks">
+
+  <div class="table-responsive text-nowrap table-content table-attributes">
+    <table id="dtHorizontalVerticalExample"
+      class="table table-bordered table-sm"
+      cellspacing="0"
+      width="100%" v-show="displayTasks">
   <thead>
     <tr>
       <th scope="col">id</th>
@@ -123,7 +135,7 @@
   </tbody>
 </table>
 
-
+</div>
 </template>
 
 
@@ -151,6 +163,7 @@ export default{
     newWorkerId:'',
     newAssignedDate:'',
     newEstimatedDeadline:'',
+    
 
   }
  
@@ -158,6 +171,7 @@ export default{
 
  
   mounted() {
+  
     const url = this.$router.currentRoute.value.fullPath
     const pathLength=this.$router.currentRoute.value.fullPath.length-1
     const lastNumber = url.lastIndexOf("/")
@@ -167,6 +181,7 @@ export default{
     this.$store.dispatch('getProject', {value:id}) 
     
   },
+
 
 methods:{
     ...mapActions(['getProject', 'getTasks', 'addTask', 'editTask', 'deleteTask']),
@@ -229,8 +244,7 @@ methods:{
       this.$store.dispatch('deleteTask', {id:id})
 
       this.$store.dispatch('getTasks',{value:projId})
-    }
-
+    },
   
 },
 
@@ -240,3 +254,21 @@ computed:{
 
 }
 </script>
+
+<style scoped>
+.card-wrap {
+  padding: 40px 30px;
+  position: relative;
+  overflow: hidden;
+  background-color: white;
+  border-radius: 5px;
+  /*-webkit-box-shadow: 0px 0px 12.75px 2.25px rgba(0, 0, 0, 0.05);*/
+  box-shadow: 0px 0px 12.75px 2.25px rgba(0, 0, 0, 0.05);
+}
+
+.table-attributes{
+  height: 500px;
+  width:1000px
+}
+
+</style>

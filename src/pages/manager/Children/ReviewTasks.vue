@@ -1,11 +1,12 @@
 <template>
 
   <h1 style="text-align: center;">Tasks To be Reviewed</h1>
-<div id="dtHorizontalVerticalExample"
-      class="table table-bordered table-sm table-attributes"
+
+<div class="table-responsive text-nowrap table-content table-attributes">
+<table id="dtHorizontalVerticalExample"
+      class="table table-bordered table-sm"
       cellspacing="0"
       width="100%">
-<table class="table">
   <thead>
     <tr>
       <th scope="col">id</th>
@@ -96,7 +97,7 @@ computed:{
 .table-attributes{
   height: 500px;
   width:1000px;
-  overflow: scroll;
+
 }
 
 </style>

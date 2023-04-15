@@ -1,6 +1,7 @@
 <template>
     
     <h1 style="text-align: center;">Projects Assigned</h1>
+
     <div class="table-responsive text-nowrap table-content table-attributes">
     <table
       id="dtHorizontalVerticalExample"
@@ -14,17 +15,26 @@
           <th scope="col">Desciption</th>
           <th scope="col">Assigned Date</th>
           <th scope="col">Estimated Deadline</th>
+          <th scope="col">Completed Tasks</th>
+          <th scope="col">Completed Tasks</th>
+          <th scope="col">Total Tasks</th>
+          
         </tr>
       </thead>
       <tbody>
         <tr v-for="projectList in projectLists" :key="projectList.id">
+          
           <th scope="row">{{ projectList.id }}</th>
-          <router-link :to="'/manager/projects/'+projectList.id"><td>{{ projectList.title }}</td></router-link>
+          <td class="enter"><router-link :to="'/manager/projects/'+projectList.id">{{ projectList.title }}</router-link></td>
           <td>{{ projectList.description }}</td>
           <td>{{ projectList.assigned_at }}</td>
           <td>{{ projectList.estimated_deadline }}</td>
           <td>{{ projectList.completed_at }}</td>  
+          <td>{{ projectList.tasks_completed }}</td>  
+          <td>{{ projectList.total_tasks }}</td>  
+        
         </tr>
+      
       </tbody>
     </table>
     </div>
@@ -44,10 +54,7 @@ export default{
       },
 
     methods:{
-      ...mapActions(['getProjects', 'getWorkers', 'reviewTasks']),
-
-      
-
+      ...mapActions(['getProjects', 'getWorkers', 'reviewTasks']),      
     }
     
 }
@@ -67,4 +74,17 @@ a{
   width:1000px
 }
 
+.enter:hover{
+  background-color: lightcoral;
+  cursor: pointer;
+}
+.enter:hover a{
+
+  cursor: pointer;
+  color: aliceblue;
+  font-weight: bold;
+}
+a:hover{
+  color:aliceblue
+}
 </style>
