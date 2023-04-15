@@ -10,6 +10,7 @@ export default {
       managers: [],
       managers1: [],
       workers: [],
+      user: null,
       org: null,
     };
   },

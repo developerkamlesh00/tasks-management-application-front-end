@@ -14,4 +14,7 @@ export default {
     getManagers1(state){
         return state.managers1;
     },
+    getUser(state){
+        return state.user;
+    },
 };

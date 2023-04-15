@@ -17,7 +17,7 @@ import ViewProjects from "./pages/director/ViewProjects.vue";
 import ViewSummary from "./components/director/ViewSummary.vue";
 import ViewManagers from "./components/director/ViewManagers.vue";
 import ViewWorkers from "./components/director/ViewWorkers.vue";
-import CreateUserTemp from "./components/director/CreateUserUsingUpload.vue";
+import UpdateProfile from "./components/director/UpdateProfile.vue";
 import ViewOrganization from "./components/director/ViewOrganizationDetails.vue";
 //end director compo
 
@@ -90,7 +90,7 @@ const routes = [
       { path: ":add", name: "viewmanagers", component: ViewManagers },
       { path: ":add", name: "viewworkers", component: ViewWorkers },
       { path: ":add", name: "vieworganization", component: ViewOrganization},
-      { path: ":add", name: "temp", component: CreateUserTemp },
+      { path: ":add", name: "updateprofile", component: UpdateProfile },
     ],
     beforeEnter: (_, _1, next) => {
       if (store.getters.role == "director" && store.getters.isAuthenticated) {

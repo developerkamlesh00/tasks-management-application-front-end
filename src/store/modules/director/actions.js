@@ -80,5 +80,18 @@ export default {
       return err.response.data;
     })
     return;
+  },
+
+  async fetchUserDetails(context){
+    const userId = localStorage.getItem('userId');
+    console.log(userId);
+    await axios.get(`http://localhost:8000/api/director/getuser/${userId}`)
+    .then(response =>{
+      console.log(response.data)
+      context.commit("setUser", response.data);
+    }).catch(err=>{
+      return err.response.data;
+    })
+    return;
   }
 };

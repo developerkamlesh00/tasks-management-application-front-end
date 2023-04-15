@@ -14,4 +14,7 @@ export default {
     setManagers1(state, payload) {
         state.managers1 = payload
     },
+    setUser(state, payload) {
+        state.user = payload
+    },
 };

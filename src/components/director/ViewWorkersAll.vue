@@ -173,8 +173,7 @@ export default {
 
 <style scoped>
 .container {
-  margin: 20px;
-  padding: 20px;
+  margin: 10px;
 }
 .header {
   font-size: 2rem;

@@ -10,7 +10,7 @@
           <base-button link :to="{ name: 'viewmanagers', params: { add: 'viewmanagers' }}">View Managers</base-button>
           <base-button link :to="{ name: 'viewworkers', params: { add: 'viewworkers' }}">View Workers</base-button>
           <base-button link :to="{ name: 'viewsummary', params: { add: 'viewsummary' }}">View Summary</base-button>
-          <base-button link :to="{ name: 'temp', params: { add: 'temp' }}">Creat User temp</base-button>
+          <base-button link :to="{ name: 'updateprofile', params: { add: 'updateprofile' }}">Update Profile</base-button>
         </div>
       </base-card>
       <base-card id="card1">
