@@ -1,5 +1,6 @@
 import axios from "axios";
 export default {
+
   addBoard({ commit, state }, board_name) {
     //add new board entry in local storage
     const boards=JSON.parse(localStorage.getItem('boards'))||[];
@@ -15,6 +16,52 @@ export default {
     return;
   },
 
+   setMessage(state,data){
+    state.commit('setMessage',data);
+   },
+   unsetMessage(state){
+    state.commit('unsetMessage')
+   },
+
+  async fetchWorkerProjects(state) {
+    const worker_id = localStorage.getItem("userId");
+    const projects=await axios.get(
+      `http://localhost:8000/api/worker/${worker_id}/project`
+    )    
+    console.log('Projects',projects.data)
+    state.commit('setProjects',projects.data);
+    return;
+  },
+  
+  async fetchProjectAllTasks(state,payload) {
+    console.log(`http://localhost:8000/api/project/${payload.project_id}/tasks`)
+    const tasks=await axios.get(
+      `http://localhost:8000/api/project/${payload.project_id}/tasks`
+    )    
+    console.log('All Projects Tasks',tasks.data)
+    state.commit('setProjectTasks',tasks.data);
+    return;
+  },
+
+  async fetchProjectWorkerTasks(state,payload) {
+    const worker_id = localStorage.getItem("userId");
+    console.log(`http://localhost:8000/api/worker/${worker_id}/project/${payload.project_id}/tasks`)
+    const tasks=await axios.get(
+      `http://localhost:8000/api/worker/${worker_id}/project/${payload.project_id}/tasks`
+    )    
+    console.log('Worker Projects Tasks',tasks.data)
+    state.commit('setProjectTasks',tasks.data);
+    return;
+  },
+
+  async fetchTaskComments(state, payload) {
+    const comments=await axios.get(
+      `http://localhost:8000/api/task/${payload.task_id}/comments`
+    )    
+    console.log(comments)
+    state.commit('setComments',comments.data);
+    return;
+  },
 
   async updateTaskStatus({ dispatch }, payload) {
     await axios.post(

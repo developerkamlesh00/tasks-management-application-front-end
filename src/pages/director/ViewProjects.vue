@@ -1,4 +1,9 @@
 <template>
+  <h2 class="header">Project List</h2><br>
+  <div class="search-container form-outline">
+      <input class="form-control" id="search" type="text" placeholder="Search Project with Title Description and Manager Name" v-model="searchTerm" @input="searchOrganization">
+      <button id="reset" @click="clearSearch">Clear</button>
+  </div>
    <base-dialog
     :show="viewForm"
     title="Edit Project Info"
@@ -29,7 +34,6 @@
         <!-- <input type="date" id="estimated" v-model.trim="estimated_deadline" /> -->
         <input type="date" id="estimated" v-model.trim="assign_at_string1" />
       </div>
-
       <div class="form-control">
         <label for="role">Manager Name</label>
         <select
@@ -43,7 +47,6 @@
           </option>
         </select>
       </div>
-
       <p v-if="!formIsValid" class="text-danger">
         Please enter a project name and description information.
       </p>
@@ -52,17 +55,12 @@
           {{ err }}
         </p>
       </div>
-
       <div id="success" v-if="successful" class="p-3 mb-2 text-white">
         {{ successful }}
       </div>
-
       <base-button id="btncreate">Update Project</base-button>
     </form>
   </base-dialog>
-  <!-- <router-view v-slot="{ Component }">
-    <component :is="Component" />
-  </router-view> -->
   <div class="table-responsive text-nowrap table-content">
     <table
       id="dtHorizontalVerticalExample"
@@ -84,21 +82,22 @@
           <th scope="col">Manager Name</th>
           <th scope="col">Progress</th>
           <th scope="col">Edit</th>
+          <th scope="col">Delete</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="project in projects" :key="project.id">
-          <th scope="row">{{ project.id }}</th>
+        <tr v-for="(project, index) in filteredProjects" :key="project.id">
+          <th scope="row">{{ index+1 }}</th>
           <td>{{ project.title }}</td>
           <td>{{ project.description }}</td>
-          <td>{{ project.assigned_at }}</td>
-          <td>{{ project.estimated_deadline }}</td>
+          <td>{{ project.assigned_at ? project.assigned_at.slice(0,10) : project.assigned_at}}</td>
+          <td>{{ project.estimated_deadline ? project.estimated_deadline.slice(0,10) : project.estimated_deadline}}</td>
           <td>{{ project.completed_at }}</td>
-          <td>{{ project.user['name'] }}</td>
+          <td>{{ project.username }}</td>
           <td>
             <div class="progress">
               <div
-                class="progress-bar bg-success"
+                :class="backgroundChange(project.tasks_completed,project.total_tasks)"
                 role="progressbar"
                 aria-valuenow="70"
                 aria-valuemin="0"
@@ -106,14 +105,14 @@
                 :style="
                   'width:' +
                   parseInt(
-                    (project.tasks_completed / project.total_tasks) * 100 || 1
+                    (project.tasks_completed / project.total_tasks) * 100 || 0
                   ) +
                   '%'
                 "
               >
                 {{
                   parseInt(
-                    (project.tasks_completed / project.total_tasks) * 100 || 1
+                    (project.tasks_completed / project.total_tasks) * 100 || 0
                   )
                 }}%
               </div>
@@ -122,50 +121,74 @@
           <td>
             <button class="btn btn-primary" @click="openProjectEdit(project)">Edit</button>
           </td>
+          <td>
+            <button class="btn btn-danger" @click="deleteProject(project)">Delete</button>
+          </td>
         </tr>
       </tbody>
     </table>
+    <div v-if="isLoading">
+          <base-spinner></base-spinner>
+    </div>
   </div>
-  <canvas id="myChart" width="400" height="400"></canvas>
 </template>
-
 <script>
+import { mapActions, mapGetters} from 'vuex';
 import axios from "axios";
 import BaseButton from '@/components/ui/BaseButton.vue';
-import { Chart } from 'chart.js';
-
-//Chart.register(CategoryScale, LinearScale, BarController, BarElement);
+import BaseSpinner from "../../components/ui/BaseSpinner.vue";
 
 export default {
-  components: { BaseButton },
+  components: { BaseButton , BaseSpinner},
   data() {
     return {
       projectid:null,
       title: "",
       description: "",
-      //estimated_deadline: null,
       completed_at: null,
       manager_id: null,
       progress: 0,
       tasks_completed: null,
       total_tasks: null,
-
       projects: [],
       managerslist: [],
       error: [],
+
       viewForm: false,
       formIsValid: true,
       successful: null,
-      selectedProject: null,
+      isLoading: false,
 
-      assign_at: '2000-01-01T00:00:00.000Z', //default date 
-      estimated_deadline: '2000-01-01T00:00:00.000Z', //default date 
+      selectedProject: null,
+      searchTerm:'', //for search
+      assign_at: '2000-01-01T00:00:00.000Z', //default date
+      estimated_deadline: '2000-01-01T00:00:00.000Z', //default date
       assign_at_string: '',
       assign_at_string1: '',
     };
   },
- 
-  //for update Date 
+  computed:{
+
+    ...mapGetters('director',['getProjects']),
+    ...mapGetters('director',['getManagers']),
+
+    filteredProjects() {
+      const projects = this.getProjects;
+      console.log(projects);
+      if (this.searchTerm) {
+        return projects.filter(project => {
+          const title = project.title.toLowerCase();
+          const managername = project.username.toLowerCase();
+          const description = project.description.toLowerCase();
+          const term = this.searchTerm.toLowerCase();
+          return managername.includes(term) || title.includes(term) || description.includes(term);
+        });
+      } else {
+        return projects;
+      }
+    },
+  },
+  //for update Date
   watch: {
     assign_at(newValue) {
       if(newValue){
@@ -182,8 +205,19 @@ export default {
       }
     },
   },
-
   methods: {
+    ...mapActions('director',['fetchAllProjects']),
+    ...mapActions('director',['fetchAllManagers']),
+
+    backgroundChange(tasks_completed, total_tasks){ //for progress bar
+      if((tasks_completed / total_tasks) * 100 < 30){
+        return "progress-bar bg-danger"
+      }else if((tasks_completed / total_tasks) * 100 < 60){
+        return "progress-bar bg-warning"
+      }else{
+        return "progress-bar bg-success"
+      }
+    },
     openProjectEdit(project) {
       //this.selectedProject = project;
       this.viewForm = true;
@@ -195,26 +229,37 @@ export default {
       this.estimated_deadline = project.estimated_deadline;
       this.manager_id = project.manager_id;
       this.viewForm = true;
-      
     },
-
+    //for delete Project
+    async deleteProject(project){
+      if (confirm('Are you sure you want to delete this Project?')){
+        await axios.get(
+          "http://localhost:8000/api/director/project/"+project.id
+        )
+        .then((response) =>{
+            this.loadProject()
+            return response.data;
+        })
+        .catch((err) => {
+            for (let er in err.response.data) {
+              this.error.push(err.response.data[er][0]);
+            }
+        });
+      }
+    },
     handleProject() {
       this.viewForm = false;
     },
-    //open edit box and then fetch managers list
-    async openProject() {
-      let org = await this.$store.getters.organization;
-      console.log(org);
-      let result = await axios.get(
-        "http://localhost:8000/api/director/managers/"+org
-      );
-      let managers = [];
-      for (let key in result.data) {
-        managers.push({ id: result.data[key].id, name: result.data[key].name });
-      }
-      this.managerslist = managers;
+    //clear search
+    clearSearch(){
+      this.searchTerm = ''
     },
-
+    //open edit box and then fetch managers list
+    ...mapGetters('director',['getManagers']),
+    async openProject() {
+      this.managerslist = this.getManagers; //used vuex for store
+      console.log(this.managerslist);
+    },
     //update Project here......
     async updateProject() {
       this.successful = null;
@@ -229,7 +274,6 @@ export default {
         this.formIsValid = false;
         return;
       }
-
       const actionPayload = {
         title: this.title,
         description: this.description,
@@ -238,7 +282,6 @@ export default {
         organization_id: this.$store.getters.organization,
         manager_id: this.manager_id,
       };
-
       try {
         console.log(this.projectid);
         await axios
@@ -248,7 +291,7 @@ export default {
           )
           .then((response) =>{
             this.handleProject();
-            this.loadProject()
+            this.loadProject();
             return response.data;
           })
           .catch((err) => {
@@ -262,80 +305,36 @@ export default {
       }
     },
     async loadProject() {
-      let org = await this.$store.getters.organization;
-      console.log(org);
-      await axios
-        .get("http://localhost:8000/api/director/projects/" + org)
-        .then((response) => {
-          console.log(response.data);
-          this.projects = response.data;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-  
-      //await this.$store.commit("setprojects",this.projects);
-      //console.log(await this.$store.getters.getProjects);
-      //get proxy result into json format
-      const projects = JSON.parse(JSON.stringify(this.projects));
-      this.projects = projects;
+      this.isLoading = true;
+      await this.fetchAllProjects(); //load project at first
+      this.isLoading = false;
     },
-    async reloadComponent() {
-      await this.loadProject();
+    async loadManagers() {
+      await this.fetchAllManagers(); //load all managers
     }
   },
 
   async mounted() {
-    await this.loadProject()
-    const ctx = document.getElementById('myChart');
-    const myChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          x: {
-            type: 'category'
-          },
-          y: {
-            ticks: {
-              beginAtZero: true
-            }
-          }
-        }
-      }
-    });
-    console.log(myChart);
+    this.isLoading = true
+    await this.loadProject();
+    await this.loadManagers();
+    this.isLoading = false;
   },
-
 };
 </script>
 
 <style scoped>
+
+.header {
+    font-size: 2rem;
+    font-weight: bold;
+    padding-top: 15px;
+    margin-bottom: 10px;
+    color: #333;
+    text-align: center;
+}
 .table-content {
-  height: 400px;
+  height: 500px;
 }
 th {
   text-align: top;
@@ -383,4 +382,24 @@ textarea:focus {
   background-color: #faf6ff;
   outline: none;
 }
+
+
+.search-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#reset{
+  background-color: #e01d92;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+}
 </style>
+
+

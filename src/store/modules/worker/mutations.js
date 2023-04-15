@@ -1,7 +1,17 @@
+import formatDate from '../../../utils/formatDate.js'
+
 export default {
   addNewBoard(state, payload) {
     return state.boards.push(payload);
   },
+  setMessage(state,data){
+    state.message=data;
+    state.showMessage=true;
+   },
+  unsetMessage(state){
+    state.message='';
+    state.showMessage=false;
+   },
   // updateTaskStatus(state, payload) {
   //   console.log("Mutations");
 
@@ -14,6 +24,15 @@ export default {
   //   //   task.status_id=status_id
   //   return;
   // },
+  setComments(state,data){
+    state.comments=data;
+  },
+  setProjects(state,data){
+    state.projects=data;
+  },
+  setProjectTasks(state,data){
+    state.project_tasks=data;
+  },
   setData(state) {
     state.tasks.forEach((task) => {
       let obj = {
@@ -54,7 +73,8 @@ export default {
       }
       task.review_passed === 1
         ? state.reviews_passed++
-        : state.reviews_submitted++;
+        : state.pending++;
+      task.status_id===3?state.reviews_submitted++:'';
     });
 
     state.reviews_submitted += state.reviews_passed;
@@ -103,18 +123,3 @@ export default {
 
 };
 
-function formatDate(date) {
-  date = new Date(date);
-  var year = date.getFullYear(),
-      month = date.getMonth() + 1, // months are zero indexed
-      day = date.getDate(),
-      hour = date.getHours(),
-      minute = date.getMinutes(),
-      // second = date.getSeconds(),
-      hourFormatted = hour % 12 || 12, // hour returned in 24 hour format
-      minuteFormatted = minute < 10 ? "0" + minute : minute,
-      morning = hour < 12 ? "am" : "pm";
-
-  return month + "/" + day + "/" + year + " " + hourFormatted + ":" +
-      minuteFormatted + morning;
-}

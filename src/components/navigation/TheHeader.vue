@@ -3,43 +3,27 @@
     <div class="container-fluid">
       <div class="navbar-brand">
         <div class="navbar-item home me-2">
-          <router-link to="/">
-            <img src="logo.png" alt="Task Management Logo" class="logo-img">
-          </router-link>
+            <router-link to="/" class="nav-link">Task Management</router-link>
         </div>
       </div>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
       <div class="collapse navbar-collapse ms-auto" id="navbarNav">
-        <div class="d-flex flex-row-reverse">
-          <div class="navbar-item me-2" v-if="isAuthenticated">
-            <router-link to="#" class="nav-link">{{ name }}</router-link>
-          </div>
+        <div class="d-flex flex-row">
           <div class="navbar-item me-2" v-if="isAuthenticated">
             <router-link :to="route" @click="routeChange" class="nav-link"
-              >Dashboard</router-link
+            >Dashboard</router-link
             >
+          </div>
+          <div class="navbar-item about me-2">
+            <router-link to="/about" class="nav-link">About Us</router-link>
+          </div>
+          <div class="navbar-item me-2" v-if="isAuthenticated">
+            <router-link to="#" class="nav-link">{{ name }}</router-link>
           </div>
           <div class="navbar-item login me-2" v-if="!isAuthenticated">
             <router-link to="/login" class="nav-link">Login</router-link>
           </div>
           <div class="navbar-item logout me-2" v-else>
             <router-link to="/logout" @click="logout" class="nav-link">Logout</router-link>
-          </div>
-          <div class="navbar-item about me-2">
-            <router-link to="/about" class="nav-link">About Us</router-link>
-          </div>
-          <div class="navbar-item home me-2">
-            <router-link to="/" class="nav-link">Home</router-link>
           </div>
         </div>
       </div>
@@ -77,23 +61,12 @@ export default {
 
 /* Navbar styles */
 .navbar {
-  background: #358a97;
-  height: 70px;
+  background: linear-gradient(60deg, rgb(101, 84, 192), rgb(249, 156, 219)) 0% 0% / auto repeat scroll padding-box border-box rgb(101, 84, 192);
+  /* height: 70px; */
   font-family: "Alkatra", cursive;
+  
 }
 
-.navbar-brand img {
-  height: 50px;
-  width: 55px;
-}
-
-.navbar-toggler {
-  border-color: #ffffff;
-}
-
-.navbar-toggler-icon {
-  background-color: #ffffff;
-}
 
 .navbar-collapse {
   justify-content: flex-end;
@@ -110,16 +83,18 @@ export default {
   text-decoration: none;
   color: #ffffff;
   font-weight: bold;
-  font-size: 16px;
-  padding: 10px 15px;
+  font-size: 14px;
+  padding: 5px 10px;
   border-radius: 10px;
   transition: background-color 0.3s ease;
 }
 
-.navbar-item a:hover,
+.navbar-item.home a:hover,.navbar-item.about a:hover,.navbar-item a:hover{
+  background-color: rgb(110, 99, 255);
+}
 .navbar-item a:active,
 .navbar-item a.router-link-active {
-  color: #5b4b57;
+  color: rgb(101, 84, 192);
   background-color: #f6f1f5;
 }
 
@@ -127,10 +102,10 @@ export default {
   font-size: 18px;
 }
 
-.navbar-item.home a:hover,
+
 .navbar-item.home a:active,
 .navbar-item.home a.router-link-active {
-  color: #358a97;
+  color: rgb(101, 84, 192);
   background-color: #f6f1f5;
 }
 
@@ -143,10 +118,10 @@ export default {
   font-size: 16px;
 }
 
-.navbar-item.about a:hover,
+
 .navbar-item.about a:active,
 .navbar-item.about a.router-link-active {
-  color: #5b4b57;
+  color: rgb(101, 84, 192);
   background-color: #f6f1f5;
 }
 

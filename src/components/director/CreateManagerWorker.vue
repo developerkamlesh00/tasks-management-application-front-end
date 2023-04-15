@@ -1,4 +1,28 @@
 <template>
+  <base-dialog
+    :show="viewForm"
+    :title= "messagetitle"
+    @close="handleDialog"
+  >{{ message }}
+  </base-dialog>
+  <h2 class="header">Create Managers and Workers</h2><br>
+    <div class="csvcontainer">
+      <div class="container">
+        <div class="row mx-auto">
+          <label for="formFileSm" class="form-label">Create Managers and Worker Using CSV file</label>
+          <div class="col">
+            <div class="form-group">
+              <input class="form-control" id="formFileSm" type="file" @change="onFileSelected"/>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <button class="btn btn-primary" @click="convertToJson">Import</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><br>
   <form @submit.prevent="submitForm">
     <div class="form-control">
       <label for="role">Role</label>
@@ -42,6 +66,7 @@
 </template>
 
 <script>
+import Papa from "papaparse";
 import axios from "axios";
 
 export default {
@@ -54,10 +79,22 @@ export default {
       formIsValid: true,
       error: null,
       successful:null,
+
+      csvData: '',
+      jsonData: '',
+      viewForm: false,
+      message : '',
+      messagetitle: '',
+      res:false,  // checkpoint for file type 
     };
   },
   methods: {
-    
+    handleDialog() {
+      this.viewForm = false;
+      this.message = '';
+      this.messagetitle = '';
+      this.res= false;
+    },
     async submitForm() {
       this.successful = null;
       this.formIsValid = true;
@@ -113,11 +150,92 @@ export default {
     handleError() {
       this.error = null;
     },
+
+    //for sending Data using CSV file
+    onFileSelected(event) {
+      const file = event.target.files[0];
+
+      if (file && file.type == "text/csv") {
+        this.res = true;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.csvData = e.target.result.replace(/\r/g, "");
+        };
+        reader.readAsText(file);
+      } else {
+        this.res = false;
+        this.viewForm = true;
+        this.message = "You Selected file type is not CSV please select proper file.";
+        this.messagetitle = "Wrong File"
+      }
+    },
+    async convertToJson() {
+      if(this.res){
+        const options = {
+          header: true,
+          delimiter: ",",
+          newline: "\n",
+        };
+  
+        const parsedData = Papa.parse(this.csvData, options).data;
+        parsedData.pop(); // Remove the last record
+  
+        const updatedData = parsedData.map(dataRow => {
+          const updatedRow = { ...dataRow }; // Create a copy of the row
+          if(updatedRow.role_id === 'worker'){
+            updatedRow.role_id = 4;
+          } else if(updatedRow.role_id === 'manager') {
+            updatedRow.role_id = 3;
+          }
+          updatedRow.organization_id = this.$store.getters.organization; // Add the extra field to the copy
+          return updatedRow;
+        });
+  
+        const jsonData = JSON.stringify(updatedData);
+        this.jsonData = jsonData;
+  
+        console.log(updatedData)
+        console.log(jsonData);
+  
+        let res= await axios.post('http://localhost:8000/api/director/bulkregister',updatedData)
+        .then(function (response) {
+          console.log(response);
+          return "Successfully Created";
+          
+        }).catch(err =>{
+          this.dataIncorrect();
+          console.log(err);
+        });
+        if(res){
+          this.viewForm = true;
+          this.message = "Successfully Imported All Data....";
+          this.messagetitle = "Successfull "
+        }
+      }else{
+        this.viewForm = true;
+        this.message = "You Selected file type is not CSV please select proper file.";
+        this.messagetitle = "Wrong File"
+      }
+    },
+    dataIncorrect(){
+      this.viewForm = true;
+      this.message = "Data Duplicate or may not be formatted....please provide like this 'name,email,password,role'";
+      this.messagetitle = "Duplicate Data or may not be formatted"
+    }
+    
   },
 };
 </script>
 
 <style scoped>
+.header {
+    font-size: 2rem;
+    font-weight: bold;
+    padding-top: 15px;
+    /* margin-bottom: 10px; */
+    color: #333;
+    text-align: center;
+}
 #card {
   max-width: 60rem;
 }
@@ -127,13 +245,13 @@ export default {
 #btnregister {
   border-radius: 30px;
 }
-form {
+form, .csvcontainer {
   margin: 1rem;
   margin-top: -1rem;
   padding: 1rem;
 }
 
-.form-control {
+.form-control, .csvcontainer {
   margin: 0.5rem 0;
 }
 

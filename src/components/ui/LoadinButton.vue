@@ -28,7 +28,7 @@
   }
   </script>
   
-  <style>
+  <style scoped>
   button {
     position: relative;
     display: inline-block;

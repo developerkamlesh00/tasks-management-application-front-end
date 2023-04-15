@@ -1,6 +1,7 @@
 <template>
   <div>
     <base-card id="card">
+    <h2 class="header">Organization Registration Form</h2><br>
       <form @submit.prevent="submitForm">
         <div class="form-control">
           <label for="org_name">Organization Name</label>
@@ -111,6 +112,14 @@ export default {
 </script>
 
 <style scoped>
+.header {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: -10px;
+    color: #333;
+    text-align: center;
+}
 #card {
   max-width: 60rem;
 }
