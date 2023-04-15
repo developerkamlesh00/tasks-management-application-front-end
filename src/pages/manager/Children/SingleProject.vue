@@ -30,11 +30,13 @@
         <form @submit.prevent="addTask">
           <div class="mb-3">
             <label for="task-title" class="col-form-label">title</label>
-            <input type="text" class="form-control" id="task-title" v-model="title">
+            <input type="text" class="form-control" id="task-title" v-model.trim="title" @blur="validateInput" />
+            <p v-if="titleValidity==='invalid'" style="color: red;">Please enter a title</p>
           </div>
           <div class="mb-3">
             <label for="task-description" class="col-form-label">description</label>
-            <textarea class="form-control" id="task-description" v-model="description"></textarea>
+            <textarea class="form-control" id="task-description" v-model.trim="description" @blur="validateInput" />
+            <p v-if="descriptionValidity==='invalid'" style="color: red;">Please enter a description</p>
           </div>
           <div class="mb-3">
           <label for="worker-id" class="col-form-label">Worker id</label>
@@ -43,12 +45,12 @@
 
           <div class="mb-3">
           <label for="assigned-date" class="col-form-label">Assigned Date</label>
-          <input type="text" class="form-control" id="assigned-date" v-model="assignedDate">
+          <input type="date" class="form-control" id="assigned-date" v-model="assignedDate">
           </div>
 
           <div class="mb-3">
           <label for="estimated-deadline" class="col-form-label">Estimated Deadline</label>
-          <input type="text" class="form-control" id="estimated-deadline" v-model="estimated_deadline">
+          <input type="date" class="form-control" id="estimated-deadline" v-model="estimated_deadline">
           </div>
           <button type="submit" class="btn btn-primary">Add Task</button>
         </form>
@@ -101,10 +103,12 @@
           <div class="mb-3">
             <label for="task-title" class="col-form-label">title</label>
             <input type="text" class="form-control" id="task-title" v-model="newTitle" @blur="validateInput">
+            <p v-if="titleValidity==='invalid'" style="color: red;">Please enter a title</p>
            </div>
           <div class="mb-3">
             <label for="task-description" class="col-form-label">description</label>
             <textarea class="form-control" id="task-description" v-model="newDescription"></textarea>
+            <p v-if="titleValidity==='invalid'" style="color: red;" @blur="validateInput">Please enter a description</p>
           </div>
           <div class="mb-3">
           <label for="worker-id" class="col-form-label">Worker id</label>
@@ -113,12 +117,12 @@
 
           <div class="mb-3">
           <label for="assigned-date" class="col-form-label">Assigned Date</label>
-          <input type="text" class="form-control" id="assigned-date" v-model="newAssignedDate">
+          <input type="date" class="form-control" id="assigned-date" v-model="newAssignedDate">
           </div>
 
           <div class="mb-3">
           <label for="estimated-deadline" class="col-form-label">Estimated Deadline</label>
-          <input type="text" class="form-control" id="estimated-deadline" v-model="newEstimatedDeadline">
+          <input type="date" class="form-control" id="estimated-deadline" v-model="newEstimatedDeadline">
           </div>
           <button type="submit" class="btn btn-primary">Edit Task</button>
         </form>
@@ -168,7 +172,8 @@ export default{
     newEstimatedDeadline:'',
 
     //Validation
-    titleValidity: 'pending'
+    titleValidity: 'pending',
+    descriptionValidity: 'pending'
     
 
   }
@@ -223,8 +228,8 @@ methods:{
     editTask(task){
       //console.log(task.id)
       const url = this.$router.currentRoute.value.fullPath
-    const pathLength=this.$router.currentRoute.value.fullPath.length-1
-    const lastNumber = url.lastIndexOf("/")
+      const pathLength=this.$router.currentRoute.value.fullPath.length-1
+      const lastNumber = url.lastIndexOf("/")
     //console.log(lastNumber)
     const id = url.substr(lastNumber+1, pathLength)
         this.$store.dispatch('editTask', {
@@ -257,11 +262,18 @@ methods:{
     },
   
     validateInput(){
-      if(this.title.trim===''){
+      if(this.title === ''){
         this.titleValidity='invalid'
       }
       else{
         this.titleValidity='valid'
+      }
+
+      if(this.description===''){
+        this.descriptionValidity='invalid'
+      }
+      else{
+        this.descriptionValidity='valid'
       }
     }
 
