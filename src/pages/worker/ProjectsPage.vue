@@ -1,10 +1,15 @@
 <template>
-    <div class="container p-3">
+
+       
+    <div class="container p-3"> 
     <div v-if="showTasks" class="d-flex justify-content-end">
         <button class="btn btn-danger px-2 btn-sm" @click="showTasks=false"><i class="bi bi-x-circle-fill"></i> Hide Tasks</button>
     </div>
     <div>
-        <ProjectTasks v-if="showTasks"/>
+        <BaseSpinner v-if="isLoading"/>
+        <div v-else >
+            <ProjectTasks v-if="showTasks"/>
+        </div>
     </div>
     <table class="table table-hover table-bordered border-dark text-center" style="background-color: transparent;">
         <thead>
@@ -40,27 +45,32 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import ProjectTasks from '../../components/workers/ProjectTasks.vue'
+import BaseSpinner from '../../components/ui/BaseSpinner.vue'
 export default{
     data(){
         return{
             showTasks:false,
+            isLoading:false,
         }
     },
     components:{
         ProjectTasks,
+        BaseSpinner
     },
     methods:{
         ...mapActions('worker',['fetchWorkerProjects']),
         ...mapActions('worker',['fetchProjectAllTasks']),
         ...mapActions('worker',['fetchProjectWorkerTasks']),
-        fetchProjectTasks(id){
+        async fetchProjectTasks(id){
+            this.isLoading=true;
             const project=this.getProjects.find((p)=>p.id===id);
             if(project.workers_visibility===1){
-                this.fetchProjectAllTasks({'project_id':id});
+               await this.fetchProjectAllTasks({'project_id':id});
             }else{
-                this.fetchProjectWorkerTasks({'project_id':id});
+               await this.fetchProjectWorkerTasks({'project_id':id});
             }
             this.showTasks=true;
+            this.isLoading=false;
         },
     },
     computed:{

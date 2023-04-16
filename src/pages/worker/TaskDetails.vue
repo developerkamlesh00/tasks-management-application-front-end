@@ -10,7 +10,7 @@
             <div>Estimated Deadline: {{ getTask.estimated_deadline }}</div>
             <div>Project Id: {{ getTask.project_id }}</div>
             <!-- <div>Status: {{ status[getTask.status_id] }}</div> -->
-            <div>Review Passed: {{ getTask.review_passed == 0 ? 'No' : 'Yes' }}</div>
+            <div>Review Passed: {{ getTask.status_id != 4 ? 'No' : 'Yes' }}</div>
         </div>
     </div>
     </base-card >

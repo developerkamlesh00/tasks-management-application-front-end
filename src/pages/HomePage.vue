@@ -50,7 +50,7 @@
             <i class="bi bi-kanban"></i>
           </div>
           <h4 class="fw-semibold mb-0">Project Management</h4>
-          <p>Keep tasks in order, deadlines on track, and team members aligned with Trello.</p>
+          <p>Keep tasks in order, deadlines on track, and team members aligned with Tasker.</p>
         </div>
 
         <div class="d-flex flex-column gap-2">
@@ -59,7 +59,7 @@
             <i class="bi bi-list-task"></i>
           </div>
           <h4 class="fw-semibold mb-0">Manage Tasks</h4>
-          <p >Say goodbye to sticky notes and to-do lists: Trello allows teams of any size to easily manage tasks and hit deadlines - all without ever leaving the app.</p>
+          <p >Say goodbye to sticky notes and to-do lists: Tasker allows teams of any size to easily manage tasks and hit deadlines - all without ever leaving the app.</p>
         </div>
 
         <div class="d-flex flex-column gap-2">

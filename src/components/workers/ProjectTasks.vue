@@ -28,8 +28,9 @@
                     </div>
                 </td>
                 <td>
-                    <router-link class="btn btn-outline-dark" :to="{name:'task_detail',params:{'id':task.id}}">Open
+                    <router-link class="btn btn-outline-dark" v-if="task.worker_id==userId" :to="{name:'task_detail',params:{'id':task.id}}">Open
                     </router-link>
+                    <span class="btn btn-outline-dark" v-else>Hidden</span>
                 </td>
             </tr>
             <tr v-if="getProjectTasks.length == 0">
@@ -51,7 +52,8 @@ export default{
         },
     },
     computed:{
-        ...mapGetters('worker',['getProjectTasks'])
+        ...mapGetters('worker',['getProjectTasks']),
+        ...mapGetters(['userId']),
     }
 }
 </script>

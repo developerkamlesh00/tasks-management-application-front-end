@@ -26,8 +26,7 @@
         </base-card>
 
         <div class="col-10">
-            <BaseSpinner v-if="false"/>
-            <base-card v-else class="m-0 my-1 p-0 ms-2 mw-100 card2">
+            <base-card class="m-0 my-1 p-0 ms-2 mw-100 card2">
                 <router-view v-slot="{ Component }">
                     <component :is="Component"></component>
                 </router-view>
@@ -61,7 +60,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('worker', ['isLoading','getTasks', 'showMessage', 'message'])
+        ...mapGetters('worker', ['getTasks', 'showMessage', 'message'])
     },
     created() {
         this.$store.dispatch('worker/fetchWorkerTasks', { isFirstRequest: true });
