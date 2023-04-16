@@ -16,7 +16,7 @@
     </base-card >
     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content color_pink">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Comment</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -40,7 +40,7 @@
             <div class="d-flex flex-column col-md-8">
                 <div class="coment-bottom py-2">
                     <form @submit.prevent="createComment" class="d-flex flex-row add-comment-section mt-4 mb-4"><img
-                            class="img-fluid img-responsive rounded-circle me-2" src="https://i.imgur.com/qdiP4DB.jpg"
+                            class="img-fluid img-responsive rounded-circle me-2" src="../../assets/profiles/user.jpg"
                             width="38">
                         <input type="text" class="form-control mx-3" placeholder="Add comment" v-model="comment_body"
                             required>
@@ -69,8 +69,7 @@
         </div>
     </div>
 </template>
-<!-- 
-// want to display a task assigned to a worker along with the comments made on this task. It should perform crud operations on task. When a user clicks on a new comment a pop up modal should be display with the comment_body field and comment button. The task list should be displayed such that all tasks written by this worker should be displayed on right and by other users on the left side like a chat system. -->
+
 <script>
 import formatDate from '@/utils/formatDate'
 import { mapActions, mapGetters } from 'vuex'

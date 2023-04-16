@@ -7,7 +7,7 @@
     <div class="container my-2" style="width:500px;height:500px">
       <canvas id="pieChart"></canvas>
     </div>
-    <h2>Pending/Completed tasks in each project</h2>
+    <h2>Pending/Completed tasks in each Project</h2>
     <div class="container my-2" style="width:500px;height:300px">
       <canvas id="stackedBarChart"></canvas>
     </div>
@@ -25,7 +25,7 @@ Chart.register(
 
 );
 
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 Chart.register(CategoryScale, Colors, Tooltip ,
   BubbleController,
   LinearScale,
@@ -41,26 +41,31 @@ pending_ids:[],
     }
   },
   methods: {
+    ...mapActions('worker',['fetchWorkerTasks'])
   },
   computed: {
     ...mapGetters('worker', ['getCounts', 'getTasksPerProject'])
   },
-  mounted() {
-
+  async mounted() {
+      await this.fetchWorkerTasks({isFirstRequest:true})
     const data = {
       labels: [
         'Total Tasks',
-        'Pending',
+        'Incomplete',
+        'ToDo',
+        'Doing',
         'Overdue',
         'Under Review',
         'Completed',
       ],
       datasets: [{
         label: 'Number of Tasks',
-        data: [this.getCounts.total_tasks_assigned, this.getCounts.pending, this.getCounts.overdue_tasks, this.getCounts.reviews_submitted, this.getCounts.completed_tasks],
+        data: [this.getCounts.total_tasks_assigned, this.getCounts.pending, this.getCounts.todo,this.getCounts.doing, this.getCounts.overdue_tasks, this.getCounts.reviews_submitted, this.getCounts.completed_tasks],
         backgroundColor: [
           'rgb(3, 144, 252)',
           'rgb(252, 173, 3)',
+          'rgb(152, 173, 3)',
+          'rgb(252, 73, 123)',
           'rgb(252, 3, 3)',
           'rgb(235, 5, 189)',
           'rgb(47, 235, 5)',
@@ -126,7 +131,7 @@ pending_ids:[],
         plugins: {
           title: {
             display: true,
-            text: 'Chart.js Bar Chart - Stacked'
+            text: 'View project details in Project Tab'
           },
         },
         responsive: true,

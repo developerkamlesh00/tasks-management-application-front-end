@@ -16,7 +16,7 @@
         <tbody>
             <tr class="table-info" v-for="task in getProjectTasks" :key="task.id">
                 <td>{{ task.id }}</td>
-                <td>{{ task.title }}</td>
+                <td>{{ task.title.slice(0,20) }}</td>
                 <td>{{ task.description.slice(0,20) }}....</td>
                 <td>{{ task.worker_id }}</td>
                 <td>{{ task.assigned_at }}</td>

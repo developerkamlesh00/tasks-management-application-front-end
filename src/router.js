@@ -8,7 +8,7 @@ import ForgotPassword from "./pages/auth/ForgotPassword.vue";
 import ResetPassword from './pages/auth/ResetPassword.vue';
 // import UpdateProfile from "./pages/auth/UpdateProfile.vue";
 
-//director compo
+//director component
 import OrganizationRegister from "./pages/director/OrganizationRegister.vue";
 import DirectorDashboard from "./pages/director/DirectorDashboard.vue";
 import CreateManagerWorker from "./components/director/CreateManagerWorker.vue";
@@ -19,7 +19,7 @@ import ViewManagers from "./components/director/ViewManagers.vue";
 import ViewWorkers from "./components/director/ViewWorkers.vue";
 import UpdateProfile from "./components/director/UpdateProfile.vue";
 import ViewOrganization from "./components/director/ViewOrganizationDetails.vue";
-//end director compo
+//end director component
 
 //import Admin components
 import AdminDashboard from "./pages/admin/AdminDashboard.vue";

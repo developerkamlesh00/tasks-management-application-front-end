@@ -39,7 +39,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import ProjectTasks from './ProjectTasks.vue'
+import ProjectTasks from '../../components/workers/ProjectTasks.vue'
 export default{
     data(){
         return{

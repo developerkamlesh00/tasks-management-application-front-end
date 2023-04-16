@@ -32,13 +32,14 @@ export default {
         ...mapActions('worker', ['fetchWorkerProjects']),
         getManagers() {
             for (let project of this.getProjects) {
-                const manager = this.managers.includes(project.user)
-                console.log(manager)
-                if (!manager) {
-                    console.log(project)
+                let present=false;
+                for(let manager of this.managers){
+                    if(project.user.id===manager.id){
+                        present=true;
+                    }
+                }
+                if(!present){
                     this.managers.push(project.user)
-                } else {
-                    // manager[1].push(project.name)
                 }
             }
             return this.managers;
