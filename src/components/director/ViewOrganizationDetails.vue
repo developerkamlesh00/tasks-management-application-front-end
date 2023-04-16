@@ -11,7 +11,7 @@
       </div>
       <div class="form-control">
         <label for="description">Organization Email</label>
-        <input type="gmail" id="title" v-model.trim="org_email" />
+        <input type="gmail" id="description" v-model.trim="org_email" />
       </div>
       <p v-if="!formIsValid" class="text-danger">
         Please enter a organization name and email information.
@@ -21,44 +21,51 @@
           {{ err }}
         </p>
       </div><br>
-      <base-button id="btncreate">Update Details</base-button>
+      <base-button id="radius" >Update Details</base-button>
     </form>
     </base-dialog>
     <div id="container">
-    <div class="d-flex aligns-items-center justify-content-center card mx-auto" v-if="getOrganization">
-        <div class="card-header">
+      <div class="d-flex aligns-items-center justify-content-center card mx-auto linear_blue textcolor" v-if="getOrganization">
+        <div class="card-header headercolor">
             <h3>Organization Name : {{ getOrganization.org_name }}</h3>
         </div>
-        <div class="card-body">
-            <h5 class="card-title"><p><strong>E-mail :</strong> {{ getOrganization.org_email }}</p></h5>
-            <p class="card-text">Registration Date : {{ getOrganization.created_at.slice(0,10) }}</p>
-            <p class="card-text">Projects Progress</p>
-            <div class="progress">
-              <div
-                :class="backgroundChange(getOrganization.projects_completed,getOrganization.total_projects)"
-                role="progressbar"
-                aria-valuenow="70"
-                aria-valuemin="0"
-                aria-valuemax="100"
-                :style="
-                  'width:' +
-                  parseInt(
-                    (getOrganization.projects_completed / getOrganization.total_projects) * 100 || 0
-                  ) +
-                  '%'
-                "
-              >
-                {{
-                  parseInt(
-                    (getOrganization.projects_completed / getOrganization.total_projects) * 100 || 0
-                  )
-                }}%
+          <div class="row" >
+            <div class="col-4" style="padding: 2rem;">
+                <img src="../../assets/orgicon.png" width="200" height="200" alt="org icon">
+            </div>
+            <div class="col-8" >
+              <div class="card-body">
+                  <h5 class="card-title"><p><strong>E-mail :</strong> {{ getOrganization.org_email }}</p></h5>
+                  <p class="card-text">Registration Date : {{ getOrganization.created_at.slice(0,10) }}</p>
+                  <p class="card-text">Projects Progress</p>
+                  <div class="progress">
+                    <div
+                      :class="backgroundChange(getOrganization.projects_completed,getOrganization.total_projects)"
+                      role="progressbar"
+                      aria-valuenow="70"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      :style="
+                        'width:' +
+                        parseInt(
+                          (getOrganization.projects_completed / getOrganization.total_projects) * 100 || 0
+                        ) +
+                        '%'
+                      "
+                    >
+                      {{
+                        parseInt(
+                          (getOrganization.projects_completed / getOrganization.total_projects) * 100 || 0
+                        )
+                      }}%
+                    </div>
+                  </div>
+                  <p class="project-status"><strong>Projects Completed : </strong> {{ getOrganization.projects_completed }} / {{ getOrganization.total_projects }}</p>
+                  <button class="btn buttoncolor" @click="openOrg(getOrganization)">Update Organization Details</button>
               </div>
             </div>
-            <p class="project-status"><strong>Projects Completed : </strong> {{ getOrganization.projects_completed }} / {{ getOrganization.total_projects }}</p>
-            <button class="btn btn-primary" @click="openOrg(getOrganization)">Update Organization Details</button>
-        </div>
-    </div>
+          </div>
+      </div>
     </div>
     <div>
         <router-view v-slot="{ Component }">
@@ -156,6 +163,14 @@ export default {
 
 
 <style scoped>
+.headercolor{
+  background-color: #ff7dd8;
+  color: white;
+}
+.buttoncolor{
+  color: white;
+  background-color: #9e5fcb;
+}
 .card{
     width: 80%;
     margin-top: 2rem;
@@ -219,5 +234,13 @@ textarea:focus {
   color: red;
   font-size: 16px;
   margin-top: 20px;
+}
+
+.linear_blue{
+background: radial-gradient(circle, rgba(252,248,255,1) 0%, hwb(302 90% 0%) 100%);
+}
+
+#radius{
+  border-radius: 30px;
 }
 </style>
