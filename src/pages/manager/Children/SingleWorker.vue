@@ -102,6 +102,12 @@ computed:{
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Alkatra:wght@500&family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alkatra:wght@500&family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alkatra:wght@500&family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@700&display=swap');
 .table-attributes{
   height: 500px;
   width:1000px
@@ -127,5 +133,12 @@ computed:{
   box-shadow: 0px 0px 12.75px 2.25px rgba(0, 0, 0, 0.05);
   margin-bottom: 20px;
 }
+th{
+  font-family: 'Crimson Text', serif;
+}
+td{
 
+  font-family: 'Crimson Text', serif;
+
+}
 </style>

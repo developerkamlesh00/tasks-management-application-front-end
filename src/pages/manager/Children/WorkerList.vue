@@ -1,6 +1,6 @@
 <template>
     
-    <h1 style="text-align: center;">WorkerList</h1>
+    <h1 style="text-align: center; font-family: 'Bebas Neue', cursive;" >WorkerList</h1>
 
     <div class="table-responsive text-nowrap table-content table-attributes">
 
@@ -55,6 +55,10 @@ methods:{
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Alkatra:wght@500&family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@700&display=swap');
 a{
   text-decoration: none;
   color: black;  
@@ -77,5 +81,16 @@ a{
 }
 a:hover{
   color:aliceblue;
+}
+
+th{
+  font-family: 'Crimson Text', serif;
+
+}
+td{
+
+  font-family: 'Crimson Text', serif;
+
+
 }
 </style>

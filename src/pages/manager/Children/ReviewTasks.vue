@@ -1,6 +1,6 @@
 <template>
 
-  <h1 style="text-align: center;">Tasks To be Reviewed</h1>
+  <h1 style="text-align: center;font-family: 'Bebas Neue', cursive;">Tasks To be Reviewed</h1>
 
 <div class="table-responsive text-nowrap table-content table-attributes">
 <table id="dtHorizontalVerticalExample"
@@ -97,9 +97,27 @@ computed:{
 </script>
 
 <style scoped>
+
+@import url('https://fonts.googleapis.com/css2?family=Alkatra:wght@500&family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@700&display=swap');
+
+
 .table-attributes{
   height: 500px;
   width:1000px;
+
+}
+
+th{
+  font-family: 'Crimson Text', serif;
+
+}
+td{
+
+  font-family: 'Crimson Text', serif;
+
 
 }
 

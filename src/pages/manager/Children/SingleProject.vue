@@ -16,6 +16,7 @@
     </div> 
 
     <button @click="showTasks" type="button" class="btn btn-primary custom custom-button">Show Tasks</button>
+    <!--Create Task Modal Starts-->
     <button type="button" class="btn btn-primary custom custom-button" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Create Task</button>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -76,10 +77,12 @@
       </div>
     </div>
   </div>
+<!--Create Task Modal ends-->
 
+<!--Show Data table starts-->
   <div class="table-responsive text-nowrap table-content table-attributes">
     <table id="dtHorizontalVerticalExample"
-      class="table table-bordered table-sm bg-light"
+      class="table table-bordered table-sm"
       cellspacing="0"
       width="100%" v-show="displayTasks">
   <thead>
@@ -161,14 +164,13 @@
     </div>
   </div>
         </td>
-        <td> <button type="button" class="btn btn-light" @click="delTask(taskList.id)">🗑️</button>
-</td>     
+        <td> <button type="button" class="btn btn-light" @click="delTask(taskList.id)">🗑️</button></td>     
       </tr>
   </tbody>
 </table>
 
 </div>
-
+<!--Show Data table ends-->
 
 </template>
 
@@ -340,6 +342,10 @@ computed:{
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Alkatra:wght@500&family=Bebas+Neue&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Alkatra:wght@500&family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alkatra:wght@500&family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@700&display=swap');
 .card-wrap {
   padding: 40px 30px;
   position: relative;
@@ -367,5 +373,14 @@ computed:{
   padding: 15px;
   margin-top: 10px;
   font-weight: bold;
+}
+
+th{
+  font-family: 'Crimson Text', serif;
+}
+td{
+
+  font-family: 'Crimson Text', serif;
+
 }
 </style>

@@ -28,6 +28,7 @@ const store = createStore({
       assignedTasks:[],
       reviewTasks:[],
       workerNames:[],
+      visible:[]
     }
   },
 
@@ -70,6 +71,10 @@ const store = createStore({
 
     getAllWorkerNames(state){
       return state.workerNames
+    },
+
+    getVisible(state){
+      return state.visible
     }
   },
 
@@ -348,10 +353,25 @@ async getWorkerNames(context){ //
   // always executed
 });
 
+},
+async toggleVisibility(context,payload){
+  console.log(payload.id)
+  await axios.put('http://localhost:8000/api/toggle_visibility', {
+    id:payload.id
+  })
+  .then(function (response) {
+    //console.log(payload)
+    console.log(response);
+    response.data = context.visible
+  })
+  .catch(function (error) {
+    //console.log(payload)
+    console.log(error);
+  });
+},
 }
 
 
-}
 
 });
 
