@@ -7,9 +7,10 @@
           <h2 style="text-align: center; font-family: 'Alkatra', cursive;">{{ singleProject.title }}</h2>
           <h2 style="text-align: center; font-family: 'Bebas Neue', cursive;" >Description</h2>
           <h3 style="text-align: center; font-family: 'Alkatra', cursive;">{{ singleProject.description }}</h3>
-          <h3 style="font-family: 'Bebas Neue', cursive;">Date Assigned: <span style="font-family: 'Alkatra', cursive;">{{ singleProject.assigned_at  }}</span></h3>
-          <h3 style="font-family: 'Bebas Neue', cursive;">Deadline: <span style="font-family: 'Alkatra', cursive;">{{ singleProject.estimated_deadline }}</span></h3>
-          <h3 style="font-family: 'Bebas Neue', cursive;">Date Completed : <span style="font-family: 'Alkatra', cursive;">{{ singleProject.completed_at }}</span></h3>
+          <h3 style="font-family: 'Bebas Neue', cursive;">Date Assigned: <span style="font-family: 'Alkatra', cursive;" v-if="singleProject.assigned_at">{{ singleProject.assigned_at.substr(0,10)  }}</span></h3>
+          <h3 style="font-family: 'Bebas Neue', cursive;">Deadline: <span style="font-family: 'Alkatra', cursive;" v-if="singleProject.estimated_deadline">{{ singleProject.estimated_deadline.substr(0,10) }}</span></h3>
+          <h3 style="font-family: 'Bebas Neue', cursive;">Date Completed : <span style="font-family: 'Alkatra', cursive;" v-if="singleProject.completed_at">{{ singleProject.completed_at.substr(0,10) }}</span></h3>
+          <h3 style="font-family: 'Bebas Neue', cursive;">Tasks Completed:<span style="font-family: 'Alkatra', cursive;">{{ singleProject.tasks_completed }}/{{ singleProject.total_tasks }}</span></h3>
          
         </div>        
     </div> 
@@ -38,14 +39,26 @@
             <textarea class="form-control" id="task-description" v-model.trim="description" @blur="validateInput" />
             <p v-if="descriptionValidity==='invalid'" style="color: red;">Please enter a description</p>
           </div>
-          <div class="mb-3">
-          <label for="worker-id" class="col-form-label">Worker id</label>
-          <input type="number" class="form-control" v-model="workerId" id="worker-id">
+            
+        
+            <div class="mb-3">
+            <label for="worker-id" class="col-form-label">Worker id</label>
+            <select class="form-select" aria-label="Default select example" v-model="workerId">
+              <option v-for="getAllWorkerName in getAllWorkerNames" :key="getAllWorkerName.id" :value="getAllWorkerName.id" >
+                {{ getAllWorkerName.name }}
+              </option>
+            </select>
+            <!--
+
+            <label for="worker-id" class="col-form-label">Worker id</label>
+            <input type="number" class="form-control" v-model="newWorkerId" id="worker-id">
+        
+            -->
           </div>
 
           <div class="mb-3">
-          <label for="assigned-date" class="col-form-label">Assigned Date</label>
-          <input type="date" class="form-control" id="assigned-date" v-model="assignedDate">
+            <label for="assigned-date" class="col-form-label">Assigned Date</label>
+            <input type="date" class="form-control" id="assigned-date" v-model="assignedDate">
           </div>
 
           <div class="mb-3">
@@ -66,18 +79,19 @@
 
   <div class="table-responsive text-nowrap table-content table-attributes">
     <table id="dtHorizontalVerticalExample"
-      class="table table-bordered table-sm"
+      class="table table-bordered table-sm bg-light"
       cellspacing="0"
       width="100%" v-show="displayTasks">
   <thead>
     <tr>
-      <th scope="col">id</th>
-      <th scope="col">title</th>
-      <th scope="col">description</th>
-      <th scope="col">worker id</th>
-      <th scope="col">deadline</th>
-      <th scope="col">edit</th>
-      <th scope="col">delete</th>
+      <th scope="col">Id</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Worker Id</th>
+      <th scope="col">Assigned Date</th>
+      <th scope="col">Deadline</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
     </tr>
   </thead>
   <tbody>
@@ -87,10 +101,11 @@
         <td>{{taskList.title}}</td>
         <td>{{taskList.description}}</td>
         <td>{{taskList.worker_id}}</td>
-        <td>{{taskList.estimated_deadline}}</td>
-        <td><button type="button" class="btn btn-light" data-bs-toggle="modal" v-bind:data-bs-target="'#exampleModal-' + taskList.id" data-bs-whatever="@getbootstrap">✏️</button>
+        <td>{{taskList.assigned_at.substr(0,10)}}</td>
+        <td>{{taskList.estimated_deadline.substr(0,10)}}</td>
+        <td><button type="button" class="btn btn-light" data-bs-toggle="modal" v-bind:data-bs-target="'#exampleModal-' + taskList.id" data-bs-whatever="@getbootstrap" @click="getOldData(taskList)">✏️</button>
           <div class="modal fade" v-bind:id="'exampleModal-' + taskList.id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
+         <div class="modal-dialog">
     
     <div class="modal-content">
       <div class="modal-header">
@@ -102,27 +117,37 @@
         <form @submit.prevent="editTask(taskList)">
           <div class="mb-3">
             <label for="task-title" class="col-form-label">title</label>
-            <input type="text" class="form-control" id="task-title" v-model="newTitle" @blur="validateInput">
+            <input type="text" class="form-control" id="task-title" v-model="title" @blur="validateInput">
             <p v-if="titleValidity==='invalid'" style="color: red;">Please enter a title</p>
            </div>
           <div class="mb-3">
             <label for="task-description" class="col-form-label">description</label>
-            <textarea class="form-control" id="task-description" v-model="newDescription"></textarea>
+            <textarea class="form-control" id="task-description" v-model="description"></textarea>
             <p v-if="titleValidity==='invalid'" style="color: red;" @blur="validateInput">Please enter a description</p>
           </div>
           <div class="mb-3">
-          <label for="worker-id" class="col-form-label">Worker id</label>
-          <input type="number" class="form-control" v-model="newWorkerId" id="worker-id">
+            <label for="worker-id" class="col-form-label">Worker id</label>
+            <select class="form-select" aria-label="Default select example" v-model="workerId">
+              <option v-for="getAllWorkerName in getAllWorkerNames" :key="getAllWorkerName.id" :value="getAllWorkerName.id" >
+                {{ getAllWorkerName.name }}
+              </option>
+            </select> 
+          <!--
+
+            <label for="worker-id" class="col-form-label">Worker id</label>
+            <input type="number" class="form-control" v-model="newWorkerId" id="worker-id">
+        
+          -->
           </div>
 
           <div class="mb-3">
           <label for="assigned-date" class="col-form-label">Assigned Date</label>
-          <input type="date" class="form-control" id="assigned-date" v-model="newAssignedDate">
+          <input type="date" class="form-control" id="assigned-date" v-model="assignedDate">
           </div>
-
+          
           <div class="mb-3">
           <label for="estimated-deadline" class="col-form-label">Estimated Deadline</label>
-          <input type="date" class="form-control" id="estimated-deadline" v-model="newEstimatedDeadline">
+          <input type="date" class="form-control" id="estimated-deadline" v-model="estimated_deadline">
           </div>
           <button type="submit" class="btn btn-primary">Edit Task</button>
         </form>
@@ -144,7 +169,7 @@
 
 </div>
 
-{{ getAllWorkerNames }}
+
 </template>
 
 
@@ -161,17 +186,17 @@ export default{
     //add task data
     title:'',
     description:'',
-    workerId:'',
+    workerId: null,
     assignedDate:'',
     estimated_deadline:'',
 
     //edit task data
 
-    newTitle:'',
+    /*newTitle:'',
     newDescription:'',
     newWorkerId:'',
     newAssignedDate:'',
-    newEstimatedDeadline:'',
+    newEstimatedDeadline:'',*/
 
     //Validation
     titleValidity: 'pending',
@@ -199,7 +224,7 @@ export default{
 
 
 methods:{
-    ...mapActions(['getProject', 'getTasks', 'addTask', 'editTask', 'deleteTask', 'updateProjectTasks', 'getWorkerNames']),
+    ...mapActions(['getProject', 'getTasks', 'addTask', 'editTask', 'deleteTask', 'updateProjectTasks', 'getWorkerNames', 'singleTask']),
 
     showTasks(){
       this.displayTasks=!this.displayTasks
@@ -217,6 +242,9 @@ methods:{
       const lastNumber = url.lastIndexOf("/")
       //console.log(lastNumber)
       const id = url.substr(lastNumber+1, pathLength)
+        //const success =
+        
+        
         this.$store.dispatch('addTask', {
           title:this.title,
           description:this.description,
@@ -226,22 +254,42 @@ methods:{
           projectId:id
         })
 
+
+      /*  if(success){
+        this.title=''
+        this.description=''
+        this.workerId=''
+        this.assignedDate=''
+        this.estimated_deadline=''
+        }*/
+
+        
         this.$store.dispatch('getTasks',{value:url[pathLength]})
+        
+        
+      
+    },
+    getOldData(task){
+      console.log(task)
+      this.title=task.title
+      this.description=task.description
+      this.workerId = task.worker_id
+      this.assignedDate=task.assigned_at.substr(0,10)
+      this.estimated_deadline=task.estimated_deadline.substr(0,10)
     },
     editTask(task){
-      //console.log(task.id)
+      
       const url = this.$router.currentRoute.value.fullPath
       const pathLength=this.$router.currentRoute.value.fullPath.length-1
       const lastNumber = url.lastIndexOf("/")
-    //console.log(lastNumber)
-    const id = url.substr(lastNumber+1, pathLength)
+      const id = url.substr(lastNumber+1, pathLength)
         this.$store.dispatch('editTask', {
           id:task.id,
-          title:this.newTitle,
-          description:this.newDescription,
-          workerId:this.newWorkerId,
-          assignedDate:this.newAssignedDate,
-          estimatedDeadline:this.newEstimatedDeadline,
+          title:this.title,
+          description:this.description,
+          workerId:this.workerId,
+          assignedDate:this.assignedDate,
+          estimatedDeadline:this.estimated_deadline,
           projectId:id
         })
 
@@ -272,7 +320,7 @@ methods:{
         this.titleValidity='valid'
       }
 
-      if(this.description===''){
+      if(this.description === ''){
         this.descriptionValidity='invalid'
       }
       else{
