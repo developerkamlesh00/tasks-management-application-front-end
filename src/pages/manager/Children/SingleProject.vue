@@ -95,7 +95,7 @@
       <th scope="col">Id</th>
       <th scope="col">Title</th>
       <th scope="col">Description</th>
-      <th scope="col">Worker Id</th>
+      <th scope="col">Worker Name</th>
       <th scope="col">Assigned Date</th>
       <th scope="col">Deadline</th>
       <th scope="col">Edit</th>
