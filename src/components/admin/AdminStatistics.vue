@@ -7,6 +7,8 @@
     <div class="recent-users-wrapper">
       <recent-users></recent-users>
     </div>
+    <div>
+    </div>
   </div>
 </template>
 

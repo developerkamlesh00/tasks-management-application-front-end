@@ -2,9 +2,9 @@
   <div class="homepage bgDark">
     <div class="container">
     <div class="static1">
-      <h1>Tasker brings all your tasks, teammates, and tools together</h1>
+      <h1>Tasker: Bring Your Tasks, Teammates, and Tools Together for Seamless Collaboration</h1>
       <p>
-        Keep everything in the same place—even if your team isn't.
+        Stay organized and connected with Tasker, no matter where your team is located.
       </p>
       <div v-if="!isAuthenticated" >
         <router-link to="/orgregister" class="btn blue">Sign up - it's free!</router-link>
@@ -40,8 +40,8 @@
     <!-- Application Features -->
     <div class="row row-cols-1 row-cols-md-2 align-items-md-center g-5 py-5">
       <div class="d-flex flex-column align-items-start gap-2">
-        <h3 class="fw-bold">HIT DEADLINES EVERY TIME</h3>
-        <p >From weekly sprints to annual planning, Timeline view keeps all tasks on track. Quickly get a glimpse of what's coming down the pipeline and identify any gaps that might impede your team's progress.</p>
+        <h3 class="fw-bold">Stay On Track with Timeline View</h3>
+        <p >Whether you're working on weekly sprints or annual planning, Timeline View ensures that all your tasks are on track and deadlines are met. With a quick glance, you can see what's coming up and identify any potential obstacles that could slow down your team's progress. Keep your projects moving forward and hit deadlines every time with Timeline View.</p>
       </div>
       <div class="row row-cols-1 row-cols-sm-2 g-4">
         <div class="d-flex flex-column gap-2">
@@ -50,7 +50,7 @@
             <i class="bi bi-kanban"></i>
           </div>
           <h4 class="fw-semibold mb-0">Project Management</h4>
-          <p>Keep tasks in order, deadlines on track, and team members aligned with Tasker.</p>
+          <p>Streamline your projects with Tasker – keep your team aligned, tasks in order, and deadlines on track.</p>
         </div>
 
         <div class="d-flex flex-column gap-2">
@@ -59,7 +59,7 @@
             <i class="bi bi-list-task"></i>
           </div>
           <h4 class="fw-semibold mb-0">Manage Tasks</h4>
-          <p >Say goodbye to sticky notes and to-do lists: Tasker allows teams of any size to easily manage tasks and hit deadlines - all without ever leaving the app.</p>
+          <p >Easily manage tasks and meet deadlines with Tasker - no more sticky notes or to-do lists needed. All within the app, for teams of any size.</p>
         </div>
 
         <div class="d-flex flex-column gap-2">
@@ -68,7 +68,7 @@
             <i class="bi bi-alarm-fill"></i>
           </div>
           <h4 class="fw-semibold mb-0">Assign tasks and manage deadlines</h4>
-          <p >Tasker's advanced checklists give you the power to add more context to your tasks by assigning team members and due dates to checklist items, increasing visibility and keeping your team accountable.</p>
+          <p >Boost task management with Tasker's checklists. Assign deadlines and team members for accountability and visibility.</p>
         </div>
 
         <div class="d-flex flex-column gap-2">
@@ -77,7 +77,7 @@
             <i class="bi bi-emoji-smile-fill"></i>
           </div>
           <h4 class="fw-semibold mb-0">STAY ON TOP OF TASKS</h4>
-          <p >Start each day without any surprises. Whether scheduling an editorial calendar or staying on top of to-dos, Calendar view is like a crystal ball giving you a clear vision of what work lies ahead.</p>
+          <p >Stay on top of your workload with Tasker's Calendar view. Plan your day and schedule tasks ahead of time to avoid surprises and stay productive.</p>
         </div>
       </div>
     </div>
@@ -123,25 +123,25 @@
       <div class="card card1 col-lg-2.7 col-sm-5  rounded-5 my-2 p-2 mx-auto">
         <div class="card-body ">
           <h5 class="card-title">Get actionable insights with Dashboard</h5>
-          <p class="card-text">Bring a bird's-eye view to projects and processes with Dashboard so that you can manage workloads and prevent bottlenecks before they begin.</p>
+          <p class="card-text">Manage your projects and processes effectively with Tasker's Dashboard. Get a bird's-eye view of your team's workload, identify bottlenecks and take action to prevent delays.</p>
         </div>
       </div>
       <div class="card card1 col-lg-2.7 col-sm-5  rounded-5 my-2 p-2 mx-auto">
         <div class="card-body ">
-          <h5 class="card-title">See it like a spreadsheet with Table</h5>
-          <p class="card-text">View your work in a convenient spreadsheet-styled list that can be sorted and filtered to drill down to exactly the cards you need to see.</p>
+          <h5 class="card-title">Organize your work with Table view</h5>
+          <p class="card-text">Tasker's Table view provides a spreadsheet-styled list that helps you visualize and organize your work. With the ability to sort and filter, you can easily drill down to the specific tasks and cards that require your attention.</p>
         </div>
       </div>
       <div class="card card1 col-lg-2.7 col-sm-5  rounded-5 my-2 p-2 mx-auto">
         <div class="card-body ">
-          <h5 class="card-title">Track Progress</h5>
-          <p class="card-text">Add visual widgets for team members, tasks, sprints, time tracking, statuses, docs, embeds, and more.</p>
+          <h5 class="card-title">Visualize Progress</h5>
+          <p class="card-text">Visualize your progress with widgets for tasks, team members, sprints, time tracking, statuses, documents, and more..</p>
         </div>
       </div>
       <div class="card card1 col-lg-2.7 col-sm-5  rounded-5 my-2 p-2 mx-auto">
         <div class="card-body ">
-          <h5 class="card-title">Visualize & Plan</h5>
-          <p class="card-text">Manage any project from start to finish with highly customizable views that make project planning a breeze.</p>
+          <h5 class="card-title">Project Planning Made Easy</h5>
+          <p class="card-text">With highly customizable views, Tasker makes it easy to manage any project from start to finish. Visualize and plan with confidence, knowing that you have the tools to customize your workflow and get the job done efficiently.</p>
         </div>
       </div>
     </div>
