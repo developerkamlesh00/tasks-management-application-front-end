@@ -44,7 +44,7 @@ export default {
       };
       const isCompleted = task.status_id == 4;
       const current_time = new Date();
-      console.log(obj.deadline,current_time)
+      // console.log(obj.deadline,current_time)
       if (isCompleted) {
         state.completed_tasks += 1;
       } else if (obj.deadline < current_time) {
@@ -76,18 +76,18 @@ export default {
       task.status_id===3?state.reviews_submitted++:'';
     });
 
-    console.log("total_tasks_assigned", state.total_tasks_assigned);
-    console.log("completed_tasks", state.completed_tasks);
-    console.log("overdue_tasks", state.overdue_tasks);
-    console.log("tasks_completed", state.tasks_completed);
-    console.log("tasks_assigned_deadline", state.tasks_assigned_deadline);
-    console.log(
-      "tasks_with_passed_deadlines",
-      state.tasks_with_passed_deadlines
-    );
-    console.log("tasks_per_project", state.tasks_per_project);
-    console.log("state.reviews_submitted", state.reviews_submitted);
-    console.log("state.reviews_passed", state.reviews_passed);
+    // console.log("total_tasks_assigned", state.total_tasks_assigned);
+    // console.log("completed_tasks", state.completed_tasks);
+    // console.log("overdue_tasks", state.overdue_tasks);
+    // console.log("tasks_completed", state.tasks_completed);
+    // console.log("tasks_assigned_deadline", state.tasks_assigned_deadline);
+    // console.log(
+    //   "tasks_with_passed_deadlines",
+    //   state.tasks_with_passed_deadlines
+    // );
+    // console.log("tasks_per_project", state.tasks_per_project);
+    // console.log("state.reviews_submitted", state.reviews_submitted);
+    // console.log("state.reviews_passed", state.reviews_passed);
   },
   setTasks(state, { tasks }) {
     state.tasks = tasks;

@@ -14,7 +14,8 @@
                     }}.....</i>
                     <span class="d-flex justify-content-end">
                         <router-link class="btn btn-warning rounded-4 px-2 py-0 btn-sm text-primary text-decoration-none"
-                            :to="{ name: 'task_detail', params: { 'id': task.id } }"><i class="bi bi-eye-fill"></i></router-link>
+                            :to="{ name: 'task_detail', params: { 'id': task.id } }"><i
+                                class="bi bi-eye-fill"></i></router-link>
                     </span>
                 </div>
             </the-card>
@@ -26,7 +27,7 @@
 import { mapActions, mapGetters } from 'vuex'
 import TheBoard from '../../components/workers/TheBoard.vue';
 import TheCard from '../../components/workers/TheCard.vue';
-import drop from '../../components/workers/utils.js'
+// import drop from '../../components/workers/utils.js'
 export default {
     components: {
         TheBoard,
@@ -39,7 +40,15 @@ export default {
     },
     methods: {
         ...mapActions('worker', ['fetchWorkerTasks']),
-        drop,
+        // drop,
+        drop(e, board_id = null) {
+            if (!board_id || board_id != 4) {
+                const card_id = e.dataTransfer.getData('card_id');
+                const card = document.getElementById(card_id);
+                card.style.display = "block";
+            }
+
+        },
         getBoardTasks(id) {
             if (this.getTasks.length > 0) {
                 const board_tasks = [...this.getTasks];
