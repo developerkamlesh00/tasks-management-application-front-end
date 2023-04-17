@@ -1,11 +1,11 @@
 <template>
   <h2 class="header">Create Project</h2><br>
   <form @submit.prevent="createProject">
-    <div class="form-control">
+    <div class="form-control linear_pink">
       <label for="title">Project Title</label>
       <input type="text" id="title" v-model.trim="title" />
     </div>
-    <div class="form-control">
+    <div class="form-control linear_pink">
       <label for="description">Description</label>
       <textarea
         type="text"
@@ -13,16 +13,16 @@
         v-model.trim="description"
       ></textarea>
     </div>
-    <div class="form-control">
+    <div class="form-control linear_pink">
       <label for="assign">Assigned at</label>
       <input type="date" id="assign" v-model.trim="assign_at" />
     </div>
-    <div class="form-control">
+    <div class="form-control linear_pink">
       <label for="estimated">Estimated Deadline</label>
       <input type="date" id="estimated" v-model.trim="estimated_deadline" />
     </div>
 
-    <div class="form-control">
+    <div class="form-control linear_pink">
       <label for="role">Manager Name</label>
       <select v-model="manager_id" id="role" class="form-select" aria-label="Default select example">
         <option v-for="ele in managerslist" :key="ele.id" :value="ele.id">{{ ele.name }}</option>
@@ -65,6 +65,7 @@ export default {
     async createProject() {
       this.successful = null;
       this.formIsValid = true;
+      this.error = [];
       if (
         this.title === "" ||
         this.description === "" ||
@@ -127,12 +128,14 @@ export default {
 .header {
     font-size: 2rem;
     font-weight: bold;
+    padding-top: 15px;
     margin-bottom: 10px;
     color: #333;
     text-align: center;
 }
 #card {
-  max-width: 60rem;
+  /* max-width: 60rem; */
+  max-width: fit-content;
 }
 #success {
   background-color: #138922;
@@ -170,5 +173,9 @@ textarea:focus {
   border-color: #3d008d;
   background-color: #faf6ff;
   outline: none;
+}
+
+.linear_pink{
+background: radial-gradient(circle, rgba(252,248,255,1) 0%, hwb(302 90% 0%) 100%);
 }
 </style>

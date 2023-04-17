@@ -4,6 +4,14 @@ export default {
   addNewBoard(state, payload) {
     return state.boards.push(payload);
   },
+  setMessage(state,data){
+    state.message=data;
+    state.showMessage=true;
+   },
+  unsetMessage(state){
+    state.message='';
+    state.showMessage=false;
+   },
   // updateTaskStatus(state, payload) {
   //   console.log("Mutations");
 

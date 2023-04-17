@@ -1,6 +1,6 @@
 <template>
     <h2 class="header">Projects Summary</h2><br>
-    <div>
+    <div class="graph">
         <div style="text-align: right; float: right;">
             <table>
                 <tr>
@@ -188,9 +188,14 @@ export default {
 </script>
 
 <style scoped>
+
+.graph{
+    padding: 4rem;
+}
 .header {
     font-size: 2rem;
     font-weight: bold;
+    padding-top: 15px;
     margin-bottom: 10px;
     color: #333;
     text-align: center;

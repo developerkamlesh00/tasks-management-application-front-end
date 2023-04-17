@@ -33,7 +33,7 @@
                 </td>
             </tr>
             <tr v-if="getProjectTasks.length == 0">
-                <td colspan="8" class="text-center bg-primary">No Task Found</td>
+                <td colspan="8" class="text-center">No Task Found</td>
             </tr>
         </tbody>
     </table>

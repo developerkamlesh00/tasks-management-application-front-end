@@ -3,7 +3,7 @@
     <div v-if="show" @click="tryClose" class="backdrop"></div>
     <transition name="dialog">
       <dialog open v-if="show">
-        <header>
+        <header class="body">
           <slot name="header">
             <h2>{{ title }}</h2>
           </slot>
@@ -13,7 +13,7 @@
         </section>
         <menu>
           <slot name="actions">
-            <base-button @click="tryClose">Close</base-button>
+            <base-button @click="tryClose" id="radius">Close</base-button>
           </slot>
         </menu>
       </dialog>
@@ -51,6 +51,10 @@ export default {
 </script>
 
 <style scoped>
+
+#radius{
+  border-radius: 30px;
+}
 .backdrop {
   position: fixed;
   top: 0;
@@ -158,5 +162,6 @@ textarea:focus {
   background-color: #faf6ff;
   outline: none;
 }
+
 
 </style>

@@ -39,5 +39,11 @@ export default {
         reviews_passed:state.reviews_passed,
         pending:state.pending,
       }
-    }
+    },
+    message(state){
+      return state.message;
+    },
+    showMessage(state){
+      return state.showMessage;
+    },
 };

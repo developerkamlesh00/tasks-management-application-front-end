@@ -58,7 +58,7 @@
       <div id="success" v-if="successful" class="p-3 mb-2 text-white">
         {{ successful }}
       </div>
-      <base-button id="btncreate">Update Project</base-button>
+      <base-button id="radius">Update Project</base-button>
     </form>
   </base-dialog>
   <div class="table-responsive text-nowrap table-content">
@@ -71,7 +71,7 @@
       <caption>
         List of Projects
       </caption>
-      <thead>
+      <thead class="headercolor">
         <tr>
           <th scope="col">No.</th>
           <th scope="col">Title</th>
@@ -119,7 +119,7 @@
             </div>
           </td>
           <td>
-            <button class="btn btn-primary" @click="openProjectEdit(project)">Edit</button>
+            <button class="btn linear_pink" @click="openProjectEdit(project)">Edit</button>
           </td>
           <td>
             <button class="btn btn-danger" @click="deleteProject(project)">Delete</button>
@@ -127,16 +127,19 @@
         </tr>
       </tbody>
     </table>
+    <div v-if="isLoading">
+          <base-spinner></base-spinner>
+    </div>
   </div>
 </template>
 <script>
 import { mapActions, mapGetters} from 'vuex';
 import axios from "axios";
 import BaseButton from '@/components/ui/BaseButton.vue';
-
+import BaseSpinner from "../../components/ui/BaseSpinner.vue";
 
 export default {
-  components: { BaseButton },
+  components: { BaseButton , BaseSpinner},
   data() {
     return {
       projectid:null,
@@ -150,9 +153,12 @@ export default {
       projects: [],
       managerslist: [],
       error: [],
+
       viewForm: false,
       formIsValid: true,
       successful: null,
+      isLoading: false,
+
       selectedProject: null,
       searchTerm:'', //for search
       assign_at: '2000-01-01T00:00:00.000Z', //default date
@@ -299,7 +305,9 @@ export default {
       }
     },
     async loadProject() {
+      this.isLoading = true;
       await this.fetchAllProjects(); //load project at first
+      this.isLoading = false;
     },
     async loadManagers() {
       await this.fetchAllManagers(); //load all managers
@@ -307,26 +315,36 @@ export default {
   },
 
   async mounted() {
+    this.isLoading = true
     await this.loadProject();
     await this.loadManagers();
+    this.isLoading = false;
   },
 };
 </script>
 
 <style scoped>
-
+#radius{
+  border-radius: 30px;
+}
 .header {
     font-size: 2rem;
     font-weight: bold;
+    padding-top: 15px;
     margin-bottom: 10px;
     color: #333;
     text-align: center;
 }
 .table-content {
-  height: 400px;
+  height: 500px;
 }
 th {
   text-align: top;
+  
+}
+.headercolor{
+  background-color: #ff84da; 
+  color: white;
 }
 td {
   text-align: left;
@@ -388,6 +406,13 @@ textarea:focus {
   border-radius: 5px;
   cursor: pointer;
   margin-left: 10px;
+}
+
+.linear_pink{
+background: radial-gradient(circle, rgba(252,248,255,1) 0%, hwb(286 52% 2%) 100%);
+}
+.linear_red{
+background-color:  hwb(0 0% 7% / 0.584);
 }
 </style>
 
