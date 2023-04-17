@@ -1,11 +1,4 @@
 <template>
-    <!-- Create new Board -->
-    <!-- <div class="container">
-        <input type="text" class="form-control w-75 me-2 d-inline" v-model="board_name" placeholder="Enter Board Name">
-        <button class="btn btn-primary px-3" @click="createNewBoard()">+Add board</button>
-    </div> -->
-
-
     <main class="flexbox scrolls" @dragover.prevent @drop.prevent="drop">
         <the-board v-for="board, index in getBoards" :id="'board-' + board.id" :key="index">
             <template v-slot:header>
@@ -45,27 +38,15 @@ export default {
         }
     },
     methods: {
+        ...mapActions('worker', ['addBoard', 'fetchWorkerTasks']),
         drop,
-        createNewBoard() {
-            if (this.board_name !== "") {
-                this.addBoard(this.board_name)
-                console.log('New board added!')
-                this.boards = this.getBoards
-            } else {
-                alert('Board Name cannot be empty')
-            }
-
-        },
         getBoardTasks(id) {
             if (this.getTasks.length > 0) {
                 const board_tasks = [...this.getTasks];
                 return board_tasks.filter(task => task.status_id === id)
             }
-            // console.log(id)
             return []
         },
-        ...mapActions('worker', ['addBoard', 'fetchWorkerTasks'])
-        // ...mapActions(['fetchTasks'])
     },
     computed: {
         ...mapGetters('worker', ['getTasks', 'getBoards'])

@@ -57,6 +57,14 @@ transition:opacity 0.5s ease-in;
 .body{
   background: linear-gradient(60deg, rgb(101, 84, 192), rgb(249, 156, 219)) 0% 0% / auto repeat scroll padding-box border-box rgb(101, 84, 192);
 }
+.bgLight{
+  /* light */
+  background: linear-gradient(60deg, rgb(101, 84, 192), rgb(249, 156, 219)) 0% 0% / auto repeat scroll padding-box border-box rgb(101, 84, 192);
+};
+.bgDark{
+  /* dark */
+  background: linear-gradient(60deg, rgb(82, 67, 170), rgb(237, 80, 180)) 0% 0% / auto repeat scroll padding-box border-box rgb(82, 67, 170);
+};
 
 .pink{
   color:rgb(101, 84, 192);

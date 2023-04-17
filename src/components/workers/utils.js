@@ -1,4 +1,3 @@
-
 function drop(e,board_id=null) {
   if(!board_id || board_id!=4){
     const card_id = e.dataTransfer.getData('card_id');

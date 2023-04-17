@@ -51,7 +51,7 @@
             <tr class="table-info" v-for="task in getFilteredRows" :key="task.id">
                 <td v-for="(item, index) in task" :key="index"><template v-if="index==2">{{ item.slice(0,20) }}......</template><template v-else>{{ item }}</template></td>                  
                 <td>
-                    <select name="change_status" id="change_status" @change="changeStatus($event, task[0])" :disabled="task[5]=='Completed'">
+                    <select name="change_status" id="change_status" @change="changeStatus($event, task[0])" :disabled="task[5]=='Completed'||task[5]=='Review'">
                         <option :value="index" v-for="(status, index) in getStatus" :key="index" :disabled="index == 4"
                             :selected="task[5] === getStatus[index]">{{
                                 status }}</option>
@@ -163,7 +163,6 @@ export default {
             }
             return this.rows;
         }
-        // ...mapActions(['fetchTasks'])
     },
     computed: {
         ...mapGetters('worker', ['getTasks', 'getRows', 'getCounts', 'getStatus','getStatusId']),

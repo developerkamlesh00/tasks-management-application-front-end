@@ -1,8 +1,6 @@
 
 <template>
-    <div
-    :id="id"
-    class="card text-light" :style="{'backgroundColor':getBGColor()}"
+    <div :id="id" class="card text-light" :style="{'backgroundColor':getBGColor()}"
     :draggable="draggable"
     @dragstart="dragStart"
     @dragend="dragEnd"
@@ -16,6 +14,7 @@
 
 <script>
 export default{
+    // Cards in review and completed boards are not draggable
     props:['id','draggable'],
     methods:{
         dragStart:e=>{
