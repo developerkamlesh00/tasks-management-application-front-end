@@ -4,7 +4,6 @@ function drop(e,board_id=null) {
     const card = document.getElementById(card_id);
     card.style.display = "block";    
   }
-  console.log(board_id)
     
 }
 

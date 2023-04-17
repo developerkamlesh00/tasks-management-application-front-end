@@ -9,11 +9,11 @@
             <div>Assigned at: {{ getTask.assigned_at }}</div>
             <div>Estimated Deadline: {{ getTask.estimated_deadline }}</div>
             <div>Project Id: {{ getTask.project_id }}</div>
-            <!-- <div>Status: {{ status[getTask.status_id] }}</div> -->
             <div>Review Passed: {{ getTask.status_id != 4 ? 'No' : 'Yes' }}</div>
         </div>
     </div>
     </base-card >
+    <!-- Dialog Box for editing the comment -->
     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -35,19 +35,22 @@
             </div>
         </div>
     </div>
+
+    <!-- Comment Section -->
     <div class="mt-1 mb-5">
         <div class="d-flex justify-content-center row">
             <div class="d-flex flex-column col-md-8">
                 <div class="coment-bottom py-2">
-                    <form @submit.prevent="createComment" class="d-flex flex-row add-comment-section mt-4 mb-4"><img
-                            class="img-fluid img-responsive rounded-circle me-2" src="../../assets/profiles/user.jpg"
+                    <!-- Comment Box -->
+                    <form @submit.prevent="createComment" class="d-flex flex-row add-comment-section mt-4 mb-4"><img class="img-fluid img-responsive rounded-circle me-2" src="../../assets/profiles/user.jpg"
                             width="38">
                         <input type="text" class="form-control mx-3" placeholder="Add comment" v-model="comment_body"
                             required>
                         <button type="submit" class="btn btn-primary">Comment</button>
                     </form>
-                    <div class="commented-section mt-1" v-for="comment in getComments" :key="comment.id">
 
+                    <!-- All Comments on this task -->
+                    <div class="commented-section mt-1" v-for="comment in getComments" :key="comment.id">
                         <base-card>
                             <div class="commented-user">
                                 <div class="me-2 fs-3 d-inline">{{ comment.user.name }}
@@ -59,9 +62,7 @@
                                 </span>
                             </div>
                             <div class="comment-text-sm"><span>{{ comment.body }}</span></div>
-                            <div class="text-end fs-6 ms-4 px-2 rounded-3 color_pink bg-light">
-                            
-                                {{ formattedDate(comment.created_at) }}</div>
+                            <div class="text-end fs-6 ms-4 px-2 rounded-3 color_pink bg-light">{{ formattedDate(comment.created_at) }}</div>
                         </base-card>
                     </div>
                 </div>
@@ -74,6 +75,7 @@
 import formatDate from '@/utils/formatDate'
 import { mapActions, mapGetters } from 'vuex'
 import axios from 'axios'
+
 export default {
     props: {
         id: {
@@ -98,15 +100,14 @@ export default {
     },
     methods: {
         ...mapActions('worker', ['fetchTaskComments']),
+
+        // Getting data in the user readable format
         formattedDate(d) {
             return formatDate(d);
         },
+
+        // Creating a comment and updating vuex state with new comments
         async createComment() {
-            console.log({
-                'user_id': this.userId,
-                'task_id': this.id,
-                'body': this.comment_body
-            })
             await axios.post(
                 `http://localhost:8000/api/comments`, {
                 'user_id': this.userId,
@@ -117,6 +118,8 @@ export default {
             this.comment_body = '';
             this.fetchTaskComments({ "task_id": this.id })
         },
+
+        // Edit a comment and updating vuex state with new comments
         async editComment(comment_id) {
             await axios.put(
                 `http://localhost:8000/api/comments/${comment_id}`, {
@@ -126,12 +129,15 @@ export default {
             this.edit_comment_id = null;
             this.fetchTaskComments({ "task_id": this.id })
         },
+
+        // Deleting a comment and updating vuex state with new comments
         async deleteComment(comment_id) {
-            console.log(comment_id)
             await axios.delete(
                 `http://localhost:8000/api/comments/${comment_id}`)
             await this.fetchTaskComments({ "task_id": this.id })
         },
+
+        // For preloading the edit pop-up fields
         setEditFields(body, id) {
             this.edit_comment_body = body;
             this.edit_comment_id = id;
@@ -141,7 +147,6 @@ export default {
     mounted() {
         this.$store.dispatch('worker/fetchTaskComments', { "task_id": this.id })
     }
-
 }
 </script>
 

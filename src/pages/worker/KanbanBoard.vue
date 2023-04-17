@@ -2,7 +2,7 @@
     <main class="flexbox scrolls" @dragover.prevent @drop.prevent="drop">
         <the-board v-for="board, index in getBoards" :id="'board-' + board.id" :key="index">
             <template v-slot:header>
-                <h2 class="text-light  text-center">{{ board.name }} <h6>Board id: {{ board.id }}</h6>
+                <h2 class="text-light text-center">{{ board.name }} <h6>Board id: {{ board.id }}</h6>
                 </h2>
             </template>
             <the-card v-for="task in getBoardTasks(board.id)" class="card mb-3 p-0" :key="task.id" :id="'card-' + task.id"
@@ -14,7 +14,8 @@
                     }}.....</i>
                     <span class="d-flex justify-content-end">
                         <router-link class="btn btn-warning rounded-4 px-2 py-0 btn-sm text-primary text-decoration-none"
-                            :to="{ name: 'task_detail', params: { 'id': task.id } }"><i class="bi bi-eye-fill"></i></router-link>
+                            :to="{ name: 'task_detail', params: { 'id': task.id } }"><i
+                                class="bi bi-eye-fill"></i></router-link>
                     </span>
                 </div>
             </the-card>
@@ -26,7 +27,7 @@
 import { mapActions, mapGetters } from 'vuex'
 import TheBoard from '../../components/workers/TheBoard.vue';
 import TheCard from '../../components/workers/TheCard.vue';
-import drop from '../../components/workers/utils.js'
+// import drop from '../../components/workers/utils.js'
 export default {
     components: {
         TheBoard,
@@ -38,8 +39,16 @@ export default {
         }
     },
     methods: {
-        ...mapActions('worker', ['addBoard', 'fetchWorkerTasks']),
-        drop,
+        ...mapActions('worker', ['fetchWorkerTasks']),
+        // drop,
+        drop(e, board_id = null) {
+            if (!board_id || board_id != 4) {
+                const card_id = e.dataTransfer.getData('card_id');
+                const card = document.getElementById(card_id);
+                card.style.display = "block";
+            }
+
+        },
         getBoardTasks(id) {
             if (this.getTasks.length > 0) {
                 const board_tasks = [...this.getTasks];
@@ -51,8 +60,6 @@ export default {
     computed: {
         ...mapGetters('worker', ['getTasks', 'getBoards'])
     },
-
-
 }
 
 </script>
@@ -68,10 +75,8 @@ export default {
 .flexbox {
     display: flex;
     justify-content: space-between;
-
     width: 100%;
     height: 100%;
-    /* overflow: hidden; */
     margin: 0 auto;
 }
 </style>

@@ -6,7 +6,16 @@ export default {
   namespaced: true,
   state() {
     return {
-     
+      projs: [],
+      workers: [],
+      project: [],
+      worker:[],
+      tasks:[],
+      assignedTasks:[],
+      reviewTasks:[],
+      workerNames:[],
+      visible:[],
+      isSuccess:2
     };
   },
   mutations,

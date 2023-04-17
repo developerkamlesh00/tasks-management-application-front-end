@@ -28,8 +28,7 @@
                     </div>
                 </td>
                 <td>
-                    <router-link class="btn btn-outline-dark" v-if="task.worker_id==userId" :to="{name:'task_detail',params:{'id':task.id}}">Open
-                    </router-link>
+                    <router-link class="btn btn-outline-dark" v-if="task.worker_id==userId" :to="{name:'task_detail',params:{'id':task.id}}">Open</router-link>
                     <span class="btn btn-outline-dark" v-else>Hidden</span>
                 </td>
             </tr>

@@ -17,8 +17,8 @@ import { mapActions } from 'vuex';
   export default {
     data() {
       return {
-        boardColor: '#313131',
-        cardColor: '#007bff',
+        boardColor: '#313131', //default colors
+        cardColor: '#007bff', //default colors
       }
     },
     methods: {
@@ -26,10 +26,11 @@ import { mapActions } from 'vuex';
       saveSettings() {
         localStorage.setItem('boardColor', this.boardColor);
         localStorage.setItem('cardColor', this.cardColor);
-        this.setMessage('Settings changes successfully');
+        this.setMessage('Settings changes successfully'); // Display alert message
       },
     },
     mounted() {
+      // Checking colors in local storage
       const boardColor = localStorage.getItem('boardColor');
       const cardColor = localStorage.getItem('cardColor');
       if (boardColor) {
