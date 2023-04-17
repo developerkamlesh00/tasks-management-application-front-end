@@ -10,7 +10,7 @@
                   {{ orgId }}
               </option>
           </select>
-          <button @click="resetSearch">Reset</button>
+          <button class="reset-button" @click="resetSearch">Reset</button>
       </div>
       <div class="table-container">
           <table class="directors-table">
@@ -25,7 +25,7 @@
               </thead>
 
               <tbody>
-                  <!-- Loop through the pagedWorkers to show workers in the table -->
+                  <!-- Loop through the pageddirectors to show directors in the table -->
                   <tr v-for="(director, index) in pagedDirectors" :key="director.id">
                       <td>{{ index + 1 }}</td>
                       <td>{{ director.name }}</td>
@@ -167,112 +167,125 @@ export default {
 
 
 .container {
-margin: 20px;
-padding: 20px;
+  margin: 20px;
+  padding: 20px;
 }
 
 .header {
-font-size: 2rem;
-font-weight: bold;
-margin-bottom: 10px;
-color: #2c3e50; /* updated color */
-text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #8f0778; 
+  text-align: center;
+}
+.reset-button {
+  padding: 10px 20px;
+  background-color: #dd0c99;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.reset-button:hover {
+  background-color: #e74c3c;
+  cursor: pointer;
 }
 
 .search-container {
-display: flex;
-align-items: center;
-justify-content: space-between;
-margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
 
 .search-container input[type="text"] {
-width: 300px;
-padding: 8px;
-font-size: 16px;
-border-radius: 4px;
-border: 1px solid #ccc;
-margin-right: 10px;
+  width: 300px;
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #cccccc;
+  margin-right: 10px;
 }
 
 .search-container select {
-width: 200px;
-padding: 8px;
-font-size: 16px;
-border-radius: 4px;
-border: 1px solid #ccc;
-margin-right: 10px;
+  width: 200px;
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
 }
 
 .search-container button {
-padding: 8px 12px;
-font-size: 16px;
-border-radius: 4px;
-border: none;
-background-color: #2c3e50; /* updated color */
-color: #fff;
+  padding: 8px 12px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: none;
+  background-color: #dd0c99; 
+  color: #fff;
 }
 
 .table-container {
-margin-top: 20px;
+  margin-top: 20px;
 }
 
 .directors-table {
-width: 100%;
-border-collapse: collapse;
-font-size: 16px;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
 }
 
 .directors-table th {
-padding: 12px;
-background-color: #2c3e50; /* updated color */
-color: #fff;
-text-align: left;
+  padding: 12px;
+  background-color:rgb(227 64 174); 
+  color: #fff;
+  text-align: left;
 }
 
 .directors-table td {
-padding: 12px;
-border: 1px solid #ccc;
-text-align: left;
+  padding: 12px;
+  border: 1px solid #ccc;
+  text-align: left;
 }
 
 .directors-table td.delete-cell {
-text-align: center;
+  text-align: center;
 }
 
 .directors-table td.delete-cell button {
-padding: 8px 12px;
-font-size: 16px;
-border-radius: 4px;
-border: none;
-background-color: #e74c3c; /* updated color */
-color: #fff;
+  padding: 8px 12px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: none;
+  background-color: #e74c3c; 
+  color: #fff;
 }
 
 .pagination-container {
-margin-top: 20px;
-display: flex;
-justify-content: center;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .pagination-container button {
-padding: 8px 12px;
-font-size: 16px;
-border-radius: 4px;
-border: 1px solid #ccc;
-background-color: #fff;
-margin-right: 10px;
+    background-color: #8f0778;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  margin: 0 2px;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 .pagination-container button.active {
-background-color: #2c3e50; /* updated color */
-color: #fff;
-border: none;
+    background-color: pink;
+  color: #8f0778;
 }
 
 .error-message {
-color: #e74c3c; /* updated color */
-text-align: center;
-margin-top: 10px;
+  color: #e74c3c; /* updated color */
+  text-align: center;
+  margin-top: 10px;
 }
 </style>
