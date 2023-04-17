@@ -151,7 +151,7 @@ export default {
       this.error = null;
     },
 
-    //for sending Data using CSV file
+    //for sending Data using CSV file to db
     onFileSelected(event) {
       const file = event.target.files[0];
 
