@@ -11,9 +11,9 @@
     </div>
     <div class="row">
         <base-card class="my-1 py-4 col-2 card1">
-            <base-button class="mb-2  rounded-4 navcards" link to="/worker/dashboard">Kanban
+            <base-button class="mb-2 rounded-4 navcards" link to="/worker/dashboard">Kanban
             </base-button>
-            <base-button class="mb-2  rounded-4 navcards" link to="/worker/tasks">Tasks
+            <base-button class="mb-2 rounded-4 navcards" link to="/worker/tasks">Tasks
             </base-button>
             <base-button class="mb-2 rounded-4 navcards" link to="/worker/progress">Summary
             </base-button>
@@ -48,10 +48,6 @@ export default {
         BaseButton,
         BaseSpinner
     },
-    data() {
-        return {
-        }
-    },
     methods: {
         ...mapActions('worker', ['fetchWorkerTasks', 'fetchWorkerProjects','unsetMessage']),
         fetchItems(){
@@ -75,19 +71,15 @@ export default {
     padding: 0;
     box-sizing: border-box;
 }
-
-
 .nav-link {
     padding: .1875rem .5rem;
     margin-top: .125rem;
     margin-left: 1.25rem;
 }
 
-
 .scrolls {
     overflow-x: scroll;
     overflow-y: hidden;
-    /* height: 80px; */
     white-space: nowrap;
 }
 
@@ -96,7 +88,6 @@ export default {
     justify-content: space-between;
     width: 100%;
     height: 100%;
-    /* overflow: hidden; */
     margin: 0 auto;
     padding: 10px;
 }
@@ -105,13 +96,11 @@ export default {
     display: flex;
     flex-direction: column;
     white-space: normal;
-    /* width: 100%; */
     margin: 2px 10px;
     width: 350px;
     background-color: #313131;
     padding: 15px;
 }
-
 .flexbox .board .card {
     padding: 15px 25px;
     background-color: #f3f3f3;
@@ -120,15 +109,12 @@ export default {
 
     white-space: normal;
 }
-
 .navcards:hover {
     background-color: rgb(250, 182, 255);
     color: blueviolet;
 }
-
 .navcards {
     font-size: 1rem;
     font-weight: 600;
-
 }
 </style>

@@ -54,5 +54,6 @@ export default {
 }
 .tasks{
     padding-top: 50px;
+    padding-bottom: 150px;
 }
 </style>

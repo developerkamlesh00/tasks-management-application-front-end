@@ -15,29 +15,26 @@
   </div>
 </template>
 <script>
-// import axios from 'axios';
 import {
   Chart, PieController, ArcElement, CategoryScale, LinearScale, BarController, BarElement, Colors,
   BubbleController, Tooltip ,
   Legend
 } from 'chart.js';
-Chart.register(
-
-);
-
 import { mapActions, mapGetters } from 'vuex';
+
 Chart.register(CategoryScale, Colors, Tooltip ,
   BubbleController,
   LinearScale,
   Legend, LinearScale, BarController, BarElement, PieController, ArcElement);
+
 export default {
   data() {
     return {
-completed:[],
-completed_ids:[],
-labels:[],
-pending:[],
-pending_ids:[],
+      completed:[],
+      completed_ids:[],
+      labels:[],
+      pending:[],
+      pending_ids:[],
     }
   },
   methods: {
@@ -86,9 +83,9 @@ pending_ids:[],
             text: 'Tasks'
           },
           responsive: true,
-        interaction: {
-          intersect: false,
-        },
+          interaction: {
+            intersect: false,
+          },
         }
       }
     }
@@ -103,22 +100,22 @@ pending_ids:[],
             this.completed.push(this.getTasksPerProject[key]["completed"].length);
             this.completed_ids.push(this.getTasksPerProject[key]["completed"]);
             this.pending.push(this.getTasksPerProject[key]["pending"].length);        
-            this.pending_ids.push(this.getTasksPerProject[key]["pending"]);        
-            
+            this.pending_ids.push(this.getTasksPerProject[key]["pending"]);             
     }
+
     const data2 = {
       labels: this.labels,
       datasets: [
         {
           label: 'Pending',
           data: this.pending,
-          backgroundColor: 'rgb(252, 173, 3)',
+          backgroundColor: 'rgb(252, 173, 3)', // Orange
           stack: 'Stack 0',
         },
         {
           label: 'Completed',
           data: this.completed,
-          backgroundColor: 'rgb(47, 235, 5)',
+          backgroundColor: 'rgb(47, 235, 5)', // Light Green
           stack: 'Stack 0',
         },
       ]

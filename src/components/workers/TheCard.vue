@@ -1,4 +1,3 @@
-
 <template>
     <div :id="id" class="card text-light" :style="{'backgroundColor':getBGColor()}"
     :draggable="draggable"
@@ -6,7 +5,6 @@
     @dragend="dragEnd"
     @dragover.stop>
     <slot></slot>
-
 </div>
 
 </template>
@@ -42,7 +40,6 @@ export default{
     background-color: #f3f3f3;
     cursor: pointer;
     margin-bottom: 15px;
-
     white-space: normal;
 }
 </style>
