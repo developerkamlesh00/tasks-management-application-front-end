@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <!-- Carousel -->
+    <!-- Carousel 1 -->
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
@@ -81,6 +81,7 @@
         </div>
       </div>
     </div>
+
     <!-- Carousel 2 -->
     <div>
     <div id="carouselIndicators" class="carousel slide" data-bs-ride="true">
@@ -157,7 +158,6 @@ export default {
     ...mapGetters(["isAuthenticated"]),
   },
 };
-
 </script>
 
 
@@ -169,15 +169,8 @@ a{
   font-size: 25px;
 }
 .homepage {
-  /* background: linear-gradient(60deg, rgb(82, 67, 170), rgb(237, 80, 180)) 0% 0% / auto repeat scroll padding-box border-box rgb(82, 67, 170); */
-  /* background: linear-gradient(0deg, rgb(159, 242, 253), rgb(129, 196, 255)) 0% 0% / auto repeat scroll padding-box border-box rgb(178, 212, 255); */
-  /* font-family: "Proxima Nova", sans-serif; */
   font-family: var("Charlie Display",sans-serif);
-  /* font-size: 16.67px; */
-  /* line-height: 1.42857; */
   color: #ffffff;
-  /* background-color: #f6f1f5; */
-  /* width: 100%; */
 }
 
 .card-wrap {
@@ -185,14 +178,12 @@ a{
   position: relative;
   overflow: hidden;
   border-radius: 5px;
-  /*-webkit-box-shadow: 0px 0px 12.75px 2.25px rgba(0, 0, 0, 0.05);*/
   box-shadow: 0px 0px 12.75px 2.25px rgba(0, 0, 0, 0.05);
 }
 
 .static1 {
   display: flex;
   flex-direction: column;
-  /* width: 800px; */
   margin: 0 auto;
   padding-top: 40px;
   text-align: center;

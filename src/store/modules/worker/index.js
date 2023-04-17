@@ -11,6 +11,7 @@ export default {
       isLoading:false,
       showMessage:false,
       message:'',
+      
       boards: boards,
       totalBoards: 4,
       tasks:[],

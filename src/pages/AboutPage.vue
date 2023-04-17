@@ -1,8 +1,8 @@
 <template>
 <div class="about-page">
     <h1>Our Team</h1>
+    <!-- Mentors -->
     <div class="row">
-
         <div class="card mentor col-6">
             <h2 class="card-title">Girish</h2>
             <h3>Mentor</h3>
@@ -16,6 +16,8 @@
             src="../assets/profiles/sac.png">
         </div>
     </div>
+
+    <!-- Team Members -->
     <div class="team row">
         <div class="card col-lg-3 col-sm-6 mb-3">
             <h2 class="card-title">Kamlesh</h2>
@@ -35,7 +37,7 @@
         <div class="card col-lg-3 col-sm-6 mb-3">
             <h2 class="card-title">Vrutik</h2>
             <img class="mx-auto d-block" 
-            src="../assets/user_profile.png">
+            src="../assets/profiles/vru.png">
         </div>
     </div>
 
@@ -46,7 +48,6 @@
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap');
-
 
 a {
     font-weight: bold;
@@ -60,7 +61,6 @@ h1 {
 
 h2 {
     font-weight: bolder;
-    /* font-size: 35px; */
     color: whitesmoke;
 }
 

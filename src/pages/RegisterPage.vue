@@ -2,7 +2,6 @@
     <div>
         <h2>Register</h2>
         <button class="btn btn-primary" @click="userRegister(true)">Register</button>
-
     </div>
 </template>
 
@@ -16,7 +15,7 @@ export default {
                 // Create new organization and director account
                 //login this user
                 this.login()
-                // show his dashboard page
+                // show director dashboard page
                 this.$router.push({name:'dashboard',params:{user_type:'director'}})
             }
         }

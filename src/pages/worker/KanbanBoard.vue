@@ -2,7 +2,7 @@
     <main class="flexbox scrolls" @dragover.prevent @drop.prevent="drop">
         <the-board v-for="board, index in getBoards" :id="'board-' + board.id" :key="index">
             <template v-slot:header>
-                <h2 class="text-light  text-center">{{ board.name }} <h6>Board id: {{ board.id }}</h6>
+                <h2 class="text-light text-center">{{ board.name }} <h6>Board id: {{ board.id }}</h6>
                 </h2>
             </template>
             <the-card v-for="task in getBoardTasks(board.id)" class="card mb-3 p-0" :key="task.id" :id="'card-' + task.id"
@@ -38,7 +38,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions('worker', ['addBoard', 'fetchWorkerTasks']),
+        ...mapActions('worker', ['fetchWorkerTasks']),
         drop,
         getBoardTasks(id) {
             if (this.getTasks.length > 0) {
@@ -51,8 +51,6 @@ export default {
     computed: {
         ...mapGetters('worker', ['getTasks', 'getBoards'])
     },
-
-
 }
 
 </script>
@@ -68,10 +66,8 @@ export default {
 .flexbox {
     display: flex;
     justify-content: space-between;
-
     width: 100%;
     height: 100%;
-    /* overflow: hidden; */
     margin: 0 auto;
 }
 </style>

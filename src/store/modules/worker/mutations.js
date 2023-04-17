@@ -44,7 +44,7 @@ export default {
       };
       const isCompleted = task.status_id == 4;
       const current_time = new Date();
-      if (isCompleted && task.completed_at) {
+      if (isCompleted) {
         state.completed_tasks += 1;
       } else if (obj.deadline > current_time) {
         state.overdue_tasks += 1;
