@@ -44,9 +44,10 @@ export default {
       };
       const isCompleted = task.status_id == 4;
       const current_time = new Date();
+      console.log(obj.deadline,current_time)
       if (isCompleted) {
         state.completed_tasks += 1;
-      } else if (obj.deadline > current_time) {
+      } else if (obj.deadline < current_time) {
         state.overdue_tasks += 1;
         const time_elapsed = obj.deadline - obj.assigned;
         const new_obj = { id: task.id,title:task.title, time_elapsed };
