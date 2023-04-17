@@ -58,7 +58,7 @@
       <div id="success" v-if="successful" class="p-3 mb-2 text-white">
         {{ successful }}
       </div>
-      <base-button id="btncreate">Update Project</base-button>
+      <base-button id="radius">Update Project</base-button>
     </form>
   </base-dialog>
   <div class="table-responsive text-nowrap table-content">
@@ -71,7 +71,7 @@
       <caption>
         List of Projects
       </caption>
-      <thead>
+      <thead class="headercolor">
         <tr>
           <th scope="col">No.</th>
           <th scope="col">Title</th>
@@ -119,7 +119,7 @@
             </div>
           </td>
           <td>
-            <button class="btn btn-primary" @click="openProjectEdit(project)">Edit</button>
+            <button class="btn linear_pink" @click="openProjectEdit(project)">Edit</button>
           </td>
           <td>
             <button class="btn btn-danger" @click="deleteProject(project)">Delete</button>
@@ -324,7 +324,9 @@ export default {
 </script>
 
 <style scoped>
-
+#radius{
+  border-radius: 30px;
+}
 .header {
     font-size: 2rem;
     font-weight: bold;
@@ -338,6 +340,11 @@ export default {
 }
 th {
   text-align: top;
+  
+}
+.headercolor{
+  background-color: #ff84da; 
+  color: white;
 }
 td {
   text-align: left;
@@ -399,6 +406,13 @@ textarea:focus {
   border-radius: 5px;
   cursor: pointer;
   margin-left: 10px;
+}
+
+.linear_pink{
+background: radial-gradient(circle, rgba(252,248,255,1) 0%, hwb(286 52% 2%) 100%);
+}
+.linear_red{
+background-color:  hwb(0 0% 7% / 0.584);
 }
 </style>
 

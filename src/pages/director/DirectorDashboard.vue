@@ -1,7 +1,7 @@
 <template>
   <base-card id="cardmain">
     <div class="row">
-      <base-card id="card">
+      <base-card id="card" class="card1">
         <div class="col-3" >
           <base-button link :to="{ name: 'vieworganization', params: { add: 'vieworganization' }}">View Organization Details</base-button>
           <base-button link :to="{ name: 'managerworker', params: { add: 'addmanager' }}">Create Manager & Worker</base-button>
