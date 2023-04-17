@@ -6,7 +6,12 @@ export default {
   namespaced: true,
   state() {
     return {
-     
+      projects: [],
+      managers: [],
+      managers1: [],
+      workers: [],
+      user: null,
+      org: null,
     };
   },
   mutations,
