@@ -139,12 +139,13 @@ export default {
                 axios
                     .post(`http://127.0.0.1:8000/api/admin/users/${workerId}`)
                     .then((response) => {
-                        const index = this.workers.findIndex(
-                            (worker) => worker.id === workerId
-                        );
-                        if (index > -1) {
-                            this.workers.splice(index, 1);
-                        }
+                        // const index = this.workers.findIndex(
+                        //     (worker) => worker.id === workerId
+                        // );
+                        // if (index > -1) {
+                        //     this.workers.splice(index, 1);
+                        // }
+                        this.toggleWorkers();
                         console.log(response);
                     })
                     .catch((error) => {

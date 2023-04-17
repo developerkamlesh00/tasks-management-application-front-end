@@ -138,12 +138,13 @@ export default {
                 axios
                     .post(`http://127.0.0.1:8000/api/admin/users/${managerId}`)
                     .then((response) => {
-                        const index = this.managers.findIndex(
-                            (manager) => manager.id === managerId
-                        );
-                        if (index > -1) {
-                            this.managers.splice(index, 1);
-                        }
+                        // const index = this.managers.findIndex(
+                        //     (manager) => manager.id === managerId
+                        // );
+                        // if (index > -1) {
+                        //     this.managers.splice(index, 1);
+                        // }
+                        this.toggleManagers();
                         console.log(response);
                     })
                     .catch((error) => {
