@@ -29,7 +29,7 @@ const store = createStore({
       reviewTasks:[],
       workerNames:[],
       visible:[],
-      isSuccess:false
+      isSuccess:2
     }
   },
 
@@ -246,12 +246,17 @@ async addTask(context,payload){
   .then(function (response) {
     //console.log(payload)
     console.log(response);
-    context.state.isSuccess = true
+    context.state.isSuccess = 1
   })
   .catch(function (error) {
     console.log(payload)
     console.log(error);
-    context.state.isSuccess = false
+    context.state.isSuccess = 0
+  }).finally(function () {
+    // always executed
+    setTimeout(()=>{
+      context.state.isSuccess=2
+    },3000)
   });
 
 },
@@ -269,12 +274,17 @@ async editTask(context,payload){
   .then(function (response) {
     //console.log(payload)
     console.log(response);
-    context.state.isSuccess = true
+    context.state.isSuccess = 1
   })
   .catch(function (error) {
     console.log(payload)
     console.log(error);
-    context.state.isSuccess = false
+    context.state.isSuccess = 0
+  }).finally(function () {
+    // always executed
+    setTimeout(()=>{
+      context.state.isSuccess=2
+    },3000)
   });
 
 },

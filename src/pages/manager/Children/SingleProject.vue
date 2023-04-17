@@ -30,8 +30,8 @@
       
       <div class="modal-body">
         <form @submit.prevent="addTask">
-          <div class="alert alert-success" v-if="getIsSuccess">The form has been submitted successfully</div>
-          <div class="alert alert-danger" v-else>The form has not been submitted</div>
+          <div class="alert alert-success" v-if="getIsSuccess === 1">The form has been submitted successfully</div>
+          <div class="alert alert-danger" v-else-if="getIsSuccess === 0">The form has not been submitted</div>
           <div class="mb-3">
             <label for="task-title" class="col-form-label">title</label>
             <input type="text" class="form-control" id="task-title" v-model.trim="title" @blur="validateInput" />
@@ -123,8 +123,8 @@
       
       <div class="modal-body">
         <form @submit.prevent="editTask(taskList)">
-          <div class="alert alert-success" v-if="getIsSuccess">The form has been submitted successfully</div>
-          <div class="alert alert-danger" v-else>The form has not been submitted</div>
+          <div class="alert alert-success" v-if="getIsSuccess === 1">The form has been submitted successfully</div>
+          <div class="alert alert-danger" v-else-if="getIsSuccess === 0">The form has not been submitted</div>
           <div class="mb-3">
             <label for="task-title" class="col-form-label">title</label>
             <input type="text" class="form-control" id="task-title" v-model="title" @blur="validateInput">
@@ -136,7 +136,7 @@
             <p v-if="titleValidity==='invalid'" style="color: red;" @blur="validateInput">Please enter a description</p>
           </div>
           <div class="mb-3">
-            <label for="worker-id" class="col-form-label">Worker id</label>
+            <label for="worker-id" class="col-form-label">Worker name</label>
             <select class="form-select" aria-label="Default select example" v-model="workerId">
               <option v-for="getAllWorkerName in getAllWorkerNames" :key="getAllWorkerName.id" :value="getAllWorkerName.id" >
                 {{ getAllWorkerName.name }}
@@ -162,7 +162,7 @@
           <button type="submit" class="btn btn-primary">Edit Task</button>
         </form>
         
-      </div>
+       </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         
@@ -187,7 +187,6 @@ import { mapActions } from 'vuex';
 import { mapGetters } from 'vuex';
 
 
-
 export default{
  data(){
   return {
@@ -195,42 +194,27 @@ export default{
     //add task data
     title:'',
     description:'',
-    workerId: null,
+    workerId: '',
     assignedDate:'',
     estimated_deadline:'',
-
-    //edit task data
-
-    /*newTitle:'',
-    newDescription:'',
-    newWorkerId:'',
-    newAssignedDate:'',
-    newEstimatedDeadline:'',*/
 
     //Validation
     titleValidity: 'pending',
     descriptionValidity: 'pending'
-    
 
   }
  
  },
 
- 
   mounted() {
-  
     const url = this.$router.currentRoute.value.fullPath
     const pathLength=this.$router.currentRoute.value.fullPath.length-1
     const lastNumber = url.lastIndexOf("/")
-    //console.log(lastNumber)
     const id = url.substr(lastNumber+1, pathLength)
-    //console.log(url[pathLength])
     this.$store.dispatch('getProject', {value:id})
     this.$store.dispatch('updateProjectTasks', {value:id}) 
-    this.$store.dispatch('getWorkerNames') 
-    
+    this.$store.dispatch('getWorkerNames')   
   },
-
 
 methods:{
     ...mapActions(['getProject', 'getTasks', 'addTask', 'editTask', 'deleteTask', 'updateProjectTasks', 'getWorkerNames', 'singleTask']),
@@ -240,7 +224,6 @@ methods:{
       const url = this.$router.currentRoute.value.fullPath
       const pathLength=this.$router.currentRoute.value.fullPath.length-1
       const lastNumber = url.lastIndexOf("/")
-      //console.log(lastNumber)
       const id = url.substr(lastNumber+1, pathLength)
       this.$store.dispatch('getTasks', {value:id})
 
@@ -258,29 +241,20 @@ methods:{
           assignedDate:this.assignedDate,
           estimatedDeadline:this.estimated_deadline,
           projectId:id
-        })
-       
-
-      /*  if(success){
-        this.title=''
-        this.description=''
-        this.workerId=''
-        this.assignedDate=''
-        this.estimated_deadline=''
-        }*/
-
-        
+        })     
         this.$store.dispatch('getTasks',{value:url[pathLength]})   
       
     },
+ 
     getOldData(task){
-      console.log(task)
+      
       this.title=task.title
       this.description=task.description
       this.workerId = task.worker_id
       this.assignedDate=task.assigned_at.substr(0,10)
       this.estimated_deadline=task.estimated_deadline.substr(0,10)
-      this.getIsSuccess=null
+      
+     
     },
 
     createTask(){
@@ -290,7 +264,6 @@ methods:{
       this.workerId = ''
       this.assignedDate=''
       this.estimated_deadline=''
-      this.getIsSuccess=null
 
     },
     editTask(task){
@@ -321,11 +294,11 @@ methods:{
       const lastNumber = url.lastIndexOf("/")
       //console.log(lastNumber)
       const projId = url.substr(lastNumber+1, pathLength)
-      
+      if(confirm("Are you sure you want to delete the Task?")){
       this.$store.dispatch('deleteTask', {id:id})
       this.$store.dispatch('getTasks',{value:projId})
       this.$store.dispatch('updateProjectTasks', {value:projId})
-      
+    }
     },
   
     validateInput(){
