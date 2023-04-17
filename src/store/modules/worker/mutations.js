@@ -1,8 +1,11 @@
 import formatDate from '../../../utils/formatDate.js'
 
 export default {
-  addNewBoard(state, payload) {
-    return state.boards.push(payload);
+  setLoading(state){
+    state.isLoading=true;
+  },
+  unsetLoading(state){
+    state.isLoading=false;
   },
   setMessage(state,data){
     state.message=data;
@@ -12,18 +15,6 @@ export default {
     state.message='';
     state.showMessage=false;
    },
-  // updateTaskStatus(state, payload) {
-  //   console.log("Mutations");
-
-  //   // const task = state.tasks.filter((t) => {
-  //   //     console.log(t.id,task_id)
-  //   //     t.id == task_id;
-  //   // })[0];
-  //   // console.log(state.tasks)
-  //   console.log(task);
-  //   //   task.status_id=status_id
-  //   return;
-  // },
   setComments(state,data){
     state.comments=data;
   },
@@ -34,31 +25,38 @@ export default {
     state.project_tasks=data;
   },
   setData(state) {
+    state.todo=0
+    state.doing=0
+    state.pending=0;
+    state.overdue_tasks=0;
+    state.reviews_submitted=0;
+    state.reviews_passed=0;
+    state.completed_tasks=0;
+
+    state.tasks_per_project={}; //{project_id:[{completed:task.id},pending:{}]}
+    state.tasks_with_passed_deadlines=[]
+
     state.tasks.forEach((task) => {
       let obj = {
         id: task.id,
         assigned: new Date(task.assigned_at),
         deadline: new Date(task.estimated_deadline),
       };
-      state.tasks_assigned_deadline.push(obj);
       const isCompleted = task.status_id == 4;
       const current_time = new Date();
       if (isCompleted && task.completed_at) {
         state.completed_tasks += 1;
-        obj = { id: task.id, timestamp: new Date(task.completed_at) };
-        state.tasks_completed.push(obj);
       } else if (obj.deadline > current_time) {
         state.overdue_tasks += 1;
         const time_elapsed = obj.deadline - obj.assigned;
-        const new_obj = { id: task.id, time_elapsed };
+        const new_obj = { id: task.id,title:task.title, time_elapsed };
         state.tasks_with_passed_deadlines.push(new_obj);
       }
-
-      // if(task.status_id==4 && task.completed_at){
-      //   state.completed_tasks+=1;
-      //   let obj={"id":task.id,"timestamp":new Date(task.completed_at)}
-      //   state.tasks_completed.push(obj);
-      // }
+      if(task.status_id==1){
+        state.todo+=1;
+      }else if(task.status_id==2){
+        state.doing+=1;
+      }
       if (task.project_id in state.tasks_per_project) {
         isCompleted
           ? state.tasks_per_project[task.project_id]["completed"].push(task.id)
@@ -71,13 +69,11 @@ export default {
           ? state.tasks_per_project[task.project_id]["completed"].push(task.id)
           : state.tasks_per_project[task.project_id]["pending"].push(task.id);
       }
-      task.review_passed === 1
-        ? state.reviews_passed++
-        : state.pending++;
+      
+      state.reviews_passed=state.completed_tasks;
+      state.pending=state.total_tasks_assigned-state.completed_tasks;
       task.status_id===3?state.reviews_submitted++:'';
     });
-
-    state.reviews_submitted += state.reviews_passed;
 
     console.log("total_tasks_assigned", state.total_tasks_assigned);
     console.log("completed_tasks", state.completed_tasks);
@@ -93,9 +89,7 @@ export default {
     console.log("state.reviews_passed", state.reviews_passed);
   },
   setTasks(state, { tasks }) {
-    console.log("Setting Tasks");
     state.tasks = tasks;
-    console.log(tasks);
     state.total_tasks_assigned = tasks.length;
     return;
   },
@@ -112,12 +106,7 @@ export default {
           state.status[t.status_id],
         ])
       );
-      console.log("state.rows", state.rows);
     }
-    //   for(let i=0;i<state.total_tasks_assigned;i++){
-    //     const t=state.tasks[i];
-    //   state.rows.push([t.id,t.title,t.description,t.assigned_at,t.estimated_deadline,state.status[t.status_id]])
-    // }
     return state.rows;
   },
 

@@ -1,11 +1,12 @@
 <template>
-    
-<div class="alert alert-warning alert-dismissible fade show" v-if="showMessage"  role="alert">
-    <p class="p-2">{{ message }}</p>
-    <button type="button" class="btn-close" @click="unsetMessage()" aria-label="Close"></button>
-</div>
+    <!-- For alert messages -->
+    <div class="alert alert-warning alert-dismissible fade show" v-if="showMessage" role="alert">
+        <p class="p-2">{{ message }}</p>
+        <button type="button" class="btn-close" @click="unsetMessage()" aria-label="Close"></button>
+    </div>
+    <!-- For syncing the page -->
     <div class="d-flex justify-content-end">
-        <button class="btn btn-primary px-2" @click="fetchWorkerTasks({ isFirstRequest: false })"><i
+        <button class="btn btn-primary px-2" @click="fetchItems()"><i
                 class="bi bi-arrow-clockwise"></i> Refresh</button>
     </div>
     <div class="row">
@@ -23,6 +24,7 @@
             <base-button class=" rounded-4 navcards" link to="/worker/settings">Settings
             </base-button>
         </base-card>
+
         <div class="col-10">
             <base-card class="m-0 my-1 p-0 ms-2 mw-100 card2">
                 <router-view v-slot="{ Component }">
@@ -38,25 +40,30 @@
 import { mapActions, mapGetters } from 'vuex';
 import BaseCard from '../../components/ui/BaseCard.vue';
 import BaseButton from '../../components/ui/BaseButton.vue';
+import BaseSpinner from '../../components/ui/BaseSpinner.vue';
 
 export default {
     components: {
         BaseCard,
-        BaseButton
+        BaseButton,
+        BaseSpinner
     },
     data() {
         return {
         }
     },
     methods: {
-        ...mapActions('worker', ['fetchWorkerTasks','unsetMessage']),
+        ...mapActions('worker', ['fetchWorkerTasks', 'fetchWorkerProjects','unsetMessage']),
+        fetchItems(){
+            this.fetchWorkerTasks({isFirstRequest:true})
+            this.fetchWorkerProjects()
+        }
     },
     computed: {
-        ...mapGetters('worker', ['getTasks','showMessage','message'])
+        ...mapGetters('worker', ['getTasks', 'showMessage', 'message'])
     },
     created() {
         this.$store.dispatch('worker/fetchWorkerTasks', { isFirstRequest: true });
-
     }
 }
 </script>

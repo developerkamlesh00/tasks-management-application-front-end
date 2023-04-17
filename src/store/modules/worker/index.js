@@ -8,6 +8,7 @@ export default {
   namespaced: true,
   state() {
     return {
+      isLoading:false,
       showMessage:false,
       message:'',
       boards: boards,
@@ -16,6 +17,8 @@ export default {
       rows:[],
 
       total_tasks_assigned:0,
+      todo:0,
+      doing:0,
       pending:0,
       overdue_tasks:0,
       reviews_submitted:0,

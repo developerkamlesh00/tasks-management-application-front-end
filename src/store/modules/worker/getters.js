@@ -1,5 +1,8 @@
 export default {
   
+    isLoading(state) {
+      return state.isLoading;
+    },
     getBoards(state) {
       return state.boards;
     },
@@ -34,6 +37,8 @@ export default {
       return {
         total_tasks_assigned:state.total_tasks_assigned,
         completed_tasks:state.completed_tasks,
+        todo:state.todo,
+        doing:state.doing,
         overdue_tasks:state.overdue_tasks,
         reviews_submitted:state.reviews_submitted,
         reviews_passed:state.reviews_passed,

@@ -16,7 +16,7 @@
         <tbody>
             <tr class="table-info" v-for="task in getProjectTasks" :key="task.id">
                 <td>{{ task.id }}</td>
-                <td>{{ task.title }}</td>
+                <td>{{ task.title.slice(0,20) }}</td>
                 <td>{{ task.description.slice(0,20) }}....</td>
                 <td>{{ task.worker_id }}</td>
                 <td>{{ task.assigned_at }}</td>
@@ -28,8 +28,9 @@
                     </div>
                 </td>
                 <td>
-                    <router-link class="btn btn-outline-dark" :to="{name:'task_detail',params:{'id':task.id}}">Open
+                    <router-link class="btn btn-outline-dark" v-if="task.worker_id==userId" :to="{name:'task_detail',params:{'id':task.id}}">Open
                     </router-link>
+                    <span class="btn btn-outline-dark" v-else>Hidden</span>
                 </td>
             </tr>
             <tr v-if="getProjectTasks.length == 0">
@@ -51,7 +52,8 @@ export default{
         },
     },
     computed:{
-        ...mapGetters('worker',['getProjectTasks'])
+        ...mapGetters('worker',['getProjectTasks']),
+        ...mapGetters(['userId']),
     }
 }
 </script>
