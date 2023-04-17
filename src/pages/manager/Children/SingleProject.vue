@@ -211,13 +211,13 @@ export default{
     const pathLength=this.$router.currentRoute.value.fullPath.length-1
     const lastNumber = url.lastIndexOf("/")
     const id = url.substr(lastNumber+1, pathLength)
-    this.$store.dispatch('getProject', {value:id})
-    this.$store.dispatch('updateProjectTasks', {value:id}) 
-    this.$store.dispatch('getWorkerNames')   
+    this.$store.dispatch('manager/getProject', {value:id})
+    this.$store.dispatch('manager/updateProjectTasks', {value:id}) 
+    this.$store.dispatch('manager/getWorkerNames')   
   },
 
 methods:{
-    ...mapActions(['getProject', 'getTasks', 'addTask', 'editTask', 'deleteTask', 'updateProjectTasks', 'getWorkerNames', 'singleTask']),
+    ...mapActions('manager',['getProject', 'getTasks', 'addTask', 'editTask', 'deleteTask', 'updateProjectTasks', 'getWorkerNames', 'singleTask']),
 
     showTasks(){
       this.displayTasks=!this.displayTasks
@@ -225,7 +225,7 @@ methods:{
       const pathLength=this.$router.currentRoute.value.fullPath.length-1
       const lastNumber = url.lastIndexOf("/")
       const id = url.substr(lastNumber+1, pathLength)
-      this.$store.dispatch('getTasks', {value:id})
+      this.$store.dispatch('manager/getTasks', {value:id})
 
     },
     addTask(){
@@ -234,7 +234,7 @@ methods:{
       const lastNumber = url.lastIndexOf("/")    
       const id = url.substr(lastNumber+1, pathLength)
   
-        this.$store.dispatch('addTask', {
+        this.$store.dispatch('manager/addTask', {
           title:this.title,
           description:this.description,
           workerId:this.workerId,
@@ -242,7 +242,7 @@ methods:{
           estimatedDeadline:this.estimated_deadline,
           projectId:id
         })     
-        this.$store.dispatch('getTasks',{value:url[pathLength]})   
+        this.$store.dispatch('manager/getTasks',{value:url[pathLength]})   
       
     },
  
@@ -272,7 +272,7 @@ methods:{
       const pathLength=this.$router.currentRoute.value.fullPath.length-1
       const lastNumber = url.lastIndexOf("/")
       const id = url.substr(lastNumber+1, pathLength)
-        this.$store.dispatch('editTask', {
+        this.$store.dispatch('manager/editTask', {
           id:task.id,
           title:this.title,
           description:this.description,
@@ -282,7 +282,7 @@ methods:{
           projectId:id
         })
 
-        this.$store.dispatch('getTasks',{value:url[pathLength]})
+        this.$store.dispatch('manager/getTasks',{value:url[pathLength]})
 
     },
 
@@ -295,9 +295,9 @@ methods:{
       //console.log(lastNumber)
       const projId = url.substr(lastNumber+1, pathLength)
       if(confirm("Are you sure you want to delete the Task?")){
-      this.$store.dispatch('deleteTask', {id:id})
-      this.$store.dispatch('getTasks',{value:projId})
-      this.$store.dispatch('updateProjectTasks', {value:projId})
+      this.$store.dispatch('manager/deleteTask', {id:id})
+      this.$store.dispatch('manager/getTasks',{value:projId})
+      this.$store.dispatch('manager/updateProjectTasks', {value:projId})
     }
     },
   
@@ -320,7 +320,7 @@ methods:{
 },
 
 computed:{
-    ...mapGetters(['singleProject', 'taskLists', 'getAllWorkerNames','getIsSuccess']),
+    ...mapGetters('manager',['singleProject', 'taskLists', 'getAllWorkerNames','getIsSuccess']),
 }
 
 }

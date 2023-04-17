@@ -63,19 +63,19 @@ export default{
 
     computed:{
        
-       ...mapGetters(['projectLists', 'getVisible'])
+       ...mapGetters('manager',['projectLists', 'getVisible'])
    
 },mounted(){
-        this.$store.dispatch("getProjects")
+        this.$store.dispatch("manager/getProjects")
       },
 
     methods:{
-      ...mapActions(['getProjects', 'getWorkers', 'reviewTasks', 'toggleVisibility']),
+      ...mapActions('manager',['getProjects', 'getWorkers', 'reviewTasks', 'toggleVisibility']),
       
       changeVisibility(projectList){
         
-        this.$store.dispatch("toggleVisibility",{id:projectList.id})
-        this.$store.dispatch("getProjects")
+        this.$store.dispatch("manager/toggleVisibility",{id:projectList.id})
+        this.$store.dispatch("manager/getProjects")
        
         
       }

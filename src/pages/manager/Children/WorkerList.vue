@@ -37,14 +37,14 @@ import { mapActions } from 'vuex';
 export default{
 computed:
 {
-    ...mapGetters(['workerLists'])
+    ...mapGetters('manager',['workerLists'])
 },
 mounted(){
-    this.$store.dispatch("getWorkers")
+    this.$store.dispatch("manager/getWorkers")
   },
 
 methods:{
-  ...mapActions['getWorkers'],
+  ...mapActions('manager',['getWorkers']),
  
  
 }

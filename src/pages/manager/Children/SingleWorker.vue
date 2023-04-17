@@ -65,12 +65,12 @@ export default{
     //console.log(id)
     
     //console.log(url[pathLength])
-    this.$store.dispatch('getWorker', {value:id}) 
+    this.$store.dispatch('manager/getWorker', {value:id}) 
     
   },
 
 methods:{
-    ...mapActions(['getWorker', 'getAssignedTasks']),
+    ...mapActions('manager',['getWorker', 'getAssignedTasks']),
 
     mounted(){
     const url = this.$router.currentRoute.value.fullPath
@@ -79,7 +79,7 @@ methods:{
     //console.log(lastNumber)
     const id = url.substr(lastNumber+1, pathLength)
     //console.log(url[pathLength])
-    this.$store.dispatch('getWorker', {value:id}) 
+    this.$store.dispatch('manager/getWorker', {value:id}) 
     },
 
     showAssignedTasks(){
@@ -88,14 +88,14 @@ methods:{
     const lastNumber = url.lastIndexOf("/")
     //console.log(lastNumber)
     const id = url.substr(lastNumber+1, pathLength)
-        this.$store.dispatch('getAssignedTasks', {value:id}) 
+        this.$store.dispatch('manager/getAssignedTasks', {value:id}) 
         this.displayTasks=!this.displayTasks
     }
 
 },
 
 computed:{
-    ...mapGetters(['singleWorker', 'assignedTaskLists']),
+    ...mapGetters('manager',['singleWorker', 'assignedTaskLists']),
 }
 
 }

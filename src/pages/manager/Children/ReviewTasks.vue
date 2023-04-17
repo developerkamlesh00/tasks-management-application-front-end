@@ -49,21 +49,21 @@ export default{
 
  
   mounted() {
-    this.$store.dispatch('getReviewTasks')
+    this.$store.dispatch('manager/getReviewTasks')
     
   },
 
 methods:{
-    ...mapActions(['getReviewTasks', 'doApproveTask', 'doRejectTask']),
+    ...mapActions('manager',['getReviewTasks', 'doApproveTask', 'doRejectTask']),
     
     approveTask(reviewTaskList){
     
-      this.$store.dispatch('doApproveTask', {
+      this.$store.dispatch('manager/doApproveTask', {
         id:reviewTaskList.id,
       })
 
-      this.$store.dispatch('updateProjectTasks', {value:reviewTaskList.project_id})
-      this.$store.dispatch('getReviewTasks')
+      this.$store.dispatch('manager/updateProjectTasks', {value:reviewTaskList.project_id})
+      this.$store.dispatch('manager/getReviewTasks')
       
 
 /*
@@ -79,17 +79,17 @@ methods:{
     
     
     rejectTask(reviewTaskList){
-      this.$store.dispatch('doRejectTask', {
+      this.$store.dispatch('manager/doRejectTask', {
         id:reviewTaskList.id,
       })
       //this.$store.dispatch('updateProjectTasks', {value:reviewTaskList.project_id})
-      this.$store.dispatch('getReviewTasks')
+      this.$store.dispatch('manager/getReviewTasks')
     }
 },
     
 
 computed:{
-    ...mapGetters(['reviewTaskLists']),
+    ...mapGetters('manager',['reviewTaskLists']),
 }
 
 }
