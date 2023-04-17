@@ -5,7 +5,7 @@
        <div v-if="singleProject">
           <h1 style="text-align: center; font-family: 'Bebas Neue', cursive;">Title</h1>
           <h2 style="text-align: center; font-family: 'Alkatra', cursive;">{{ singleProject.title }}</h2>
-          <h2 style="text-align: center; font-family: 'Bebas Neue', cursive;" >Description</h2>
+          <h2 style="text-align: center; font-family: 'Bebas Neue', cursive;">Description</h2>
           <h3 style="text-align: center; font-family: 'Alkatra', cursive;">{{ singleProject.description }}</h3>
           <h3 style="font-family: 'Bebas Neue', cursive;">Date Assigned: <span style="font-family: 'Alkatra', cursive;" v-if="singleProject.assigned_at">{{ singleProject.assigned_at.substr(0,10)  }}</span></h3>
           <h3 style="font-family: 'Bebas Neue', cursive;">Deadline: <span style="font-family: 'Alkatra', cursive;" v-if="singleProject.estimated_deadline">{{ singleProject.estimated_deadline.substr(0,10) }}</span></h3>
@@ -17,7 +17,7 @@
 
     <button @click="showTasks" type="button" class="btn btn-primary custom custom-button">Show Tasks</button>
     <!--Create Task Modal Starts-->
-    <button type="button" class="btn btn-primary custom custom-button" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Create Task</button>
+    <button type="button" class="btn btn-primary custom custom-button" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap" @click="createTask">Create Task</button>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -30,6 +30,8 @@
       
       <div class="modal-body">
         <form @submit.prevent="addTask">
+          <div class="alert alert-success" v-if="getIsSuccess">The form has been submitted successfully</div>
+          <div class="alert alert-danger" v-else>The form has not been submitted</div>
           <div class="mb-3">
             <label for="task-title" class="col-form-label">title</label>
             <input type="text" class="form-control" id="task-title" v-model.trim="title" @blur="validateInput" />
@@ -67,6 +69,9 @@
           <input type="date" class="form-control" id="estimated-deadline" v-model="estimated_deadline">
           </div>
           <button type="submit" class="btn btn-primary">Add Task</button>
+          
+          
+        
         </form>
         
       </div>
@@ -118,6 +123,8 @@
       
       <div class="modal-body">
         <form @submit.prevent="editTask(taskList)">
+          <div class="alert alert-success" v-if="getIsSuccess">The form has been submitted successfully</div>
+          <div class="alert alert-danger" v-else>The form has not been submitted</div>
           <div class="mb-3">
             <label for="task-title" class="col-form-label">title</label>
             <input type="text" class="form-control" id="task-title" v-model="title" @blur="validateInput">
@@ -241,12 +248,9 @@ methods:{
     addTask(){
       const url = this.$router.currentRoute.value.fullPath
       const pathLength=this.$router.currentRoute.value.fullPath.length-1
-      const lastNumber = url.lastIndexOf("/")
-      //console.log(lastNumber)
+      const lastNumber = url.lastIndexOf("/")    
       const id = url.substr(lastNumber+1, pathLength)
-        //const success =
-        
-        
+  
         this.$store.dispatch('addTask', {
           title:this.title,
           description:this.description,
@@ -255,7 +259,7 @@ methods:{
           estimatedDeadline:this.estimated_deadline,
           projectId:id
         })
-
+       
 
       /*  if(success){
         this.title=''
@@ -266,9 +270,7 @@ methods:{
         }*/
 
         
-        this.$store.dispatch('getTasks',{value:url[pathLength]})
-        
-        
+        this.$store.dispatch('getTasks',{value:url[pathLength]})   
       
     },
     getOldData(task){
@@ -278,6 +280,18 @@ methods:{
       this.workerId = task.worker_id
       this.assignedDate=task.assigned_at.substr(0,10)
       this.estimated_deadline=task.estimated_deadline.substr(0,10)
+      this.getIsSuccess=null
+    },
+
+    createTask(){
+    
+      this.title=''
+      this.description=''
+      this.workerId = ''
+      this.assignedDate=''
+      this.estimated_deadline=''
+      this.getIsSuccess=null
+
     },
     editTask(task){
       
@@ -302,16 +316,16 @@ methods:{
 
     delTask(id){
       //add an alert
-
       const url = this.$router.currentRoute.value.fullPath
       const pathLength=this.$router.currentRoute.value.fullPath.length-1
       const lastNumber = url.lastIndexOf("/")
       //console.log(lastNumber)
       const projId = url.substr(lastNumber+1, pathLength)
+      
       this.$store.dispatch('deleteTask', {id:id})
-
       this.$store.dispatch('getTasks',{value:projId})
       this.$store.dispatch('updateProjectTasks', {value:projId})
+      
     },
   
     validateInput(){
@@ -333,7 +347,7 @@ methods:{
 },
 
 computed:{
-    ...mapGetters(['singleProject', 'taskLists', 'getAllWorkerNames']),
+    ...mapGetters(['singleProject', 'taskLists', 'getAllWorkerNames','getIsSuccess']),
 }
 
 }

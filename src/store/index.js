@@ -28,7 +28,8 @@ const store = createStore({
       assignedTasks:[],
       reviewTasks:[],
       workerNames:[],
-      visible:[]
+      visible:[],
+      isSuccess:false
     }
   },
 
@@ -75,6 +76,9 @@ const store = createStore({
 
     getVisible(state){
       return state.visible
+    },
+    getIsSuccess(state){
+      return state.isSuccess
     }
   },
 
@@ -139,6 +143,7 @@ async getProject(context, payload){ //
   // handle success
   //console.log(response)
   context.state.project=response.data
+  
 
 })
 .catch(function (error) {
@@ -155,6 +160,7 @@ async updateProjectTasks(context, payload){ //
   await axios.put(`http://localhost:8000/api/update_project_tasks?id=${payload.value}`)
   .then(function (response) {
   // handle success
+  
   console.log(response)
 })
 .catch(function (error) {
@@ -238,12 +244,14 @@ async addTask(context,payload){
     projectId:payload.projectId
   })
   .then(function (response) {
-    console.log(payload)
+    //console.log(payload)
     console.log(response);
+    context.state.isSuccess = true
   })
   .catch(function (error) {
     console.log(payload)
     console.log(error);
+    context.state.isSuccess = false
   });
 
 },
@@ -259,12 +267,14 @@ async editTask(context,payload){
     projectId:payload.projectId
   })
   .then(function (response) {
-    console.log(payload)
+    //console.log(payload)
     console.log(response);
+    context.state.isSuccess = true
   })
   .catch(function (error) {
     console.log(payload)
     console.log(error);
+    context.state.isSuccess = false
   });
 
 },

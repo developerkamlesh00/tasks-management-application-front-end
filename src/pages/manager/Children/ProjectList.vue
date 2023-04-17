@@ -34,7 +34,14 @@
           <td><p v-if="projectList.completed_at">{{ projectList.completed_at.substr(0,10) }}</p></td>  
           <td>{{ projectList.tasks_completed }}</td>  
           <td>{{ projectList.total_tasks }}</td>
-          <td> <button type="button" class="btn btn-light" @click="changeVisibility(projectList)">ON</button></td>
+           <td>
+              <button v-if="projectList.workers_visibility" type="button" class="btn btn-light" @click="changeVisibility(projectList)">
+              ON
+            </button>
+            <button v-else type="button" class="btn btn-light" @click="changeVisibility(projectList)">
+              OFF
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -68,6 +75,7 @@ export default{
       changeVisibility(projectList){
         
         this.$store.dispatch("toggleVisibility",{id:projectList.id})
+        this.$store.dispatch("getProjects")
        
         
       }
