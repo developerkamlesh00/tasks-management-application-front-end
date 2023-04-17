@@ -30,7 +30,14 @@ import ShowWorkers from "./components/admin/ShowWorkers.vue";
 import adminStatistics from "./components/admin/AdminStatistics.vue"
 
 
+//Manager components start
 import ManagerDashboard from "./pages/manager/ManagerDashboard.vue";
+import ProjectList from "./pages/manager/Children/ProjectList.vue";
+import WorkerList from "./pages/manager/Children/WorkerList.vue";
+import SingleProject from "./pages/manager/Children/SingleProject.vue"
+import SingleWorker from "./pages/manager/Children/SingleWorker.vue";
+import ReviewTasks from "./pages/manager/Children/ReviewTasks.vue";
+//Manager Components end
 
 // Worker Pages
 import WorkerView from "./pages/worker/WorkerView.vue";
@@ -109,18 +116,47 @@ const routes = [
     },
   },
   { path: "/orgregister", name: "register", component: OrganizationRegister },
+  
+  //Manager Routing Start
   {
     path: "/manager",
     name: "manager",
     component: ManagerDashboard,
     beforeEnter: (_, _1, next) => {
-      if (store.getters.role == "manager" && store.getters.isAuthenticated) {
+      if(store.getters.role == 'manager' && store.getters.isAuthenticated){
         next();
-      } else {
-        next("/login");
+      }else{
+        next('/login');
       }
     },
+    children:[
+      {
+        path:'projects',
+        component: ProjectList,
+        
+      },
+      {
+        path: 'projects/:id',
+        component: SingleProject
+      },
+
+      {
+        path: 'workers',
+        component:WorkerList
+      },
+      {
+        path: 'workers/:id',
+        component:SingleWorker
+      },
+      {
+        path: 'review_tasks',
+        component:ReviewTasks
+      },
+      
+      
+    ]
   },
+//Manager Routing Ends
   {
     path: "/worker",
     component: WorkerView,
