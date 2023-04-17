@@ -43,8 +43,8 @@
   font-size: 2.5rem;
   font-weight: 700;
   margin: 0;
-  color: #303030;
-  text-shadow: 1px 1px 2px #ccc;
+  color: white;
+  background-color: #c75be5;
 }
 
 canvas {
