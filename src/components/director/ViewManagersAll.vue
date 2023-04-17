@@ -10,7 +10,7 @@
                     {{ orgId }}
                 </option>
             </select>
-            <button @click="resetSearch">Reset</button>
+            <button class="body" @click="resetSearch">Reset</button>
         </div>
         <div class="table-container">
             <table class="managers-table">
@@ -19,7 +19,7 @@
                         <th>Id</th>
                         <th>Name</th>
                         <th>Email</th>
-                        <th @click="toggleOrgIdSortOrder">Organization Id</th>
+                        <th @click="toggleOrgIdSortOrder">Organization Name</th>
                         <th>Delete</th>
                     </tr>
                 </thead>
@@ -30,7 +30,7 @@
                         <td>{{ index + 1 }}</td>
                         <td>{{ manager.name }}</td>
                         <td>{{ manager.email }}</td>
-                        <td>{{ manager.organization_id }}</td>
+                        <td>{{ manager.organization.org_name }}</td>
                         <td class="delete-cell">
                             <button @click="deleteManager(manager.id)">Delete</button>
                         </td>
@@ -138,12 +138,13 @@ export default {
                 axios
                     .post(`http://127.0.0.1:8000/api/admin/users/${managerId}`)
                     .then((response) => {
-                        const index = this.managers.findIndex(
-                            (manager) => manager.id === managerId
-                        );
-                        if (index > -1) {
-                            this.managers.splice(index, 1);
-                        }
+                        // const index = this.managers.findIndex(
+                        //     (manager) => manager.id === managerId
+                        // );
+                        // if (index > -1) {
+                        //     this.managers.splice(index, 1);
+                        // }
+                        this.toggleManagers();
                         console.log(response);
                     })
                     .catch((error) => {
@@ -221,7 +222,7 @@ export default {
 }
 .managers-table th {
   padding: 12px;
-  background-color: #2c3e50; /* updated color */
+  background-color: #ff84da; /* updated color */
   color: #fff;
   text-align: left;
 }

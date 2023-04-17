@@ -6,7 +6,7 @@
   >{{ message }}
   </base-dialog>
   <h2 class="header">Create Managers and Workers</h2><br>
-    <div class="csvcontainer">
+    <div class="form-control linear_pink">
       <div class="container">
         <div class="row mx-auto">
           <label for="formFileSm" class="form-label">Create Managers and Worker Using CSV file</label>
@@ -24,7 +24,7 @@
       </div>
     </div><br>
   <form @submit.prevent="submitForm">
-    <div class="form-control">
+    <div class="form-control linear_pink">
       <label for="role">Role</label>
       <select
         v-model="role"
@@ -36,15 +36,15 @@
         <option value="4">Worker</option>
       </select>
     </div>
-    <div class="form-control">
+    <div class="form-control linear_pink">
       <label for="name">Name</label>
       <input type="text" id="name" v-model.trim="name" />
     </div>
-    <div class="form-control">
+    <div class="form-control linear_pink">
       <label for="email">E-Mail</label>
       <input type="email" id="email" v-model.trim="email" />
     </div>
-    <div class="form-control">
+    <div class="form-control linear_pink">
       <label for="password">Password</label>
       <input type="password" id="password" v-model.trim="password" />
     </div>
@@ -151,7 +151,7 @@ export default {
       this.error = null;
     },
 
-    //for sending Data using CSV file
+    //for sending Data using CSV file 
     onFileSelected(event) {
       const file = event.target.files[0];
 
@@ -179,7 +179,8 @@ export default {
   
         const parsedData = Papa.parse(this.csvData, options).data;
         parsedData.pop(); // Remove the last record
-  
+        parsedData.pop();
+        // console.log("Remove Last" ,parsedData);
         const updatedData = parsedData.map(dataRow => {
           const updatedRow = { ...dataRow }; // Create a copy of the row
           if(updatedRow.role_id === 'worker'){
@@ -252,6 +253,7 @@ form, .csvcontainer {
 }
 
 .form-control, .csvcontainer {
+  background: transparent;
   margin: 0.5rem 0;
 }
 
@@ -275,5 +277,9 @@ textarea:focus {
   border-color: #3d008d;
   background-color: #faf6ff;
   outline: none;
+}
+
+.linear_pink{
+background: radial-gradient(circle, rgba(252,248,255,1) 0%, hwb(302 90% 0%) 100%);
 }
 </style>
