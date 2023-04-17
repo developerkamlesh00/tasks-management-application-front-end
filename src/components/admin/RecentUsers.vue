@@ -71,7 +71,7 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 margin-bottom: 20px;
-background-color: #5b86e5;
+background-color: #c75be5;
 padding: 10px;
 border-radius: 10px 10px 0 0;
 }

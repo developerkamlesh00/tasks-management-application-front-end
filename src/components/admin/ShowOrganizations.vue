@@ -3,7 +3,7 @@
     <h2 class="header">Organizations</h2>
     <div class="search-container">
       <input type="text" placeholder="Search organization by name or email" v-model="searchTerm" @input="searchOrganization">
-      <button @click="resetSearch">Reset</button>
+      <button class="reset-button" @click="resetSearch">Reset</button>
     </div>
     <div class="card-list">
       <BaseCard v-for="org in filteredOrganizations" :key="org.id" class="card-item">
@@ -107,6 +107,21 @@ export default {
     color: #4CAF50;
   }
 }
+
+
+.reset-button {
+  padding: 10px 20px;
+  background-color: #dd0c99;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.reset-button:hover {
+  background-color: #e74c3c;
+  cursor: pointer;
+}
 .search-container {
   display: flex;
   justify-content: space-between;
@@ -170,7 +185,7 @@ h3 {
 
 .completed-bar {
   height: 100%;
-  background-color: #4CAF50;
+  background-color: rgb(235, 106, 209);
 }
 
 .remaining-bar {
