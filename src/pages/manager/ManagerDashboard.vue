@@ -1,34 +1,46 @@
 <template>
-   
-    <div class="super">
-        <div class="parent">
-            <router-link to="/manager/projects"><button type="button" class="btn btn-primary">Projects</button></router-link>
-            <router-link to="/manager/workers"><button type="button" class="btn btn-primary">Workers</button></router-link>
-            <router-link to="/manager/review_tasks"><button type="button" class="btn btn-primary">Tasks to be Reviewed</button></router-link>
-            
+     <!--
+        <base-card id="cardmain">
+    <div class="row">
+      <base-card id="card" class="card1">
+        <div class="col-3" >
+          <base-button link :to="{ name: 'vieworganization', params: { add: 'vieworganization' }}">View Organization Details</base-button>
+          <base-button link :to="{ name: 'managerworker', params: { add: 'addmanager' }}">Create Manager & Worker</base-button>
+          <base-button link :to="{ name: 'project', params: { add: 'addproject' }}">Create Project</base-button>
+          <base-button link :to="{ name: 'viewproject', params: { add: 'viewproject' }}">View Projects</base-button>
+          <base-button link :to="{ name: 'viewmanagers', params: { add: 'viewmanagers' }}">View Managers</base-button>
+          <base-button link :to="{ name: 'viewworkers', params: { add: 'viewworkers' }}">View Workers</base-button>
+          <base-button link :to="{ name: 'viewsummary', params: { add: 'viewsummary' }}">View Summary</base-button>
+          <base-button link :to="{ name: 'updateprofile', params: { add: 'updateprofile' }}">Update Profile</base-button>
         </div>
-        <div class="child">
-            <router-view></router-view>
-            <!--<div v-if="showDashboard">
-            <div class="card text-center">
-                <div class="card-header">
-                    <h2>Welcome Back!!!</h2>
-                </div>
-            <div class="card-body card-body-length">
-
-                
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeTbM5NZ1yHH1wx5fQcjA4f_Dwa6cxTn9JonthRTzO&s" style="height: 250px; width: 300px;">
-                <h2 class="card-title">Check how the management is going</h2>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            </div>
-            <div class="card-footer text-body-secondary">
-                2 days ago
-            </div>
+      </base-card>
+      <base-card id="card1">
+        <div class="col-9" style="width:100%">
+            <router-view v-slot="{ Component }">
+              <component :is="Component" />
+            </router-view>
         </div>
+      </base-card>
     </div>
-          -->
+  </base-card>-->
+  <base-card id="cardmain">
+    <div class="row">
+        
+        <base-card id="card" class="card1">
+        <div class="col-3" >
+            <router-link to="/manager/projects"><base-button>Projects</base-button></router-link>
+            <router-link to="/manager/workers"><base-button>Workers</base-button></router-link>
+            <router-link to="/manager/review_tasks"><base-button>Tasks to be Reviewed</base-button></router-link>
+        </div>
+      </base-card>
+      <base-card id="card1">
+        <div class="col-9" style="width:100%">
+            <router-view >
+            </router-view>
+        </div>
+    </base-card>
     </div>
-</div>
+  </base-card>
 
 </template>
 
@@ -46,43 +58,23 @@ export default{
 </script>
 
 <style scoped>
-.super{
-    display: flex;
-    height: fit-content;
-    min-height: 550px;
-    
+#cardmain{
+  max-width: 78rem;
+  min-height:600px;
 }
-
-.parent{
-flex: 1;
-display: flex;
-flex-direction: column;
-align-items: center;
-padding-top: 30px;
+#card {
+  max-width: 18rem;
+  height: 600px;
+  
 }
-
-
-.child{
-    flex:4;
-    padding-top: 30px;
-    padding-right: 30px;
-    
-    
+#card1 {
+  max-width: 57rem;
 }
-
-button{
-  width: fit-content;
-  background-color: #40d476;
-  color: #fff;
-  padding: 15px;
+button,
+a {
   border-radius: 10px;
-  border: none;
-  min-width: 250px;
-  margin-top: 10px;
-  font-weight: bold;
+  margin: 0.2rem;
+  width: 250px;
 }
 
-.card-body-length{
-    height:450px
-}
 </style>

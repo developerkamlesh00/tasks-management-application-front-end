@@ -8,11 +8,8 @@
     </div>
 
     <button @click="showAssignedTasks" type="button" class="btn btn-primary custom-button" >Show Assigned Tasks</button>
-    <div class="table-responsive text-nowrap table-content table-attributes">
-    <table id="dtHorizontalVerticalExample"
-      class="table table-bordered table-sm"
-      cellspacing="0"
-      width="100%" v-show="displayTasks">
+    <div class="table-container">
+    <table class="managers-table" v-show="displayTasks">
   <thead>
     <tr>
       <th scope="col">id</th>
@@ -20,7 +17,6 @@
       <th scope="col">description</th>
       <th scope="col">deadline</th>
       <th scope="col">Project Id</th>
-   
     </tr>
   </thead>
   <tbody>
@@ -108,10 +104,6 @@ computed:{
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@700&display=swap');
-.table-attributes{
-  height: 500px;
-  width:1000px
-}
 
 .custom-button{
   width: fit-content;
@@ -140,5 +132,28 @@ td{
 
   font-family: 'Crimson Text', serif;
 
+}
+
+.table-container {
+  margin-top: 20px;
+  height: 500px;
+  overflow: scroll;
+  
+}
+.managers-table {
+  width: 100%;
+  border-collapse: separate;
+  font-size: 16px;
+}
+.managers-table td {
+  padding: 12px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+.managers-table th {
+  padding: 12px;
+  background-color: #ff84da; /* updated color */
+  color: #fff;
+  text-align: left;
 }
 </style>

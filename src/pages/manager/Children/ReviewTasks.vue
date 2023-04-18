@@ -1,12 +1,9 @@
 <template>
 
-  <h1 style="text-align: center;font-family: 'Bebas Neue', cursive;">Tasks To be Reviewed</h1>
+  <h1 class="header">Tasks To be Reviewed</h1>
 
-<div class="table-responsive text-nowrap table-content table-attributes">
-<table id="dtHorizontalVerticalExample"
-      class="table table-bordered table-sm"
-      cellspacing="0"
-      width="100%">
+<div class="table-container">
+<table class="managers-table">
   <thead>
     <tr>
       <th scope="col">id</th>
@@ -102,12 +99,34 @@ computed:{
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@700&display=swap');
-
-
-.table-attributes{
+.header {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #2c3e50; /* updated color */
+  text-align: center;
+  font-family: 'Bebas Neue', cursive;
+}
+.table-container {
+  margin-top: 20px;
   height: 500px;
-  width:1000px;
-
+  overflow: scroll;
+}
+.managers-table {
+  width: 100%;
+  border-collapse: separate;
+  font-size: 16px;
+}
+.managers-table td {
+  padding: 12px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+.managers-table th {
+  padding: 12px;
+  background-color: #ff84da; /* updated color */
+  color: #fff;
+  text-align: left;
 }
 
 th{
@@ -118,7 +137,8 @@ td{
 
   font-family: 'Crimson Text', serif;
 
-
 }
+
+
 
 </style>

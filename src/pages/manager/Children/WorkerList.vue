@@ -1,13 +1,10 @@
 <template>
     
-    <h1 style="text-align: center; font-family: 'Bebas Neue', cursive;" >WorkerList</h1>
+    <h1 class="header" style="font-family: 'Bebas Neue', cursive;" >WorkerList</h1>
 
-    <div class="table-responsive text-nowrap table-content table-attributes">
+    <div class="table-container">
 
-<table id="dtHorizontalVerticalExample"
-      class="table table-bordered table-sm"
-      cellspacing="0"
-      width="100%">
+<table class="managers-table">
   <thead>
     <tr>
       <th scope="col">id</th>
@@ -59,16 +56,18 @@ methods:{
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@700&display=swap');
+.header {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #2c3e50; /* updated color */
+  text-align: center;
+}
 a{
   text-decoration: none;
   color: black;  
 }
 
-.table-attributes{
-  height: 500px;
-  width:1000px;
-  
-}
 
 .enter:hover{
   background-color: lightcoral;
@@ -85,12 +84,32 @@ a:hover{
 
 th{
   font-family: 'Crimson Text', serif;
-
 }
 td{
-
   font-family: 'Crimson Text', serif;
+}
 
 
+.table-container {
+  margin-top: 20px;
+  height: 500px;
+  overflow: scroll;
+
+}
+.managers-table {
+  border-collapse: separate;
+  font-size: 16px;
+  width: 100%;
+}
+.managers-table td {
+  padding: 12px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+.managers-table th {
+  padding: 12px;
+  background-color: #ff84da; /* updated color */
+  color: #fff;
+  text-align: left;
 }
 </style>

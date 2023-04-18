@@ -3,14 +3,14 @@
     <div class="card-wrap">
                
        <div v-if="singleProject">
-          <h1 style="text-align: center; font-family: 'Bebas Neue', cursive;">Title</h1>
-          <h2 style="text-align: center; font-family: 'Alkatra', cursive;">{{ singleProject.title }}</h2>
-          <h2 style="text-align: center; font-family: 'Bebas Neue', cursive;">Description</h2>
+          <h1 class="header">Title</h1>
+          <h2 style="font-family: 'Alkatra', cursive; text-align:center;">{{ singleProject.title }}</h2>
+          <h2 class="header">Description</h2>
           <h3 style="text-align: center; font-family: 'Alkatra', cursive;">{{ singleProject.description }}</h3>
-          <h3 style="font-family: 'Bebas Neue', cursive;">Date Assigned: <span style="font-family: 'Alkatra', cursive;" v-if="singleProject.assigned_at">{{ singleProject.assigned_at.substr(0,10)  }}</span></h3>
-          <h3 style="font-family: 'Bebas Neue', cursive;">Deadline: <span style="font-family: 'Alkatra', cursive;" v-if="singleProject.estimated_deadline">{{ singleProject.estimated_deadline.substr(0,10) }}</span></h3>
-          <h3 style="font-family: 'Bebas Neue', cursive;">Date Completed : <span style="font-family: 'Alkatra', cursive;" v-if="singleProject.completed_at">{{ singleProject.completed_at.substr(0,10) }}</span></h3>
-          <h3 style="font-family: 'Bebas Neue', cursive;">Tasks Completed:<span style="font-family: 'Alkatra', cursive;">{{ singleProject.tasks_completed }}/{{ singleProject.total_tasks }}</span></h3>
+          <h3 class="header">Date Assigned: <span style="font-family: 'Alkatra', cursive;" v-if="singleProject.assigned_at">{{ singleProject.assigned_at.substr(0,10)  }}</span></h3>
+          <h3 class="header">Deadline: <span style="font-family: 'Alkatra', cursive;" v-if="singleProject.estimated_deadline">{{ singleProject.estimated_deadline.substr(0,10) }}</span></h3>
+          <h3 class="header">Date Completed : <span style="font-family: 'Alkatra', cursive;" v-if="singleProject.completed_at">{{ singleProject.completed_at.substr(0,10) }}</span></h3>
+          <h3 class="header">Tasks Completed:<span style="font-family: 'Alkatra', cursive;">{{ singleProject.tasks_completed }}/{{ singleProject.total_tasks }}</span></h3>
          
         </div>        
     </div> 
@@ -85,11 +85,8 @@
 <!--Create Task Modal ends-->
 
 <!--Show Data table starts-->
-  <div class="table-responsive text-nowrap table-content table-attributes">
-    <table id="dtHorizontalVerticalExample"
-      class="table table-bordered table-sm"
-      cellspacing="0"
-      width="100%" v-show="displayTasks">
+  <div class="table-container">
+    <table class="managers-table" v-show="displayTasks">
   <thead>
     <tr>
       <th scope="col">Id</th>
@@ -344,10 +341,37 @@ computed:{
   margin-bottom: 20px;
 }
 
-.table-attributes{
-  height: 500px;
-  width:1000px
+.header {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #2c3e50; /* updated color */
+  text-align: center;
+  font-family: 'Bebas Neue', cursive;
 }
+.table-container {
+  margin-top: 20px;
+  height: 500px;
+  overflow: scroll;
+  
+}
+.managers-table {
+  width: 100%;
+  border-collapse: separate;
+  font-size: 16px;
+}
+.managers-table td {
+  padding: 12px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+.managers-table th {
+  padding: 12px;
+  background-color: #ff84da; /* updated color */
+  color: #fff;
+  text-align: left;
+}
+
 .custom{
   margin-right: 20px;
   margin-bottom: 30px;
