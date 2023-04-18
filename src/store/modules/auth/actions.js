@@ -1,103 +1,85 @@
-let timer;
+import setAuthHeader from "@/utils/setHeader";
+import axios from "axios";
 
 export default {
   async login(context, payload) {
-    return context.dispatch('auth', {
+    return context.dispatch("auth", {
       ...payload,
-      mode: 'login'
     });
   },
-//   async signup(context, payload) {
-//     return context.dispatch('auth', {
-//       ...payload,
-//       mode: 'signup'
-//     });
-//   },
 
   async auth(context, payload) {
-    const mode = payload.mode;
-    let url =
-      'identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD_Y2AC8JM9AL726VGLtWgQR29jl7u96Yc';
+    await axios
+      .post("http://localhost:8000/api/login", payload)
+      .then(function (response) {
+        // console.log(response);
+        // console.log(response.status);
+        if (response.status === 203) {
+          const error = new Error(
+            "Failed to authenticate. Check your login data."
+          );
+          throw error;
+        }
 
-    if (mode === 'signup') {
-      url =
-        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD_Y2AC8JM9AL726VGLtWgQR29jl7u96Yc';
-    }
-    const response = await fetch(url, {
-      method: 'POST',
-      body: JSON.stringify({
-        email: payload.email,
-        password: payload.password,
-        returnSecureToken: true
-      })
+        //setHeader Token
+        setAuthHeader(response.data.token);
+
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("userId", response.data.userId);
+        localStorage.setItem("name", response.data.name);
+        localStorage.setItem("role", response.data.role);
+        localStorage.setItem("organization_id", response.data.organization_id);
+
+        context.commit("setUser", {
+          token: response.data.token,
+          userId: response.data.userId,
+          name: response.data.name,
+          role: response.data.role,
+          organization_id: response.data.organization_id,
+        });
     });
-
-    const responseData = await response.json();
-
-    if (!response.ok) {
-      const error = new Error(
-        responseData.message || 'Failed to authenticate. Check your login data.'
-      );
-      throw error;
-    }
-
-    const expiresIn = +responseData.expiresIn * 1000;
-    // const expiresIn = 5000;
-    const expirationDate = new Date().getTime() + expiresIn;
-
-    localStorage.setItem('token', responseData.idToken);
-    localStorage.setItem('userId', responseData.localId);
-    localStorage.setItem('tokenExpiration', expirationDate);
-
-    timer = setTimeout(function() {
-      context.dispatch('autoLogout');
-    }, expiresIn);
-
-    context.commit('setUser', {
-      token: responseData.idToken,
-      userId: responseData.localId
-    });
+    return;
   },
   tryLogin(context) {
-    const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('userId');
-    const tokenExpiration = localStorage.getItem('tokenExpiration');
+    const token = localStorage.getItem("token");
+    const userId = localStorage.getItem("userId");
+    const name = localStorage.getItem("name");
+    const role = localStorage.getItem("role");
+    const organization_id = localStorage.getItem("organization_id");
 
-    const expiresIn = +tokenExpiration - new Date().getTime();
+    //setHeader Token
+    setAuthHeader(token);
 
-    if (expiresIn < 0) {
-      return;
-    }
-
-    timer = setTimeout(function() {
-      context.dispatch('autoLogout');
-    }, expiresIn);
+    // console.log(token);
+    
+    console.log("user_id",userId);
+    console.log("role_id",role);
 
     if (token && userId) {
-      context.commit('setUser', {
+      context.commit("setUser", {
         token: token,
-        userId: userId
+        userId: userId,
+        name: name,
+        role: role,
+        organization_id:organization_id,
       });
     }
   },
   logout(context) {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('tokenExpiration');
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("name");
+    localStorage.removeItem("role");
+    localStorage.removeItem("organization_id");
 
-    clearTimeout(timer);
+    setAuthHeader(false); //reset setHeader token
 
-    context.commit('setUser', {
+    context.commit("setUser", {
       token: null,
-      userId: null
+      userId: null,
+      name: null,
+      role: null,
+      organization_id: null,
     });
   },
-  autoLogout(context) {
-    context.dispatch('logout');
-    context.commit('setAutoLogout');
-  }
 };
-
-
-
-
