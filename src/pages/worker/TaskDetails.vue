@@ -109,7 +109,7 @@ export default {
         // Creating a comment and updating vuex state with new comments
         async createComment() {
             await axios.post(
-                `http://localhost:8000/api/comments`, {
+                `http://localhost:8000/api/worker/comments`, {
                 'user_id': this.userId,
                 'task_id': this.id,
                 'body': this.comment_body
@@ -122,7 +122,7 @@ export default {
         // Edit a comment and updating vuex state with new comments
         async editComment(comment_id) {
             await axios.put(
-                `http://localhost:8000/api/comments/${comment_id}`, {
+                `http://localhost:8000/api/worker/comments/${comment_id}`, {
                 'body': this.edit_comment_body
             })
             this.edit_comment_body = '';
@@ -133,7 +133,7 @@ export default {
         // Deleting a comment and updating vuex state with new comments
         async deleteComment(comment_id) {
             await axios.delete(
-                `http://localhost:8000/api/comments/${comment_id}`)
+                `http://localhost:8000/api/worker/comments/${comment_id}`)
             await this.fetchTaskComments({ "task_id": this.id })
         },
 

@@ -22,9 +22,9 @@ export default {
   // Get all tasks of one particular project
   async fetchProjectAllTasks(state,payload) {
     state.commit('setLoading')
-    console.log(`http://localhost:8000/api/project/${payload.project_id}/tasks`)
+    console.log(`http://localhost:8000/api/worker/project/${payload.project_id}/tasks`)
     const tasks=await axios.get(
-      `http://localhost:8000/api/project/${payload.project_id}/tasks`
+      `http://localhost:8000/api/worker/project/${payload.project_id}/tasks`
     )    
     state.commit('unsetLoading')
     state.commit('setProjectTasks',tasks.data);
@@ -48,7 +48,7 @@ export default {
     async fetchTaskComments(state, payload) {
     state.commit('setLoading')
     const comments=await axios.get(
-      `http://localhost:8000/api/task/${payload.task_id}/comments`
+      `http://localhost:8000/api/worker/task/${payload.task_id}/comments`
       )    
       state.commit('unsetLoading')
       state.commit('setComments',comments.data);
@@ -58,7 +58,7 @@ export default {
     // Used to update status of a task when task is drag and drop on another board/task-pane or when worker changes the task status using select (drop down) box
     async updateTaskStatus({ dispatch }, payload) {
       await axios.post(
-        `http://localhost:8000/api/update_status/task/${payload.task_id}/status/${payload.status_id}`
+        `http://localhost:8000/api/worker/update_status/task/${payload.task_id}/status/${payload.status_id}`
         )
         dispatch('fetchWorkerTasks',{isFirstRequest:true})
         return;
