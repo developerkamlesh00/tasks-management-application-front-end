@@ -35,7 +35,7 @@
                             <button @click="deleteManager(manager.id)">Delete</button>
                         </td>
                     </tr>
-                    <tr v-if="pagedManagers.length === 0">
+                    <tr v-if="pagedManagers.length === 0 && !isLoading">
                         <td colspan="5" style="text-align: center;">
                             No manager present.
                         </td>
