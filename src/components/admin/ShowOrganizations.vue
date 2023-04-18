@@ -2,7 +2,8 @@
   <div class="container">
     <h2 class="header">Organizations</h2>
     <div class="search-container">
-      <input type="text" placeholder="Search organization by name or email" v-model="searchTerm" @input="searchOrganization">
+      <input type="text" placeholder="Search organization by name or email" v-model="searchTerm"
+        @input="searchOrganization">
       <button class="reset-button" @click="resetSearch">Reset</button>
     </div>
     <div class="card-list">
@@ -10,10 +11,16 @@
         <h3>{{ org.org_name }}</h3>
         <p><strong>E-mail:</strong> {{ org.org_email }}</p>
         <div class="bar-container">
-          <div class="completed-bar" :style="{ width: org.projects_completed/org.total_projects*100 + '%' }"></div>
-          <div class="remaining-bar" :style="{ width: (org.total_projects-org.projects_completed)/org.total_projects*100 + '%' }"></div>
+          <div class="completed-bar"
+            :style="{ width: org.total_projects !== 0 ? org.projects_completed / org.total_projects * 100 + '%' : '0%' }">
+          </div>
+          <!-- <div class="remaining-bar"
+            :style="{ width: org.total_projects !== 0 ? (org.total_projects - org.projects_completed) / org.total_projects * 100 + '%' : '0%' }">
+          </div> -->
         </div>
-        <p class="project-status"><strong>Projects Completed:</strong> {{ org.projects_completed }} / {{ org.total_projects }}</p>
+
+        <p class="project-status"><strong>Projects Completed:</strong> {{ org.projects_completed }} / {{
+          org.total_projects }}</p>
       </BaseCard>
     </div>
     <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
@@ -36,11 +43,11 @@ export default {
       errorMessage: ''
     }
   },
-  
+
   mounted() {
     this.toggleOrganizations();
   },
-  
+
   computed: {
     filteredOrganizations() {
       if (this.searchTerm) {
@@ -89,10 +96,10 @@ export default {
 
 .header {
   font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #333;
-    text-align: center;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+  text-align: center;
   animation: color-change 5s infinite;
 }
 
@@ -100,9 +107,11 @@ export default {
   0% {
     color: #4CAF50;
   }
+
   50% {
     color: #f44336;
   }
+
   100% {
     color: #4CAF50;
   }
@@ -122,6 +131,7 @@ export default {
   background-color: #e74c3c;
   cursor: pointer;
 }
+
 .search-container {
   display: flex;
   justify-content: space-between;
@@ -188,12 +198,13 @@ h3 {
   background-color: rgb(235, 106, 209);
 }
 
-.remaining-bar {
+/* .remaining-bar {
   height: 100%;
   background-color: #f44336;
-}
+} */
 
-.completed-bar, .remaining-bar {
+.completed-bar,
+.remaining-bar {
   height: 100%;
   transition: width 0.3s ease-in-out;
 }
@@ -207,7 +218,6 @@ h3 {
   color: red;
   font-size: 16px;
   margin-top: 20px;
-}
-</style>
+}</style>
 
 
