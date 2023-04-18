@@ -1,28 +1,4 @@
 <template>
-     <!--
-        <base-card id="cardmain">
-    <div class="row">
-      <base-card id="card" class="card1">
-        <div class="col-3" >
-          <base-button link :to="{ name: 'vieworganization', params: { add: 'vieworganization' }}">View Organization Details</base-button>
-          <base-button link :to="{ name: 'managerworker', params: { add: 'addmanager' }}">Create Manager & Worker</base-button>
-          <base-button link :to="{ name: 'project', params: { add: 'addproject' }}">Create Project</base-button>
-          <base-button link :to="{ name: 'viewproject', params: { add: 'viewproject' }}">View Projects</base-button>
-          <base-button link :to="{ name: 'viewmanagers', params: { add: 'viewmanagers' }}">View Managers</base-button>
-          <base-button link :to="{ name: 'viewworkers', params: { add: 'viewworkers' }}">View Workers</base-button>
-          <base-button link :to="{ name: 'viewsummary', params: { add: 'viewsummary' }}">View Summary</base-button>
-          <base-button link :to="{ name: 'updateprofile', params: { add: 'updateprofile' }}">Update Profile</base-button>
-        </div>
-      </base-card>
-      <base-card id="card1">
-        <div class="col-9" style="width:100%">
-            <router-view v-slot="{ Component }">
-              <component :is="Component" />
-            </router-view>
-        </div>
-      </base-card>
-    </div>
-  </base-card>-->
   <base-card id="cardmain">
     <div class="row">
         
@@ -31,6 +7,7 @@
             <router-link to="/manager/projects"><base-button>Projects</base-button></router-link>
             <router-link to="/manager/workers"><base-button>Workers</base-button></router-link>
             <router-link to="/manager/review_tasks"><base-button>Tasks to be Reviewed</base-button></router-link>
+            <router-link to="/manager/"><base-button>My Profile</base-button></router-link>
         </div>
       </base-card>
       <base-card id="card1">

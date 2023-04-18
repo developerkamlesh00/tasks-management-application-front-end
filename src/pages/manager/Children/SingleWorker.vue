@@ -2,8 +2,8 @@
 
     <div class="card-wrap">
       <div v-if="singleWorker">
-        <h1 style="text-align: center; font-family: 'Bebas Neue', cursive;">Name: <span style="font-family: 'Alkatra', cursive;">{{singleWorker.name}}</span></h1>
-        <h3 style="text-align: center; font-family: 'Bebas Neue', cursive;">Email: <span style="font-family: 'Alkatra', cursive;">{{ singleWorker.email}}</span></h3>
+        <h1 style="text-align: center; font-family:'Bebas Neue', cursive;">Name: <span style="font-family: 'Alkatra', cursive;">{{singleWorker.name}}</span></h1>
+        <h3 style="text-align: center; font-family:'Bebas Neue', cursive;">Email: <span style="font-family: 'Alkatra', cursive;">{{ singleWorker.email}}</span></h3>
       </div>     
     </div>
 
@@ -25,7 +25,7 @@
         <!--<router-link :to="'/manager/projects/'+taskList.id"></router-link>-->
         <td>{{assignedTaskList.title}}</td>
         <td>{{assignedTaskList.description}}</td>
-        <td>{{assignedTaskList.estimated_deadline}}</td>
+        <td>{{assignedTaskList.estimated_deadline.substr(0,10)}}</td>
         <td>{{ assignedTaskList.project_id }}</td>
        
       </tr>
@@ -51,16 +51,11 @@ export default{
  
  },
   mounted() {
-    //const newurl = this.$router.currentRoute.value.fullpath.lastIndexOf('/')
-    //console.log(newurl)
     const url = this.$router.currentRoute.value.fullPath
     const pathLength=this.$router.currentRoute.value.fullPath.length-1
     const lastNumber = url.lastIndexOf("/")
-    //console.log(lastNumber)
     const id = url.substr(lastNumber+1, pathLength)
-    //console.log(id)
-    
-    //console.log(url[pathLength])
+   
     this.$store.dispatch('manager/getWorker', {value:id}) 
     
   },
