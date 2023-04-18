@@ -1,13 +1,9 @@
 <template>
     
-    <h1 style="text-align: center; font-family: 'Bebas Neue', cursive;">Projects Assigned</h1>
+    <h1 class="header" style="font-family: 'Bebas Neue', cursive;">Projects Assigned</h1>
 
-    <div class="table-responsive text-nowrap table-content table-attributes">
-    <table
-      id="dtHorizontalVerticalExample"
-      class="table table-bordered table-sm"
-      cellspacing="0"
-      width="100%">
+    <div class="table-container">
+    <table class="managers-table">
       <thead>
         <tr>
           <th scope="col">No.</th>
@@ -15,11 +11,10 @@
           <th scope="col">Desciption</th>
           <th scope="col">Assigned Date</th>
           <th scope="col">Estimated Deadline</th>
-          <th scope="col">Completed Tasks</th>
+          <th scope="col">Completed Date</th>
           <th scope="col">Completed Tasks</th>
           <th scope="col">Total Tasks</th>
-          <th scope="col">Worker Visibility</th>
-          
+          <th scope="col">Worker Visibility</th>         
           
         </tr>
       </thead>
@@ -95,12 +90,6 @@ a{
   color: black;
   
 }
-
-.table-attributes{
-  height: 500px;
-  width:1000px
-}
-
 .enter:hover{
   background-color: lightcoral;
   cursor: pointer;
@@ -120,9 +109,37 @@ th{
 
 }
 td{
-
   font-family: 'Crimson Text', serif;
+}
 
+.table-container {
+  margin-top: 20px;
+  height: 500px;
+  overflow: scroll;
+}
+.managers-table {
+  width: 100%;
+  border-collapse: separate;
+  font-size: 16px;
+}
 
+.header {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #2c3e50; /* updated color */
+  text-align: center;
+}
+
+.managers-table td {
+  padding: 12px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+.managers-table th {
+  padding: 12px;
+  background-color: #ff84da; /* updated color */
+  color: #fff;
+  text-align: left;
 }
 </style>
