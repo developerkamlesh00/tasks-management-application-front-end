@@ -35,7 +35,7 @@ export default {
   async fetchProjectWorkerTasks(state,payload) {
     state.commit('setLoading')
     const worker_id = localStorage.getItem("userId");
-    console.log(`http://localhost:8000/api/worker/${worker_id}/project/${payload.project_id}/tasks`)
+    // console.log(`http://localhost:8000/api/worker/${worker_id}/project/${payload.project_id}/tasks`)
     const tasks=await axios.get(
       `http://localhost:8000/api/worker/${worker_id}/project/${payload.project_id}/tasks`
       )    

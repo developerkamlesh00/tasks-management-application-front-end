@@ -79,7 +79,7 @@
             </tr>
             <!-- If there are no tasks assigned to this worker -->
             <tr v-if="getFilteredRows.length == 0">
-                <td colspan="8" class="text-center bg-info">No task assigned yet!</td>
+                <td colspan="8" class="text-center bg-info">No task!</td>
             </tr>
         </tbody>
     </table> 
