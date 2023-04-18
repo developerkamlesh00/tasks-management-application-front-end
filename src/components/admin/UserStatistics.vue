@@ -121,14 +121,18 @@ export default {
 }
 
 .card-title {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 700;
   margin: 0;
   color: white;
   background-color: #c75be5;
   text-transform: uppercase;
   letter-spacing: 2px;
+  padding: 10px 20px; /* Add padding to make the title more visible */
+  border-radius: 20px; /* Add border-radius to match the style of other elements */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Add box-shadow to give the title depth */
 }
+
 
 canvas {
   margin-top: 20px;
