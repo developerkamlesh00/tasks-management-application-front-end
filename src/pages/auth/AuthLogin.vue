@@ -1,7 +1,13 @@
 <template>
   <div>
+    <base-dialog
+    :show="viewForm"
+    :title= "messagetitle"
+    @close="handleDialog"
+    >{{ message }}
+    </base-dialog>
     <base-card>
-      <form @submit.prevent="submitForm">
+      <form @submit.prevent="loginUser">
         <div class="form-control">
           <label for="email">E-Mail</label>
           <input type="email" id="email" v-model.trim="email" />
@@ -14,7 +20,7 @@
           Please enter a valid email and password (must be at least 6 characters
           long).
         </p>
-        <p v-if="error">
+        <p v-if="error" class="text-danger">
           {{ error }}
         </p>
         <p class="forgot-password text-right">
@@ -35,10 +41,19 @@ export default {
       password: "",
       formIsValid: true,
       error: null,
+
+      viewForm: false,
+      message : '',
+      messagetitle: '',
     };
   },
   methods: {
-    async submitForm() {
+    handleDialog() {
+      this.viewForm = false;
+      this.message = '';
+      this.messagetitle = '';
+    },
+    async loginUser() {
       this.formIsValid = true;
       if (
         this.email === "" ||
@@ -60,8 +75,14 @@ export default {
         const redirectUrl = "/" + this.$store.getters.role;
         this.$router.replace(redirectUrl);
 
+
       }catch(error){
         this.error = "Failed to authenticate. Check your login data.";
+        if(error.response.status == 429){
+          this.viewForm = true;
+          this.message = 'You are trying to login more than 4 attempt in a minute. Please try after some time.';
+          this.messagetitle = 'Too Many Requests';
+        }
       }
 
     },
