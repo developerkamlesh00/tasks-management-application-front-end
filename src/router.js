@@ -123,11 +123,11 @@ const routes = [
   },
   {
     path: "/worker",
-    name: "worker",
     component: WorkerView,
     children: [
       {
         path:"",
+        name: "worker",
         redirect: "/worker/dashboard",
       },
       {

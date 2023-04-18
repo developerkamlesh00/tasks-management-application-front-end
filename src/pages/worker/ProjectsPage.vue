@@ -17,24 +17,19 @@
                 <th>ID</th>
                 <th>Title</th>
                 <th>Description</th>
-                <th>Progress</th>
                 <th>Manager</th>
                 <th>View</th>
             </tr>
         </thead>
         <tbody>
-
             <tr v-for="project in getProjects" :key="project.id">
-                <!-- {{ project }} -->
                 <td>{{ project.id }}</td>
                 <td>{{ project.title }}</td>
                 <td>{{ project.description.slice(0,10) }}...</td>
-                <td>{{ project.tasks_completed }}/{{ project.total_tasks }}</td>
                 <td>{{ project.user.name }}</td>
                 <td><button @click="fetchProjectTasks(project.id)" class="btn btn-sm" :class="project.workers_visibility?'btn-warning':'btn-info'">{{ project.workers_visibility?'All':'My tasks' }}
                 </button></td>        
             </tr>         
-            
         </tbody>
     </table>
     
@@ -63,7 +58,10 @@ export default{
         ...mapActions('worker',['fetchProjectWorkerTasks']),
         async fetchProjectTasks(id){
             this.isLoading=true;
+            // Getting which project was clicked
             const project=this.getProjects.find((p)=>p.id===id);
+            
+            // Getting all tasks/ only worker tasked  based on the worker's privelege to view all tasks or not
             if(project.workers_visibility===1){
                await this.fetchProjectAllTasks({'project_id':id});
             }else{
