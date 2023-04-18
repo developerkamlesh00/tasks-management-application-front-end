@@ -19,7 +19,7 @@
     </div>
     <div class="form-control linear_pink">
       <label for="estimated">Estimated Deadline</label>
-      <input type="date" id="estimated" v-model.trim="estimated_deadline" />
+      <input type="date" id="estimated" v-model.trim="estimated_deadline" :min="minDeadline"/>
     </div>
 
     <div class="form-control linear_pink">
@@ -60,6 +60,17 @@ export default {
       error: [],
       successful: null,
     };
+  },
+  computed:{
+    minDeadline() {
+      if (this.assign_at) {
+        const minDate = new Date(this.assign_at) // Get the date object for the day after the "assign_at" date
+        minDate.setDate(minDate.getDate() + 1) 
+        return minDate.toISOString().split('T')[0]// Convert the date object to an ISO string for use in the "min" attribute
+      } else {
+        return ''  // If no "assign_at" date has been selected, return an empty string
+      }
+    }
   },
   methods: {
     async createProject() {

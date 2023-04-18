@@ -31,8 +31,7 @@
       <div class="form-control">
         <label for="estimated">Estimated Deadline</label>
         <!-- <label for="estimated">{{ estimated_deadline }}</label> -->
-        <!-- <input type="date" id="estimated" v-model.trim="estimated_deadline" /> -->
-        <input type="date" id="estimated" v-model.trim="assign_at_string1" />
+        <input type="date" id="estimated" v-model.trim="assign_at_string1" :min="minDeadline"/>
       </div>
       <div class="form-control">
         <label for="role">Manager Name</label>
@@ -187,6 +186,16 @@ export default {
         return projects;
       }
     },
+    //for date disable computed prop
+    minDeadline() {
+      if (this.assign_at_string) {
+        const minDate = new Date(this.assign_at_string) // Get the date object for the day after the "assign_at" date
+        minDate.setDate(minDate.getDate() + 1) 
+        return minDate.toISOString().split('T')[0]// Convert the date object to an ISO string for use in the "min" attribute
+      } else {
+        return ''  // If no "assign_at" date has been selected, return an empty string
+      }
+    }
   },
   //for update Date
   watch: {
