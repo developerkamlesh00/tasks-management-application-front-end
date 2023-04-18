@@ -10,7 +10,7 @@
                     {{ orgId }}
                 </option>
             </select>
-            <button @click="resetSearch">Reset</button>
+            <button class="reset-button" @click="resetSearch">Reset</button>
         </div>
         <div class="table-container">
             <table class="managers-table">
@@ -25,7 +25,7 @@
                 </thead>
 
                 <tbody>
-                    <!-- Loop through the pagedWorkers to show workers in the table -->
+                    <!-- Loop through the pagedmanagers to show managers in the table -->
                     <tr v-for="(manager, index) in pagedManagers" :key="manager.id">
                         <td>{{ index + 1 }}</td>
                         <td>{{ manager.name }}</td>
@@ -175,8 +175,21 @@ export default {
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 10px;
-  color: #2c3e50; /* updated color */
+  color: #8f0778; 
   text-align: center;
+}
+.reset-button {
+  padding: 10px 20px;
+  background-color: #dd0c99;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.reset-button:hover {
+  background-color: #e74c3c;
+  cursor: pointer;
 }
 
 .search-container {
@@ -209,7 +222,7 @@ export default {
   font-size: 16px;
   border-radius: 4px;
   border: none;
-  background-color: #2c3e50; /* updated color */
+  background-color: #dd0c99; 
   color: #fff;
 }
 
@@ -225,7 +238,7 @@ export default {
 
 .managers-table th {
   padding: 12px;
-  background-color: #2c3e50; /* updated color */
+  background-color:rgb(227 64 174); 
   color: #fff;
   text-align: left;
 }
@@ -245,7 +258,7 @@ export default {
   font-size: 16px;
   border-radius: 4px;
   border: none;
-  background-color: #e74c3c; /* updated color */
+  background-color: #e74c3c; 
   color: #fff;
 }
 
@@ -256,18 +269,18 @@ export default {
 }
 
 .pagination-container button {
-  padding: 8px 12px;
-  font-size: 16px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  background-color: #fff;
-  margin-right: 10px;
+    background-color: #8f0778;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  margin: 0 2px;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 .pagination-container button.active {
-  background-color: #2c3e50; /* updated color */
-  color: #fff;
-  border: none;
+    background-color: pink;
+  color: #8f0778;
 }
 
 .error-message {

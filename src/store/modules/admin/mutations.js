@@ -1,57 +1,34 @@
 export default {
-  SET_RECENT_USERS(state, recentUsers) {
-    state.recentUsers = recentUsers;
-  },
-
   SET_DIRECTORS(state, directors) {
     state.directors = directors;
+    // console.log(directors);
   },
   SET_ERROR_MESSAGE(state, errorMessage) {
     state.errorMessage = errorMessage;
   },
-  SET_SEARCH_TERM(state, searchTerm) {
-    state.searchTerm = searchTerm;
-  },
-  SET_SELECTED_ORG_ID(state, selectedOrgId) {
-    state.selectedOrgId = selectedOrgId;
-  },
-  SET_CURRENT_PAGE(state, currentPage) {
-    state.currentPage = currentPage;
-  },
+  deleteDirectorSuccess(state, payload) {
+    const index = state.directors.findIndex(
+      (director) => director.id === payload.directorId
+    );
 
-  ////// Manager
-  setManagers(state, managers) {
+    if (index > -1) {
+      state.directors.splice(index, 1);
+    }
+  },
+  SET_MANAGERS(state, managers) {
     state.managers = managers;
+    // console.log(directors);
   },
-  setManagerErrorMessage(state, errorMessage) {
-    state.managerErrorMessage = errorMessage;
+  SET_ERROR_MESSAGE_MAANGER(state, errorMessageManager) {
+    state.errorMessageManager = errorMessageManager;
   },
-  setManagerSearchTerm(state, searchTerm) {
-    state.managerSearchTerm = searchTerm;
-  },
-  setManagerSelectedOrgId(state, orgId) {
-    state.managerSelectedOrgId = orgId;
-  },
-  setManagerCurrentPage(state, page) {
-    state.managerCurrentPage = page;
-  },
+  deleteManagerSuccess(state, payload) {
+    const index = state.managers.findIndex(
+      (manager) => manager.id === payload.managerId
+    );
 
-  ///////Worker
-  setWorkers(state, workers) {
-    state.workers = workers;
-  },
-  setWorkerErrorMessage(state, errorMessage) {
-    state.workerErrorMessage = errorMessage;
-  },
-  setWorkerSearchTerm(state, searchTerm) {
-    console.log( state.workerSearchTerm);
-    state.workerSearchTerm = searchTerm;
-  },
-  setWorkerSelectedOrgId(state, orgId) {
-    state.workerSelectedOrgId = orgId;
-  },
-  setWorkerCurrentPage(state, page) {
-    // console.log(state.workerCurrentPage);
-    state.workerCurrentPage = page;
+    if (index > -1) {
+      state.managers.splice(index, 1);
+    }
   },
 };

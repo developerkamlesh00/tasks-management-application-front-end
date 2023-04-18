@@ -35,7 +35,7 @@
                             <button @click="deleteWorker(worker.id)">Delete</button>
                         </td>
                     </tr>
-                    <tr v-if="pagedWorkers.length === 0">
+                    <tr v-if="pagedWorkers.length === 0 && !isLoading">
                         <td colspan="5" style="text-align: center;">
                             No workers present.
                         </td>

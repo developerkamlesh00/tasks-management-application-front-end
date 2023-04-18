@@ -37,7 +37,9 @@
         <div class="card col-lg-3 col-sm-6 mb-3">
             <h2 class="card-title">Vrutik</h2>
             <img class="mx-auto d-block" 
+
             src="../assets/profiles/vru.png">
+
         </div>
     </div>
 
