@@ -19,7 +19,7 @@
                         <th>Id</th>
                         <th>Name</th>
                         <th>Email</th>
-                        <th @click="toggleOrgIdSortOrder">Organization Id</th>
+                        <th @click="toggleOrgIdSortOrder">Organization Name</th>
                         <th>Delete</th>
                     </tr>
                 </thead>
@@ -30,7 +30,7 @@
                         <td>{{ index + 1 }}</td>
                         <td>{{ manager.name }}</td>
                         <td>{{ manager.email }}</td>
-                        <td>{{ manager.organization_id }}</td>
+                        <td>{{ manager.organization_name }}</td>
                         <td class="delete-cell">
                             <button @click="deleteManager(manager.id)">Delete</button>
                         </td>
@@ -79,7 +79,7 @@ export default {
     },
     computed: {
         orgIds() {
-            return [...new Set(this.managers.map((manager) => manager.organization_id))];
+            return [...new Set(this.managers.map((manager) => manager.organization_name))];
         },
         filteredManagers() {
             this.resetPage();
@@ -92,7 +92,7 @@ export default {
             }
             if (this.selectedOrgId !== '') {
                 filteredManagers = filteredManagers.filter(
-                    (manager) =>manager.organization_id === this.selectedOrgId
+                    (manager) =>manager.organization_name === this.selectedOrgId
                 );
             }
             return filteredManagers;

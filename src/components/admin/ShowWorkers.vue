@@ -5,7 +5,7 @@
             <input type="text" placeholder="Search worker by name" v-model="searchTerm" @input="searchWorker"
                 @click="searchWorkers" />
             <select v-model="selectedOrgId">
-                <option value="">Filter by organization ID</option>
+                <option value="">Filter by organization </option>
                 <option v-for="orgId in orgIds" :key="orgId" :value="orgId">
                     {{ orgId }}
                 </option>
@@ -19,7 +19,7 @@
                         <th>Id</th>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Organization Id</th>
+                        <th>Organization Name</th>
                         <th>Delete</th>
                     </tr>
                 </thead>
@@ -30,7 +30,7 @@
                         <td>{{ index + 1 }}</td>
                         <td>{{ worker.name }}</td>
                         <td>{{ worker.email }}</td>
-                        <td>{{ worker.organization_id }}</td>
+                        <td>{{ worker.organization_name }}</td>
                         <td class="delete-cell">
                             <button @click="deleteWorker(worker.id)">Delete</button>
                         </td>
@@ -79,7 +79,7 @@ export default {
     },
     computed: {
         orgIds() {
-            return [...new Set(this.workers.map((worker) => worker.organization_id))];
+            return [...new Set(this.workers.map((worker) => worker.organization_name ))];
         },
         filteredWorkers() {
             this.resetPage();
@@ -92,7 +92,7 @@ export default {
             }
             if (this.selectedOrgId !== '') {
                 filteredWorkers = filteredWorkers.filter(
-                    (worker) => worker.organization_id === this.selectedOrgId
+                    (worker) => worker.organization_name === this.selectedOrgId
                 );
             }
             return filteredWorkers;

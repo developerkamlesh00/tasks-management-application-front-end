@@ -19,7 +19,7 @@
                       <th>Id</th>
                       <th>Name</th>
                       <th>Email</th>
-                      <th>Organization Id</th>
+                      <th>Organization Name</th>
                       <th>Delete</th>
                   </tr>
               </thead>
@@ -30,7 +30,7 @@
                       <td>{{ index + 1 }}</td>
                       <td>{{ director.name }}</td>
                       <td>{{ director.email }}</td>
-                      <td>{{ director.organization_id }}</td>
+                      <td>{{ director.organization_name }}</td>
                       <td class="delete-cell">
                           <button @click="deleteDirector(director.id)">Delete</button>
                       </td>
@@ -79,7 +79,7 @@ export default {
   },
   computed: {
       orgIds() {
-          return [...new Set(this.directors.map((director) => director.organization_id))];
+          return [...new Set(this.directors.map((director) => director.organization_name))];
       },
       filteredDirectors() {
           this.resetPage();
@@ -92,7 +92,7 @@ export default {
           }
           if (this.selectedOrgId !== '') {
               filteredDirectors = filteredDirectors.filter(
-                  (director) =>director.organization_id === this.selectedOrgId
+                  (director) =>director.organization_name === this.selectedOrgId
               );
           }
           return filteredDirectors;
