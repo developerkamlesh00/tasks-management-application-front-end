@@ -11,7 +11,7 @@
           <th scope="col">Desciption</th>
           <th scope="col">Assigned Date</th>
           <th scope="col">Estimated Deadline</th>
-          <th scope="col">Completed Tasks</th>
+          <th scope="col">Completed Date</th>
           <th scope="col">Completed Tasks</th>
           <th scope="col">Total Tasks</th>
           <th scope="col">Worker Visibility</th>         

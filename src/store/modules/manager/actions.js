@@ -233,7 +233,8 @@ export default {
   async doApproveTask(context,payload){
     console.log(payload.id)
     await axios.put('http://localhost:8000/api/approve_task', {
-      id:payload.id
+      id:payload.id,
+      projId:payload.projId
     })
     .then(function (response) {
       //console.log(payload)

@@ -54,24 +54,14 @@ methods:{
     ...mapActions('manager',['getReviewTasks', 'doApproveTask', 'doRejectTask']),
     
     approveTask(reviewTaskList){
-    
       this.$store.dispatch('manager/doApproveTask', {
         id:reviewTaskList.id,
+        projId:reviewTaskList.project_id
       })
 
       this.$store.dispatch('manager/updateProjectTasks', {value:reviewTaskList.project_id})
       this.$store.dispatch('manager/getReviewTasks')
-      
-
-/*
-      
-      this.$store.dispatch('editTask', {
-          id:task.id,
-      })
-      
-      
-      
-      */ 
+  
     },
     
     
