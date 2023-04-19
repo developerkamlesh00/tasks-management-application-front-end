@@ -132,7 +132,7 @@ export default {
                 console.log(response);
             }).catch(err=>{
                 this.error.push(err.response.data.message);
-                console.log(err);
+                // console.log(err);
 
             })
         },
@@ -150,7 +150,7 @@ export default {
         ...mapGetters('director',['getOrg']),
         getOrganization(){
             const organization = this.getOrg;
-            console.log(organization);
+            // console.log(organization);
             return organization;
         }
     },

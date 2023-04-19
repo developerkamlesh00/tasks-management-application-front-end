@@ -96,7 +96,7 @@ export default {
                 console.log(response);
             }).catch(err =>{
                 this.error.push(err.response.data.message);
-                console.log(err);
+                // console.log(err);
 
             })
         },

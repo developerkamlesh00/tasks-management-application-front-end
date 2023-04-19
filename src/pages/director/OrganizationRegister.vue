@@ -88,7 +88,7 @@ export default {
           router.replace("/login");
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           for (let er in err.response.data) {
             this.error.push(err.response.data[er][0]);
           }

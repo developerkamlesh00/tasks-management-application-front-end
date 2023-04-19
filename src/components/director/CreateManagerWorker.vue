@@ -126,7 +126,7 @@ export default {
               const error = new Error("User Not Created");
               throw error;
             }
-            console.log(response);
+            // console.log(response);
 
             return "Successfully Created";
           
@@ -195,8 +195,8 @@ export default {
         const jsonData = JSON.stringify(updatedData);
         this.jsonData = jsonData;
   
-        console.log(updatedData)
-        console.log(jsonData);
+        // console.log(updatedData)
+        // console.log(jsonData);
   
         let res= await axios.post('http://localhost:8000/api/director/bulkregister',updatedData)
         .then(function (response) {

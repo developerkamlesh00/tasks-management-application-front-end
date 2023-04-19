@@ -43,7 +43,7 @@ export default {
     methods:{
         async loadProject() {
             let org = await this.$store.getters.organization;
-            console.log(org);
+            // console.log(org);
             await axios
                 .get("http://localhost:8000/api/director/projects/" + org)
                 .then((response) => {
@@ -58,7 +58,7 @@ export default {
         await this.loadProject();
         const ctx = document.getElementById('myChart1');
         let projects = JSON.parse(JSON.stringify(this.projects));
-        console.log(projects[0].user.name);
+        // console.log(projects[0].user.name);
         // console.log(projects);
         let ProjectLabels = [];
         let ProjectData = [];
@@ -126,8 +126,8 @@ export default {
             names[id] = (data[i].name);
         }
         }
-        console.log(counts);
-        console.log(names);
+        // console.log(counts);
+        // console.log(names);
         const totalProject=Object.values(counts);  //convert object into array
         const managerName=Object.values(names);  //convert object into array
         const backgroundColorProject = [];
@@ -136,11 +136,11 @@ export default {
         totalProject.forEach(project => {
             sumProjects += project;
         });
-        console.log(sumProjects);
+        // console.log(sumProjects);
         totalProject.forEach( projectCount =>{
-            console.log("Total Done : "+ projectCount);
+            // console.log("Total Done : "+ projectCount);
             let count  = (projectCount / sumProjects * 100 || 0 );
-            console.log(count);
+            // console.log(count);
             let Color = 'rgba(75, 192, 192, 0.2)'; //green
             let borderColor = 'rgba(75, 192, 192, 1)'; //green border
             if(count >= 30){

@@ -173,7 +173,7 @@ export default {
 
     filteredProjects() {
       const projects = this.getProjects;
-      console.log(projects);
+      // console.log(projects);
       if (this.searchTerm) {
         return projects.filter(project => {
           const title = project.title.toLowerCase();
@@ -267,7 +267,7 @@ export default {
     ...mapGetters('director',['getManagers']),
     async openProject() {
       this.managerslist = this.getManagers; //used vuex for store
-      console.log(this.managerslist);
+      // console.log(this.managerslist);
     },
     //update Project here......
     async updateProject() {
