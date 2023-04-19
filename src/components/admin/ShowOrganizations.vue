@@ -67,7 +67,7 @@ export default {
     toggleOrganizations() {
       axios.get('http://127.0.0.1:8000/api/admin/organizations')
         .then(response => {
-          this.organizations = response.data;
+          this.organizations = response.data.filter(org => org.id !== 1);
         })
         .catch(error => {
           console.log(error);
