@@ -37,7 +37,8 @@ export default {
           role: response.data.role,
           organization_id: response.data.organization_id,
         });
-      });
+    });
+    return;
   },
   tryLogin(context) {
     const token = localStorage.getItem("token");
