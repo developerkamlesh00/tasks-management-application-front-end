@@ -170,8 +170,23 @@ export default {
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 10px;
-  color: #2c3e50; /* updated color */
+  /* color: #2c3e50; */
+  color: #8f0778; 
   text-align: center;
+  animation: color-change 5s infinite;
+}
+@keyframes color-change {
+  0% {
+    color: #8f0778; 
+  }
+
+  50% {
+    color: #d8b344;
+  }
+
+  100% {
+    color: #3e9579;
+  }
 }
 .search-container {
   display: flex;

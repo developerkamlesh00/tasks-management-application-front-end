@@ -141,8 +141,23 @@ export default {
     font-weight: bold;
     padding-top: 15px;
     margin-bottom: 10px;
-    color: #333;
+    /* color: #333; */
     text-align: center;
+    color: #8f0778; 
+    animation: color-change 5s infinite;
+}
+@keyframes color-change {
+  0% {
+    color: #8f0778; 
+  }
+
+  50% {
+    color: #d8b344;
+  }
+
+  100% {
+    color: #3e9579;
+  }
 }
 #card {
   /* max-width: 60rem; */

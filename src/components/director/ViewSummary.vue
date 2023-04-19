@@ -197,8 +197,23 @@ export default {
     font-weight: bold;
     padding-top: 15px;
     margin-bottom: 10px;
-    color: #333;
+    /* color: #333; */
+    color: #8f0778; 
     text-align: center;
+    animation: color-change 5s infinite;
+}
+@keyframes color-change {
+  0% {
+    color: #8f0778; 
+  }
+
+  50% {
+    color: #d8b344;
+  }
+
+  100% {
+    color: #3e9579;
+  }
 }
 table{
     border-collapse: collapse;
