@@ -10,8 +10,7 @@
           <h3 class="header">Date Assigned: <span style="font-family: 'Alkatra', cursive;" v-if="singleProject.assigned_at">{{ singleProject.assigned_at.substr(0,10)  }}</span></h3>
           <h3 class="header">Deadline:<span style="font-family: 'Alkatra', cursive;" v-if="singleProject.estimated_deadline">{{ singleProject.estimated_deadline.substr(0,10) }}</span></h3>
           <h3 class="header">Date Completed : <span style="font-family: 'Alkatra', cursive;" v-if="singleProject.completed_at">{{ singleProject.completed_at.substr(0,10) }}</span></h3>
-          <h3 class="header">Tasks Completed:<span style="font-family: 'Alkatra', cursive;">{{ singleProject.tasks_completed }}/{{ singleProject.total_tasks }}</span></h3>
-         
+          <h3 class="header">Tasks Completed:<span style="font-family: 'Alkatra', cursive;">{{ singleProject.tasks_completed }}/{{ singleProject.total_tasks }}</span></h3>         
         </div>        
     </div> 
 

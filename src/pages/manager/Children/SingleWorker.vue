@@ -70,7 +70,9 @@ methods:{
     //console.log(lastNumber)
     const id = url.substr(lastNumber+1, pathLength)
     //console.log(url[pathLength])
-    this.$store.dispatch('manager/getWorker', {value:id}) 
+    this.$store.dispatch('manager/getWorker', {
+        value:id
+      }) 
     },
 
     showAssignedTasks(){

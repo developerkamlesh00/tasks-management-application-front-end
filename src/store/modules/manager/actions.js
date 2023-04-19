@@ -3,11 +3,13 @@ export default {
     async getProjects(context){
        
         const ManagerId = localStorage.getItem("userId")
-        //console.log(ManagerId)      
+        //console.log(ManagerId) 
+        
         await axios.get(`http://localhost:8000/api/project?manager=${ManagerId}`)
         .then(function (response) {
         // handle success
         context.state.projs = response.data
+        
       })
       .catch(function (error) {
         // handle error
@@ -16,6 +18,7 @@ export default {
       .finally(function () {
         // always executed
       });
+    
      
     },
   
@@ -42,11 +45,15 @@ export default {
   
   async getProject(context, payload){ //
         
+    const ManagerId = localStorage.getItem("userId");
+    if(payload.value===ManagerId){
     await axios.get(`http://localhost:8000/api/single_project?id=${payload.value}`)
     .then(function (response) {
     // handle success
     //console.log(response)
+    
     context.state.project=response.data 
+  
   })
   .catch(function (error) {
     // handle error
@@ -55,7 +62,13 @@ export default {
   .finally(function () {
     // always executed
   });
-  
+}
+
+  else{
+    //this.$router.push('/Nice_Try')
+    window.location.href = '/nice_try'
+    
+  }
   },
   async updateProjectTasks(context, payload){ //
         
@@ -75,14 +88,12 @@ export default {
   
   },
   
-  async getWorker(context, payload){ //
-        
+  async getWorker(context, payload){ 
+    
     await axios.get(`http://localhost:8000/api/single_worker?id=${payload.value}`)
     .then(function (response) {
     // handle success
-    //console.log(response)
-    context.state.worker =response.data
-  
+          context.state.worker =response.data   
   })
   .catch(function (error) {
     // handle error
@@ -95,8 +106,6 @@ export default {
   },
   
   async getAssignedTasks(context, payload){ //
-        
-  
     await axios.get(`http://localhost:8000/api/assigned_tasks?id=${payload.value}`)
     .then(function (response) {
     // handle success
