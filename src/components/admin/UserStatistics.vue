@@ -48,7 +48,7 @@ export default {
         labels: [ 'Directors', 'Managers', 'Workers'],
         datasets: [
           {
-            label: 'Users Data',
+            label: 'Count',
             data: [
               // this.usersData.total_admins,
               this.usersData.total_directors,
