@@ -35,7 +35,6 @@ export default {
   async fetchProjectWorkerTasks(state,payload) {
     state.commit('setLoading')
     const worker_id = localStorage.getItem("userId");
-    // console.log(`http://localhost:8000/api/worker/${worker_id}/project/${payload.project_id}/tasks`)
     const tasks=await axios.get(
       `http://localhost:8000/api/worker/${worker_id}/project/${payload.project_id}/tasks`
       )    
@@ -56,12 +55,18 @@ export default {
     },
     
     // Used to update status of a task when task is drag and drop on another board/task-pane or when worker changes the task status using select (drop down) box
-    async updateTaskStatus({ dispatch }, payload) {
-      await axios.post(
-        `http://localhost:8000/api/worker/update_status/task/${payload.task_id}/status/${payload.status_id}`
-        )
-        dispatch('fetchWorkerTasks',{isFirstRequest:true})
-        return;
+    async updateTaskStatus(state, payload) {
+
+      if(payload.status_id!=4){
+        await axios.post(
+          `http://localhost:8000/api/worker/update_status/task/${payload.task_id}/status/${payload.status_id}`
+          )
+          state.dispatch('fetchWorkerTasks',{isFirstRequest:true})
+          return;
+        }
+        else{
+          state.dispatch('setMessage','You cannot modify task status as completed directly!')
+        }
       },
       
     // Get all task belonging to this worker

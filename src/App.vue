@@ -3,7 +3,6 @@
     <the-header></the-header>
     <div class="p-1">
       <router-view v-slot="{Component}">
-        <!-- <BaseChart/> -->
         <!-- <transition name="slide"> -->
           <component :is="Component" />
         <!-- </transition> -->
@@ -15,12 +14,8 @@
 </template>
 
 <script>
-// import BaseChart from './components/ui/BaseChart.vue'
 import TheHeader from './components/navigation/TheHeader.vue';
 import TheFooter from './components/navigation/TheFooter.vue';
-// import TheFooter from './components/navigation/TheFooter.vue';
-// import Table from './components/Table.vue'
-// import ExportButton from './components/ExportButton.vue'
 
 export default {
   components:{
