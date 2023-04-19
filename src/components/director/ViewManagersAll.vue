@@ -2,17 +2,44 @@
     <div class="container">
         <h2 class="header">Manager List</h2><br>
         <div class="search-container">
-            <input type="text" placeholder="Search manager by name" v-model="searchTerm" @input="searchManager"
-                @click="searchManagers" />
-            <select v-model="selectedOrgId">
-                <option value="">Filter by organization ID</option>
-                <option v-for="orgId in orgIds" :key="orgId" :value="orgId">
-                    {{ orgId }}
-                </option>
-            </select>
-            <button class="body" @click="resetSearch">Reset</button>
+            <div style="padding-left: 10%;">
+                <input type="text" placeholder="Search manager by name" v-model="searchTerm" @input="searchManager"
+                    @click="searchManagers" />
+                <button class="body" @click="resetSearch">Reset</button>
+            </div>
         </div>
-        <div class="table-container">
+        <div class="container" style="margin-top: 40px;">
+            <div v-if="isLoading">
+                <base-spinner></base-spinner>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" v-for="(manager, index) in pagedManagers" :key="index">
+                    <div class="card text-center card1">
+                        <img class="card-img-top" src="../../assets/usericon.png" alt="" width="100%">
+                            <div class="card-block">
+                                <div class="innerdiv">
+                                    <h5 class="card-title">{{ manager.name }}</h5>
+                                    <h6 class="card-text">{{ manager.email }}</h6>
+                                </div>
+                                <button class="btn buttoncolor" @click="deleteManager(manager.id)">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pagination-container">
+                <button v-if="currentPage > 1" @click="currentPage--" class="previous-page-btn">
+                    Previous Page
+                </button>
+                <button v-for="pageNumber in totalPageCount" :key="pageNumber" @click="currentPage = pageNumber"
+                    :class="{ active: currentPage === pageNumber }">
+                    {{ pageNumber }}
+                </button>
+                <button v-if="currentPage < totalPageCount" @click="currentPage++" class="next-page-btn">
+                    Next Page
+                </button>
+            </div>
+        <!-- <div class="table-container">
             <table class="managers-table">
                 <thead>
                     <tr>
@@ -23,9 +50,8 @@
                         <th>Delete</th>
                     </tr>
                 </thead>
-
+                
                 <tbody>
-                    <!-- Loop through the pagedWorkers to show workers in the table -->
                     <tr v-for="(manager, index) in pagedManagers" :key="manager.id">
                         <td>{{ index + 1 }}</td>
                         <td>{{ manager.name }}</td>
@@ -57,7 +83,7 @@
                     Next Page
                 </button>
             </div>
-        </div>
+        </div> -->
         <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
     </div>
 </template>
@@ -80,7 +106,7 @@ export default {
             searchTerm: '',
             selectedOrgId: '',
             currentPage: 1,
-            managersPerPage: 10,
+            managersPerPage: 9,
 
             isLoading: false,
         };
@@ -172,6 +198,40 @@ export default {
   
 
 <style scoped>
+/* .cardbackground{
+    background-color: #ff7cdc;
+} */
+.buttoncolor{
+  color: white;
+  background-color: #fb5b5b;
+}
+.card {
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  padding: 20px;
+  height: 300px;
+}
+
+.card-img-top {
+  width: 50%;
+  height: auto;
+  max-width: 200px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+.innerdiv{
+    height: 80px ;
+    /* color: white; */
+}
+
+@media (max-width: 767px) {
+  .card-img-top {
+    max-width: 100px;
+  }
+}
+
+
 .container {
   margin: 10px;
 }

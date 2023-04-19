@@ -1,16 +1,12 @@
 <template>
     <div class="container">
         <h2 class="header">Workers List</h2><br>
-        <div class="search-container">
-            <input type="text" placeholder="Search worker by name" v-model="searchTerm" @input="searchWorker"
-                @click="searchWorkers" />
-            <select v-model="selectedOrgId">
-                <option value="">Filter by organization ID</option>
-                <option v-for="orgId in orgIds" :key="orgId" :value="orgId">
-                    {{ orgId }}
-                </option>
-            </select>
-            <button class="body" @click="resetSearch">Reset</button>
+        <div class="search-container" >
+            <div style="padding-left: 10%;">
+                <input type="text" placeholder="Search worker by name" v-model="searchTerm" @input="searchWorker"
+                    @click="searchWorkers" />
+                <button class="body" @click="resetSearch">Reset</button>
+            </div>
         </div>
         <div class="table-container">
             <table class="workers-table">
