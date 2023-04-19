@@ -1,8 +1,7 @@
 import axios from "axios";
 export default {
     async getProjects(context){
-      
-      
+       
         const ManagerId = localStorage.getItem("userId")
         //console.log(ManagerId)      
         await axios.get(`http://localhost:8000/api/project?manager=${ManagerId}`)
@@ -47,9 +46,7 @@ export default {
     .then(function (response) {
     // handle success
     //console.log(response)
-    context.state.project=response.data
-    
-  
+    context.state.project=response.data 
   })
   .catch(function (error) {
     // handle error
@@ -124,7 +121,7 @@ export default {
     await axios.get(`http://localhost:8000/api/tasks?id=${payload.value}`)
     .then(function (response) {
     // handle success
-    //console.log(response)
+    console.log(response)
     context.state.tasks =response.data
     
   
@@ -138,7 +135,26 @@ export default {
   });
   
   },
+  async getModifiedTasks(context, payload){ //
   
+    await axios.get(`http://localhost:8000/api/modified_tasks?id=${payload.value}`)
+    .then(function (response) {
+    // handle success
+    console.log(response)
+    context.state.modifiedTasks =response.data
+    
+  
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+  .finally(function () {
+    // always executed
+  });
+  
+  }
+  ,
   async addTask(context,payload){
     await axios.post('http://localhost:8000/api/add_task', {
       title:payload.title,

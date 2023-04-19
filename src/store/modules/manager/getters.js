@@ -8,6 +8,9 @@ export default {
       taskLists(state){
         return state.tasks
       },
+      modifiedTaskLists(state){
+        return state.modifiedTasks
+      },
       singleProject(state){
      
         let result= state.project[0]

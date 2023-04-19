@@ -11,6 +11,7 @@ export default {
       project: [],
       worker:[],
       tasks:[],
+      modified_tasks:[],
       assignedTasks:[],
       reviewTasks:[],
       workerNames:[],

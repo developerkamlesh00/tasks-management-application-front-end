@@ -46,27 +46,24 @@
         
             <div class="mb-3">
             <label for="worker-id" class="col-form-label">Worker id</label>
-            <select class="form-select" aria-label="Default select example" v-model="workerId">
+            <select class="form-select" aria-label="Default select example" v-model="workerId" @blur="validateInput">
               <option v-for="getAllWorkerName in getAllWorkerNames" :key="getAllWorkerName.id" :value="getAllWorkerName.id" >
                 {{ getAllWorkerName.name }}
               </option>
             </select>
-            <!--
-
-            <label for="worker-id" class="col-form-label">Worker id</label>
-            <input type="number" class="form-control" v-model="newWorkerId" id="worker-id">
-        
-            -->
+            <p v-if="workerIdValidity==='invalid'" style="color: red;">Please assign worker</p>
           </div>
 
           <div class="mb-3">
             <label for="assigned-date" class="col-form-label">Assigned Date</label>
-            <input type="date" class="form-control" id="assigned-date" v-model="assignedDate">
+            <input type="date" class="form-control" id="assigned-date" v-model="assignedDate" @blur="validateInput">
+            <p v-if="assignedDateValidity==='invalid'" style="color: red;">Please assign a Date</p>
           </div>
 
           <div class="mb-3">
           <label for="estimated-deadline" class="col-form-label">Estimated Deadline</label>
-          <input type="date" class="form-control" id="estimated-deadline" v-model="estimated_deadline">
+          <input type="date" class="form-control" id="estimated-deadline" v-model="estimated_deadline" @blur="validateInput">
+          <p v-if="estimated_deadlineValidity==='invalid'" style="color: red;">Please assign a Date</p>
           </div>
           <button type="submit" class="btn btn-primary">Add Task</button>
           
@@ -76,7 +73,7 @@
         
       </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="close">Close</button>
         
         </div>
       </div>
@@ -92,7 +89,7 @@
       <th scope="col">Id</th>
       <th scope="col">Title</th>
       <th scope="col">Description</th>
-      <th scope="col">Worker Name</th>
+      <th scope="col">Worker Id</th>
       <th scope="col">Assigned Date</th>
       <th scope="col">Deadline</th>
       <th scope="col">Edit</th>
@@ -106,8 +103,8 @@
         <td>{{taskList.title}}</td>
         <td>{{taskList.description}}</td>
         <td>{{taskList.worker_id}}</td>
-        <td>{{taskList.assigned_at.substr(0,10)}}</td>
-        <td>{{taskList.estimated_deadline.substr(0,10)}}</td>
+        <td v-if="taskList.assigned_at">{{taskList.assigned_at.substr(0,10)}}</td>
+        <td v-if="taskList.assigned_at">{{taskList.estimated_deadline.substr(0,10)}}</td>
         <td><button type="button" class="btn btn-light" data-bs-toggle="modal" v-bind:data-bs-target="'#exampleModal-' + taskList.id" data-bs-whatever="@getbootstrap" @click="getOldData(taskList)">✏️</button>
           <div class="modal fade" v-bind:id="'exampleModal-' + taskList.id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
          <div class="modal-dialog">
@@ -119,7 +116,7 @@
       </div>
       
       <div class="modal-body">
-        <form @submit.prevent="editTask(taskList)">
+      <form @submit.prevent="editTask(taskList)">
           <div class="alert alert-success" v-if="getIsSuccess === 1">The form has been submitted successfully</div>
           <div class="alert alert-danger" v-else-if="getIsSuccess === 0">The form has not been submitted</div>
           <div class="mb-3">
@@ -129,39 +126,36 @@
            </div>
           <div class="mb-3">
             <label for="task-description" class="col-form-label">description</label>
-            <textarea class="form-control" id="task-description" v-model="description"></textarea>
-            <p v-if="titleValidity==='invalid'" style="color: red;" @blur="validateInput">Please enter a description</p>
+            <textarea class="form-control" id="task-description" v-model="description" @blur="validateInput"></textarea>
+            <p v-if="descriptionValidity==='invalid'" style="color: red;" >Please enter a description</p>
           </div>
           <div class="mb-3">
             <label for="worker-id" class="col-form-label">Worker name</label>
-            <select class="form-select" aria-label="Default select example" v-model="workerId">
+            <select class="form-select" aria-label="Default select example" v-model="workerId" @blur="validateInput">
               <option v-for="getAllWorkerName in getAllWorkerNames" :key="getAllWorkerName.id" :value="getAllWorkerName.id" >
                 {{ getAllWorkerName.name }}
               </option>
             </select> 
-          <!--
-
-            <label for="worker-id" class="col-form-label">Worker id</label>
-            <input type="number" class="form-control" v-model="newWorkerId" id="worker-id">
-        
-          -->
-          </div>
+            <p v-if="workerIdValidity==='invalid'" style="color: red;">Please enter a valid worker</p>
+           </div>
 
           <div class="mb-3">
           <label for="assigned-date" class="col-form-label">Assigned Date</label>
-          <input type="date" class="form-control" id="assigned-date" v-model="assignedDate">
+          <input type="date" class="form-control" id="assigned-date" v-model="assignedDate" @blur="validateInput">
+          <p v-if="assignedDateValidity==='invalid'" style="color: red;">Please enter a valid worker</p>
           </div>
           
           <div class="mb-3">
           <label for="estimated-deadline" class="col-form-label">Estimated Deadline</label>
-          <input type="date" class="form-control" id="estimated-deadline" v-model="estimated_deadline">
+          <input type="date" class="form-control" id="estimated-deadline" v-model="estimated_deadline" @blur="validateInput">
+          <p v-if="estimated_deadlineValidity==='invalid'" style="color: red;">Please enter a deadline</p>
           </div>
           <button type="submit" class="btn btn-primary">Edit Task</button>
         </form>
         
        </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="close">Close</button>
         
         </div>
       </div>
@@ -197,7 +191,10 @@ export default{
 
     //Validation
     titleValidity: 'pending',
-    descriptionValidity: 'pending'
+    descriptionValidity: 'pending',
+    workerIdValidity: 'pending',
+    assignedDateValidity:'pending',
+    estimated_deadlineValidity:'pending',
 
   }
  
@@ -230,7 +227,7 @@ methods:{
       const pathLength=this.$router.currentRoute.value.fullPath.length-1
       const lastNumber = url.lastIndexOf("/")    
       const id = url.substr(lastNumber+1, pathLength)
-  
+        if(this.assignedDate && this.estimated_deadline && this.workerId){
         this.$store.dispatch('manager/addTask', {
           title:this.title,
           description:this.description,
@@ -238,7 +235,8 @@ methods:{
           assignedDate:this.assignedDate,
           estimatedDeadline:this.estimated_deadline,
           projectId:id
-        })     
+        }) 
+      }    
         this.$store.dispatch('manager/getTasks',{value:url[pathLength]})   
       
     },
@@ -249,8 +247,7 @@ methods:{
       this.description=task.description
       this.workerId = task.worker_id
       this.assignedDate=task.assigned_at.substr(0,10)
-      this.estimated_deadline=task.estimated_deadline.substr(0,10)
-      
+      this.estimated_deadline=task.estimated_deadline.substr(0,10)    
      
     },
 
@@ -284,7 +281,7 @@ methods:{
     },
 
 
-    delTask(id){
+     delTask(id){
       //add an alert
       const url = this.$router.currentRoute.value.fullPath
       const pathLength=this.$router.currentRoute.value.fullPath.length-1
@@ -312,12 +309,41 @@ methods:{
       else{
         this.descriptionValidity='valid'
       }
+      if(!this.workerId){
+        this.workerIdValidity='invalid'
+      }
+      else{
+        this.workerIdValidity='valid'
+      }
+
+      if(this.assignedDate === ''){
+        this.assignedDateValidity='invalid'
+      }
+      else{
+        this.assignedDateValidity='valid'
+      }
+      if(this.estimated_deadline === ''){
+        this.estimated_deadlineValidity='invalid'
+      }
+      else{
+        this.estimated_deadlineValidity='valid'
+      }
+
+    },
+
+    close(){
+      this.titleValidity='pending'
+      this.descriptionValidity= 'pending'
+      this.workerIdValidity= 'pending'
+      this.assignedDateValidity='pending'
+      this.estimated_deadlineValidity='pending'
     }
+  
 
 },
 
 computed:{
-    ...mapGetters('manager',['singleProject', 'taskLists', 'getAllWorkerNames','getIsSuccess']),
+    ...mapGetters('manager',['singleProject','taskLists', 'getAllWorkerNames','getIsSuccess']),
 }
 
 }
