@@ -79,7 +79,7 @@
             </tr>
             <!-- If there are no tasks assigned to this worker -->
             <tr v-if="getFilteredRows.length == 0">
-                <td colspan="8" class="text-center bg-info">No task assigned yet!</td>
+                <td colspan="9" class="text-center bg-info">No task!</td>
             </tr>
         </tbody>
     </table> 
@@ -110,7 +110,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions('worker', ['fetchWorkerTasks', 'updateTaskStatus']),
+        ...mapActions('worker', ['fetchWorkerTasks', 'updateTaskStatus','setMessage']),
 
         // For progress bars, status_id determines the widths and color, returing bootstrap classes
         getStyle(status_id){
@@ -120,12 +120,17 @@ export default {
         },
 
         changeStatus(e, task_id) {
-            const payload = {
-                "status_id": e.target.value,
-                "task_id": task_id
+            const task=this.getTasks.find((t)=>t.id===task_id);
+            if(task.status_id!=3 && task.status_id!=4){
+                const payload = {
+                    "status_id": e.target.value,
+                    "task_id": task_id
+                }
+                this.updateTaskStatus(payload);
+                this.setFilteredRows()
+            }else{
+                this.setMessage('Worker cannot update review and completed task status!')
             }
-            this.updateTaskStatus(payload);
-            this.setFilteredRows()
         },
 
         sortRecords(index) {

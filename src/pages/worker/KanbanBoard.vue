@@ -6,7 +6,7 @@
                 </h2>
             </template>
             <the-card v-for="task in getBoardTasks(board.id)" class="card mb-3 p-0" :key="task.id" :id="'card-' + task.id"
-                :draggable="board.id !== 3 && board.id !== 4" @drop.prevent="drop(board.id)">
+                :draggable="board.id !== 3 && board.id !== 4" @drop.prevent="drop($event, board.id)">
                 <div class="card-header text-center">Task ID: <strong class="text-warning">#{{ task.id }}</strong></div>
                 <div class="card-body">
                     <h6 class="card-title">{{ task.title }}</h6>
@@ -42,7 +42,7 @@ export default {
         ...mapActions('worker', ['fetchWorkerTasks']),
         // drop,
         drop(e, board_id = null) {
-            if (!board_id || board_id != 4) {
+            if (board_id != 4) {
                 const card_id = e.dataTransfer.getData('card_id');
                 const card = document.getElementById(card_id);
                 card.style.display = "block";
