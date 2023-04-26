@@ -9,6 +9,7 @@ import VuePapaParse from 'vue-papa-parse'
 import BaseCard from './components/ui/BaseCard.vue';
 import BaseButton from './components/ui/BaseButton.vue';
 import BaseDialog from './components/ui/BaseDialog.vue';
+import NotFound from './pages/NotFound.vue';
 
 const app=createApp(App);
 app.use(router);
@@ -20,6 +21,7 @@ app.use(VueAxios, axios)
 app.component('base-card', BaseCard);
 app.component('base-button', BaseButton);
 app.component('base-dialog', BaseDialog);
+app.component('not-found', NotFound);
 
 // app.component('the-header',TheHeader);
 // app.component('the-footer',TheFooter);
