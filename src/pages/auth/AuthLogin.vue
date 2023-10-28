@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="super">
     <base-card>
       <form @submit.prevent="submitForm">
         <div class="form-control">
@@ -107,5 +107,9 @@ textarea:focus {
   border-color: #3d008d;
   background-color: #faf6ff;
   outline: none;
+}
+
+.super{
+  min-height: 530px;
 }
 </style>

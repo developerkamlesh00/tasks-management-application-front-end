@@ -55,9 +55,7 @@ export default{
     const pathLength=this.$router.currentRoute.value.fullPath.length-1
     const lastNumber = url.lastIndexOf("/")
     const id = url.substr(lastNumber+1, pathLength)
-   
-    this.$store.dispatch('manager/getWorker', {value:id}) 
-    
+    this.$store.dispatch('manager/getWorker', {value:id})
   },
 
 methods:{
@@ -74,7 +72,7 @@ methods:{
         value:id
       }) 
     },
-
+   // hiddenModal={() => console.log('closed')},
     showAssignedTasks(){
     const url = this.$router.currentRoute.value.fullPath
     const pathLength=this.$router.currentRoute.value.fullPath.length-1

@@ -65,9 +65,6 @@
           <p v-if="estimated_deadlineValidity==='invalid'" style="color: red;">Please assign a Date</p>
           </div>
           <button type="submit" class="btn btn-primary">Add Task</button>
-          
-          
-        
         </form>
         
       </div>
@@ -200,17 +197,21 @@ export default{
  },
 
   mounted() {
+    //let managerId = localStorage.getItem("userId")
+    this.$store.dispatch("manager/getProjects")
+
     const url = this.$router.currentRoute.value.fullPath
     const pathLength=this.$router.currentRoute.value.fullPath.length-1
     const lastNumber = url.lastIndexOf("/")
     const id = url.substr(lastNumber+1, pathLength)
+    
     this.$store.dispatch('manager/getProject', {value:id})
     this.$store.dispatch('manager/updateProjectTasks', {value:id}) 
     this.$store.dispatch('manager/getWorkerNames')   
   },
 
 methods:{
-    ...mapActions('manager',['getProject', 'getTasks', 'addTask', 'editTask', 'deleteTask', 'updateProjectTasks', 'getWorkerNames', 'singleTask']),
+    ...mapActions('manager',['getProjects','getProject', 'getTasks', 'addTask', 'editTask', 'deleteTask', 'updateProjectTasks', 'getWorkerNames', 'singleTask']),
 
     showTasks(){
       this.displayTasks=!this.displayTasks
@@ -281,11 +282,11 @@ methods:{
 
 
      delTask(id){
-      //add an alert
+  
       const url = this.$router.currentRoute.value.fullPath
       const pathLength=this.$router.currentRoute.value.fullPath.length-1
       const lastNumber = url.lastIndexOf("/")
-      //console.log(lastNumber)
+    
       const projId = url.substr(lastNumber+1, pathLength)
       if(confirm("Are you sure you want to delete the Task?")){
       this.$store.dispatch('manager/deleteTask', {id:id})
@@ -342,7 +343,7 @@ methods:{
 },
 
 computed:{
-    ...mapGetters('manager',['singleProject','taskLists', 'getAllWorkerNames','getIsSuccess']),
+    ...mapGetters('manager',['getProjectIdCollection','singleProject','taskLists', 'getAllWorkerNames','getIsSuccess','projectLists']),
 }
 
 }

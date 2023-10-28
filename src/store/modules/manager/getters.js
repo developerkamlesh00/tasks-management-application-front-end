@@ -8,9 +8,15 @@ export default {
       taskLists(state){
         return state.tasks
       },
-      modifiedTaskLists(state){
-        return state.modifiedTasks
-      },
+      /*getProjectIdCollection(state){
+        let result=[]
+        for(let i=0;i<state.projs.length;i++){
+          console.log(state.projs)
+          result.push(state.projs[i].id)
+        }
+       console.log(result)
+        return result
+      },*/
       singleProject(state){
      
         let result= state.project[0]

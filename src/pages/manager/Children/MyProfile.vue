@@ -3,11 +3,11 @@
         <h1 class="header">Welcome Back {{ singleWorker.name }}!!!</h1>
         <div class="d-flex aligns-items-center justify-content-center card mx-auto linear_blue">
           <div class="row" style="padding: 3rem;">
-              <div class="col-4">
+              <div class="col-4 center">
                 <img src="../../../assets/usericon.png" width="200" height="200" alt="profile">
               </div>
-              <h5 class="card-title" style="margin-top: 10px;"><p><strong>E-mail:</strong> {{ singleWorker.email }}</p></h5>
-              <p class="card-text">Registration Date: {{ singleWorker.created_at.slice(0,10) }}</p>
+              <h5 class="card-title center" style="margin-top: 10px;"><p><strong>E-mail:</strong> {{ singleWorker.email }}</p></h5>
+              <p class="card-text center">Registration Date: {{ singleWorker.created_at.slice(0,10) }}</p>
             </div>
         </div>      
     </div>
@@ -61,6 +61,12 @@
   color: #2c3e50; /* updated color */
   text-align: center;
 }
+
+.center{
+  margin: 0 auto;
+  text-align: center;
+}
+
   </style>
   
   

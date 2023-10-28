@@ -16,7 +16,8 @@ export default {
       reviewTasks:[],
       workerNames:[],
       visible:[],
-      isSuccess:2
+      isSuccess:2,
+      projectIdCollection:[]
     };
   },
   mutations,

@@ -3,13 +3,14 @@ export default {
     async getProjects(context){
        
         const ManagerId = localStorage.getItem("userId")
-        //console.log(ManagerId) 
+        console.log(ManagerId) 
         
         await axios.get(`http://localhost:8000/api/project?manager=${ManagerId}`)
         .then(function (response) {
         // handle success
+        console.log(response)
         context.state.projs = response.data
-        
+
       })
       .catch(function (error) {
         // handle error
@@ -43,10 +44,10 @@ export default {
    
   },
   
-  async getProject(context, payload){ //
+  async getProject(context, payload){ 
         
-    const ManagerId = localStorage.getItem("userId");
-    if(payload.value===ManagerId){
+    //const ManagerId = localStorage.getItem("userId");
+    
     await axios.get(`http://localhost:8000/api/single_project?id=${payload.value}`)
     .then(function (response) {
     // handle success
@@ -62,13 +63,7 @@ export default {
   .finally(function () {
     // always executed
   });
-}
 
-  else{
-    //this.$router.push('/Nice_Try')
-    window.location.href = '/nice_try'
-    
-  }
   },
   async updateProjectTasks(context, payload){ //
         
@@ -125,7 +120,7 @@ export default {
   
   },
   
-  async getTasks(context, payload){ //
+  async getTasks(context, payload){ 
   
     await axios.get(`http://localhost:8000/api/tasks?id=${payload.value}`)
     .then(function (response) {
