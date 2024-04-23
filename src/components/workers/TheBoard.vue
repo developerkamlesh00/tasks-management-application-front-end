@@ -22,7 +22,8 @@ export default {
             if(id!='board-4'){
                 e.target.appendChild(card);
                 const task_id=parseInt(card_id.split('-')[1])
-                const board_id=parseInt(e.target.id.split('-')[1])
+                console.log(id)
+                const board_id=parseInt(id.split('-')[1])
                 const payload={"task_id":task_id,"status_id":board_id}
                 
                 // Updating the database

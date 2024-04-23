@@ -173,7 +173,7 @@ export default {
 
     filteredProjects() {
       const projects = this.getProjects;
-      console.log(projects);
+      // console.log(projects);
       if (this.searchTerm) {
         return projects.filter(project => {
           const title = project.title.toLowerCase();
@@ -267,7 +267,7 @@ export default {
     ...mapGetters('director',['getManagers']),
     async openProject() {
       this.managerslist = this.getManagers; //used vuex for store
-      console.log(this.managerslist);
+      // console.log(this.managerslist);
     },
     //update Project here......
     async updateProject() {
@@ -341,8 +341,23 @@ export default {
     font-weight: bold;
     padding-top: 15px;
     margin-bottom: 10px;
-    color: #333;
+    /* color: #333; */
+    color: #8f0778; 
     text-align: center;
+    animation: color-change 5s infinite;
+}
+@keyframes color-change {
+  0% {
+    color: #8f0778; 
+  }
+
+  50% {
+    color: #d8b344;
+  }
+
+  100% {
+    color: #3e9579;
+  }
 }
 .table-content {
   height: 500px;

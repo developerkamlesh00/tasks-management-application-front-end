@@ -3,7 +3,7 @@ export default {
 
   async fetchAllProjects(context) {
     const organization_id = localStorage.getItem("organization_id");
-    console.log(organization_id);
+    // console.log(organization_id);
     const response = await axios.get(
       "http://localhost:8000/api/director/projects/" + organization_id
     );
@@ -23,8 +23,8 @@ export default {
         manager_id: response.data[key].manager_id,
       });
     }
-    console.log(projects);
-    console.log("All Projects", projects);
+    // console.log(projects);
+    // console.log("All Projects", projects);
     context.commit("setProjects", projects);
     return;
   },
@@ -38,8 +38,8 @@ export default {
     for (let key in result.data) {
       managers.push({ id: result.data[key].id, name: result.data[key].name });
     }
-    console.log(managers);
-    console.log("All Managers", managers);
+    // console.log(managers);
+    // console.log("All Managers", managers);
     context.commit("setManagers", managers);
     return;
   },
@@ -49,7 +49,7 @@ export default {
     await axios.get(
       "http://localhost:8000/api/director/organization/"+organization_id
     ).then(response =>{
-      console.log("Organization:", response.data );
+      // console.log("Organization:", response.data );
       context.commit("setOrg", response.data);
     });
     return;
@@ -61,7 +61,7 @@ export default {
   async fetchWorkers(context,payload){
     await axios.get(payload)
     .then(response =>{
-      console.log("All Workers:",response.data );
+      // console.log("All Workers:",response.data );
       context.commit("setWorkers", response.data);
     }).catch(err=>{
       return err.response.data;
@@ -74,7 +74,7 @@ export default {
   async fetchManagers(context,payload){
     await axios.get(payload)
     .then(response =>{
-      console.log("All Managers:",response.data );
+      // console.log("All Managers:",response.data );
       context.commit("setManagers1", response.data);
     }).catch(err=>{
       return err.response.data;
@@ -84,10 +84,10 @@ export default {
 
   async fetchUserDetails(context){
     const userId = localStorage.getItem('userId');
-    console.log(userId);
+    // console.log(userId);
     await axios.get(`http://localhost:8000/api/director/getuser/${userId}`)
     .then(response =>{
-      console.log(response.data)
+      // console.log(response.data)
       context.commit("setUser", response.data);
     }).catch(err=>{
       return err.response.data;

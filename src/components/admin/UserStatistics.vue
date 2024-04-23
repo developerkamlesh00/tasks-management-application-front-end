@@ -21,7 +21,7 @@ export default {
     return {
       organizationCount: 0,
       usersData: {
-        total_admins: 0,
+        // total_admins: 0,
         total_directors: 0,
         total_managers: 0,
         total_workers: 0,
@@ -35,7 +35,7 @@ export default {
     async fetchUserData() {
       try {
         const response = await axios.get('http://127.0.0.1:8000/api/admin/user-data');
-        this.organizationCount = response.data.organization_count;
+        this.organizationCount = response.data.organization_count - 1;
         this.usersData = response.data;
         this.renderChart();
       } catch (error) {
@@ -45,31 +45,31 @@ export default {
     renderChart() {
       const ctx = this.$refs.chart.getContext('2d');
       const chartData = {
-        labels: ['Admins', 'Directors', 'Managers', 'Workers'],
+        labels: [ 'Directors', 'Managers', 'Workers'],
         datasets: [
           {
             label: 'Users Data',
             data: [
-              this.usersData.total_admins,
+              // this.usersData.total_admins,
               this.usersData.total_directors,
               this.usersData.total_managers,
               this.usersData.total_workers,
             ],
             backgroundColor: [
-              'rgba(255, 99, 132, 0.7)',
+              // 'rgba(255, 99, 132, 0.7)',
               'rgba(54, 162, 235, 0.7)',
               'rgba(255, 206, 86, 0.7)',
               'rgba(75, 192, 192, 0.7)',
             ],
             borderColor: [
-              'rgba(255, 99, 132, 1)',
+              // 'rgba(255, 99, 132, 1)',
               'rgba(54, 162, 235, 1)',
               'rgba(255, 206, 86, 1)',
               'rgba(75, 192, 192, 1)',
             ],
             borderWidth: 2,
             hoverBackgroundColor: [
-              'rgba(255, 99, 132, 1)',
+              // 'rgba(255, 99, 132, 1)',
               'rgba(54, 162, 235, 1)',
               'rgba(255, 206, 86, 1)',
               'rgba(75, 192, 192, 1)',

@@ -126,7 +126,7 @@ export default {
               const error = new Error("User Not Created");
               throw error;
             }
-            console.log(response);
+            // console.log(response);
 
             return "Successfully Created";
           
@@ -195,8 +195,8 @@ export default {
         const jsonData = JSON.stringify(updatedData);
         this.jsonData = jsonData;
   
-        console.log(updatedData)
-        console.log(jsonData);
+        // console.log(updatedData)
+        // console.log(jsonData);
   
         let res= await axios.post('http://localhost:8000/api/director/bulkregister',updatedData)
         .then(function (response) {
@@ -234,9 +234,25 @@ export default {
     font-weight: bold;
     padding-top: 15px;
     /* margin-bottom: 10px; */
-    color: #333;
+    /* color: #333; */
+    color: #8f0778; 
     text-align: center;
+    animation: color-change 5s infinite;
 }
+@keyframes color-change {
+  0% {
+    color: #8f0778; 
+  }
+
+  50% {
+    color: #d8b344;
+  }
+
+  100% {
+    color: #3e9579;
+  }
+}
+
 #card {
   max-width: 60rem;
 }
