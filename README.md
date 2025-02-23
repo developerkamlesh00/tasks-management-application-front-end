@@ -40,5 +40,4 @@ npm run lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
-![Tasks Management Application Frontend Stats]
 ![Alt](https://repobeats.axiom.co/api/embed/61e2fd8943e36cf80b18331b88d18b63429c4e08.svg "Repobeats analytics image")
